@@ -25,6 +25,7 @@
 .logo:hover {
   transform: scale(1.1);
   transition: transform 0.5s;
+  cursor: pointer;
 }
 .button {
   border-radius: 4px;
