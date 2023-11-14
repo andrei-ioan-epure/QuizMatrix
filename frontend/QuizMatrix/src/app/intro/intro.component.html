@@ -1,0 +1,22 @@
+<div id="carouselExampleControls" class="carouselslide" data-ride="carousel">
+  <div class="carousel-inner" role="listbox">
+    <img src="{{ getSlide() }}" alt="slide" />
+  </div>
+
+  <div class="buttons_carousel">
+    <button (click)="goToPreviousSlide()">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <div class="carousel-bullets">
+      <span
+        *ngFor="let slide of carouselSlides; let index = index"
+        class="bullet"
+        [class.active]="isActiveSlide(index)"
+        (click)="goToSlide(index)"
+      ></span>
+    </div>
+    <button (click)="goToNextSlide()">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+  </div>
+</div>
