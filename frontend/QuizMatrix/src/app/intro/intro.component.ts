@@ -13,33 +13,43 @@ export class IntroComponent implements OnInit {
     '../../assets/images/geography.png',
     '../../assets/images/informatics.png',
     '../../assets/images/phisics.png',
+    '../../assets/images/science.png',
+    '../../assets/images/economics.png',
   ];
 
-  currentSlideIndex = 0;
+  currentPairIndex = 0;
+  slidesPerPair = 2;
+  totalPairs = Math.ceil(this.carouselSlides.length / this.slidesPerPair);
+
   ngOnInit(): void {}
 
-  getSlide() {
-    return this.carouselSlides[this.currentSlideIndex];
+  get visibleSlidePairs(): string[][] {
+    const startIndex = this.currentPairIndex * this.slidesPerPair;
+    const endIndex = startIndex + this.slidesPerPair;
+    return this.carouselSlides
+      .slice(startIndex, endIndex)
+      .map((slide) => [slide]);
   }
 
-  goToSlide(index: number) {
-    this.currentSlideIndex = index;
+  goToPreviousPair() {
+    this.currentPairIndex =
+      (this.currentPairIndex - 1 + this.totalPairs) % this.totalPairs;
   }
 
-  goToPreviousSlide() {
-    this.currentSlideIndex =
-      this.currentSlideIndex === 0 ? 0 : this.currentSlideIndex - 1;
+  goToNextPair() {
+    this.currentPairIndex = (this.currentPairIndex + 1) % this.totalPairs;
   }
 
-  goToNextSlide() {
-    if (this.currentSlideIndex === this.carouselSlides.length - 1) {
-      this.currentSlideIndex = 0;
-    } else {
-      this.currentSlideIndex = this.currentSlideIndex + 1;
-    }
+  goToPair(index: number) {
+    this.currentPairIndex = index;
   }
 
-  isActiveSlide(index: number): boolean {
-    return this.currentSlideIndex === index;
+  isActivePair(index: number): boolean {
+    return this.currentPairIndex === index;
+  }
+
+  // Adăugăm o funcție care returnează numărul total de perechi pentru bule(2 imagini=o pereche=un bullet)
+  getTotalPairs(): number[] {
+    return new Array(this.totalPairs);
   }
 }

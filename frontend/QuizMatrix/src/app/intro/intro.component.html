@@ -1,22 +1,27 @@
-<div id="carouselExampleControls" class="carouselslide" data-ride="carousel">
-  <div class="carousel-inner" role="listbox">
-    <img src="{{ getSlide() }}" alt="slide" />
+<div class="container">
+  <div *ngFor="let slidePair of visibleSlidePairs; let i = index" class="pair">
+    <div *ngFor="let slide of slidePair" class="box">
+      <div class="imgBx">
+        <img src="{{ slide }}" alt="Slide {{ i }}" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="buttons_carousel">
+  <button (click)="goToPreviousPair()">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
+  <div class="carousel-bullets">
+    <span
+      *ngFor="let _ of getTotalPairs(); let index = index"
+      class="bullet"
+      [class.active]="isActivePair(index)"
+      (click)="goToPair(index)"
+    ></span>
   </div>
 
-  <div class="buttons_carousel">
-    <button (click)="goToPreviousSlide()">
-      <mat-icon>keyboard_arrow_left</mat-icon>
-    </button>
-    <div class="carousel-bullets">
-      <span
-        *ngFor="let slide of carouselSlides; let index = index"
-        class="bullet"
-        [class.active]="isActiveSlide(index)"
-        (click)="goToSlide(index)"
-      ></span>
-    </div>
-    <button (click)="goToNextSlide()">
-      <mat-icon>keyboard_arrow_right</mat-icon>
-    </button>
-  </div>
+  <button (click)="goToNextPair()">
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </button>
 </div>

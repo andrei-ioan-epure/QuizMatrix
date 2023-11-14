@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   margin-top: 30px;
-  margin-left: 150px;
+  margin-left: 320px;
 }
 
 .buttons_carousel .carousel-bullets {
@@ -94,4 +94,42 @@
 }
 .carousel-bullets .bullet:hover {
   transform: scale(1.7); /* Mărește la hover */
+}
+img {
+  border-radius: 50px;
+}
+
+.pair {
+  display: flex;
+  margin-bottom: 20px; /* Adaugă spațiere între perechile de imagini */
+}
+
+.box {
+  position: relative;
+  margin-right: 15px; /* Adaugă spațiere între imagini în cadrul unei perechi */
+  overflow: hidden;
+  transition: transform 0.5s, opacity 0.5s; /* Adaugă o tranziție la transform și opacity */
+}
+
+.box img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.box:hover {
+  transform: scale(1.1); /* Mărește imaginea la hover */
+  z-index: 1; /* Adaugă imaginea în prim plan la hover */
+}
+
+.box:not(:hover) {
+  transform: scale(0.9);
+}
+
+.container {
+  display: flex;
+  overflow: visible;
+  white-space: nowrap;
+  margin-top: 150px;
+  margin-left: 50px;
 }
