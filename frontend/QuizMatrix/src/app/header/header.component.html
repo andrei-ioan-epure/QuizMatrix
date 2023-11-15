@@ -1,4 +1,13 @@
 <div class="header-content">
-  <img src="../../assets/images/logo1.png" class="logo" />
-  <button mat-button class="button">Sign In</button>
+  <a routerLink="/home">
+    <img
+      align="left"
+      [src]="ImagePath"
+      style="width: 160px; height: 40px"
+      class="logo"
+    />
+  </a>
+  <button mat-button class="button">
+    <mat-icon class="signin_icon">person_outline</mat-icon> Sign In
+  </button>
 </div>

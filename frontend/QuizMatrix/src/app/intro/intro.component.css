@@ -133,3 +133,16 @@ img {
   margin-top: 150px;
   margin-left: 50px;
 }
+
+.right {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 40%;
+  margin-left: 900px;
+  margin-top: -400px;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  line-height: 1.6;
+}

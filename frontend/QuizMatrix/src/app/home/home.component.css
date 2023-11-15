@@ -1,0 +1,15 @@
+.cards1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 70px;
+  gap: 20vh;
+}
+
+.cards2 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20vh;
+  margin-top: 30px;
+}

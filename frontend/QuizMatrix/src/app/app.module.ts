@@ -9,9 +9,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IntroComponent } from './intro/intro.component';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
+import { CardComponent } from './home/card/card.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, HeaderComponent, IntroComponent],
+  declarations: [AppComponent, HomeComponent, HeaderComponent, IntroComponent, CardComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

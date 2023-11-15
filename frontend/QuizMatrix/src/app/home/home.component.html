@@ -1,1 +1,19 @@
-<p>home works!</p>
+<div class="cards1">
+  <div class="cardsfirstrow" *ngFor="let card of cards | slice : 0 : 2">
+    <app-card
+      [image]="card.image"
+      [title]="card.title"
+      [description]="card.description"
+    ></app-card>
+  </div>
+</div>
+
+<div class="cards2">
+  <div *ngFor="let card of cards | slice : 2 : 4">
+    <app-card
+      [image]="card.image"
+      [title]="card.title"
+      [description]="card.description"
+    ></app-card>
+  </div>
+</div>
