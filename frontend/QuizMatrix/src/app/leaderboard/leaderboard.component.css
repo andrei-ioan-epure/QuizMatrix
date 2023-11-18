@@ -1,0 +1,105 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* Stretch the child elements to fill the container height */
+    height: 100vh; /* Make the container fill the viewport height */
+    padding: 20px;
+}
+
+/* Styling for the test name section */
+.test-name {
+    flex-basis: 50%; /* Half of the container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Styling for the leaderboard section */
+.leaderboard {
+    flex-basis: 50%; /* Half of the container */
+    display: flex;
+    flex-direction: column; /* Stack the elements vertically */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+/* Button and span styling within pagination controls */
+.pagination-controls button, .pagination-controls span {
+    margin: 0 10px;
+}
+
+/* Overall container styling */
+:host {
+    display: block;
+    text-align: center;
+}
+
+/* Styling the leaderboard table */
+table {
+    margin: 0 auto; /* Center the table */
+    border-collapse: collapse;
+    width: 80%; /* Adjust the width as needed */
+    max-width: 600px; /* Maximum width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding some shadow for depth */
+}
+
+/* Table headers and cells styling */
+th, td {
+    text-align: left;
+    padding: 8px 16px;
+    border-bottom: 1px solid #ddd; /* Adds a line between rows */
+}
+
+/* Header styling */
+th {
+    background-color: #f4f4f4; /* Light grey background */
+    color: #333; /* Dark text color */
+}
+
+/* Rounded corners for the first and last table headers */
+th:first-child {
+    border-top-left-radius: 10px; /* Rounded top-left corner */
+}
+
+th:last-child {
+    border-top-right-radius: 10px; /* Rounded top-right corner */
+}
+
+/* Hover effect for rows */
+tr:hover {
+    background-color: #f5f5f5; /* Lighter grey for hover */
+}
+
+/* Button styling */
+button {
+    background-color: #007bff; /* Blue background */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px; /* Rounded corners for buttons */
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+button:disabled {
+    background-color: #cccccc; /* Greyed out button for disabled state */
+}
+
+button:hover:not(:disabled) {
+    background-color: #0056b3; /* Darker blue when hovered */
+}
+
+/* Pagination info styling */
+span {
+    margin: 0 10px;
+}
