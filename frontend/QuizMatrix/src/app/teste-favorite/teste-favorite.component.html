@@ -1,0 +1,30 @@
+<h1>Teste <span class="favorite">favorite</span></h1>
+
+<br>
+<div class="tests-table">
+    <table>
+        <thead>
+        <tr>
+            <th>Icon</th>
+            <th>Nume Test</th>
+            <th>Scor</th>
+            <th>Durată</th>
+            <th>Domeniu</th>
+            <th>Acțiuni</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let test of teste">
+            <td><img src="{{ test.icon }}" alt="Icon" style="width: 30px; height: 30px;"></td>
+            <td>{{ test.nume }}</td>
+            <td>{{ test.scor }}</td>
+            <td>{{ test.durata }}</td>
+            <td>{{ test.domeniu }}</td>
+            <td class="actiuni-cell">
+                <button mat-raised-button >Reîntoarcere la test</button>  
+                <button mat-raised-button>Elimină din favorite</button> 
+            </td>
+        </tbody>
+    </table>
+</div>
+  
