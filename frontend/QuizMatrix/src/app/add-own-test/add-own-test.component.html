@@ -1,0 +1,46 @@
+<div class="add-own-test-container">
+    <h1>Question {{ currentQuestion }}</h1>
+  
+    <form (ngSubmit)="submitQuestion()" #questionForm="ngForm">
+      <label for="questionText">Text intrebare:</label>
+      <textarea id="questionText" name="questionText" [(ngModel)]="questionText" required></textarea>
+  
+      <label for="answer1">Raspuns 1:</label>
+      <input type="text" id="answer1" name="answer1" [(ngModel)]="answers[0]" required>
+  
+      <label for="answer2">Raspuns 2:</label>
+      <input type="text" id="answer2" name="answer2" [(ngModel)]="answers[1]" required>
+  
+      <label for="answer3">Raspuns 3:</label>
+      <input type="text" id="answer3" name="answer3" [(ngModel)]="answers[2]" required>
+  
+      <label for="answer4">Raspuns 4:</label>
+      <input type="text" id="answer4" name="answer4" [(ngModel)]="answers[3]" required>
+  
+      <label for="correctAnswer">Raspuns Corect:</label>
+      <select id="correctAnswer" name="correctAnswer" [(ngModel)]="correctAnswer" required>
+        <option *ngFor="let answer of answers; let i = index" [value]="i">{{ 'Answer ' + (i + 1) }}</option>
+      </select>
+  
+      <button type="button" (click)="submitQuestion()">Next</button>
+
+    <div class="share-domain-container">
+      <div class="select-container">
+        <label for="domainSelect">Domeniu:</label>
+        <select id="domainSelect" name="domainSelect" [(ngModel)]="selectedDomain" required [disabled]="disableButtons">
+          <option value="biology">Biologie</option>
+          <option value="physics">Fizica</option>
+          <option value="math">Matematica</option>
+        </select>
+      </div>
+
+      <div class="select-container">
+        <label for="quizDuration">Durata (minute):</label>
+        <input type="number" id="quizDuration" name="quizDuration" [(ngModel)]="quizDuration" required [disabled]="disableButtons">
+      </div>
+
+      <button type="button" class="share-button" [disabled]="disableButtons">Share</button>
+    </div>
+    </form>
+  </div>
+  

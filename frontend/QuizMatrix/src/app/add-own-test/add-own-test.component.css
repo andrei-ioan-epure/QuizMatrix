@@ -1,0 +1,93 @@
+/* add-own-test.component.css */
+
+.add-own-test-container {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto; 
+  }
+  
+  .label-container {
+    margin-top: 15px;
+  }
+  
+  
+  label {
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  
+  textarea, input, select {
+    margin-top: 5px;
+    width: 100%; 
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button.share-button {
+    align-items: center;
+    background-color: #007BFF;
+  }
+  
+  .share-domain-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #domainSelect {
+    margin-top: 5px;
+  }
+
+    button[disabled] {
+        background-color: #ddd; 
+        color: #888; 
+        cursor: not-allowed; 
+    }
+
+    .share-domain-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .select-container {
+        margin-top: 5px;
+        margin-right: 10px; 
+        width: 48%; 
+      }
+      
+      #domainSelect, #quizDuration {
+        width: 100%; 
+        padding: 8px;
+        box-sizing: border-box;
+      }
+      
+      .share-button {
+        padding: 10px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+  
+  
