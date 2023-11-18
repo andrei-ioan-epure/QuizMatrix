@@ -1,0 +1,59 @@
+.domain-page {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .leaderboard-container {
+    display: flex;
+    align-items: center; 
+    margin-top: 20px;
+    margin-left: 20vh;
+  }
+  
+  h2 {
+    color: #25283d;
+    font-size: 24px;
+    margin-right: 20px; 
+  }
+  
+  .content-box {
+    width: 60%;
+    height: 300px;
+    background-color: white;
+    border: 1px solid #ddd;
+    margin-left: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .leaderboard ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .leaderboard li {
+    margin-bottom: 10px;
+  }
+  
+  .quizzes {
+    margin-top: 20px;
+  }
+  
+  .quiz-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .quiz-item {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+  
