@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="top">
+    <div class="left">
+      <h2>{{ increment + 1 }}/{{ questions.length }}</h2>
+    </div>
+    <div class="middle">
+      <div>
+        <app-timer [duration]="time" #timerComponent></app-timer>
+      </div>
+    </div>
+    <div class="right"><h2>2 puncte</h2></div>
+    <div></div>
+  </div>
+
+  <div class="quiz">
+    <h1 class="question">{{ questions[increment] }}</h1>
+    <div class="answers">
+      <div class="left">
+        <button>{{ answers.get(increment)?.at(0) }}</button>
+        <button>{{ answers.get(increment)?.at(1) }}</button>
+      </div>
+      <div class="right">
+        <button>{{ answers.get(increment)?.at(2) }}</button>
+        <button>{{ answers.get(increment)?.at(3) }}</button>
+      </div>
+    </div>
+  </div>
+  <button class="next" (click)="nextQuestion()">Next question</button>
+</div>
