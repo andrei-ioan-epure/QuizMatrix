@@ -7,13 +7,15 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { MyTestInfoComponent } from './my-test-info/my-test-info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    MyTestInfoComponent
   ],
   imports: [
     BrowserModule,

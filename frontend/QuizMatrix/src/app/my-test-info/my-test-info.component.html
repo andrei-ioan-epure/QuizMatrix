@@ -1,0 +1,29 @@
+<table>
+    <thead>
+      <tr>
+          <th>Rank</th>
+          <th>Name</th>
+          <th>Score</th>
+          <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users | slice: (currentPage * itemsPerPage) : ((currentPage + 1) * itemsPerPage)">
+          <td>{{ user.rank }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.score }}</td>
+          <td>{{ floor(user.time / 60).toString().padStart(2, "0") + ":" + (user.time % 60).toString().padStart(2, "0") }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <button [disabled]="currentPage === 0" (click)="prevPage()">Previous</button>
+  <span>Page {{ currentPage + 1 }} of {{ pageCount() }}</span>
+  <button [disabled]="currentPage >= users.length/itemsPerPage - 1" (click)="nextPage()">Next</button>
+  
+
+  <div class="statistics">
+    <p>Average Score: {{ averageScore | number:'1.0-2' }}</p>
+    <p>Average Time: {{ averageTime | number:'1.0-2' }} minutes</p>
+  </div>

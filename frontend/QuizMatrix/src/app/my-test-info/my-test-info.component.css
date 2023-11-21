@@ -101,11 +101,23 @@ span {
     margin: 0 10px;
 }
 
-.test-result {
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 5px;
-    background-color: #e9ecef;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    text-align: center;
+.statistics {
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center children vertically */
+    align-items: center; /* Center children horizontally */
+    margin-bottom: 20px; /* Add some space below the statistics */
+    padding: 10px; /* Padding inside the statistics area */
+    border-radius: 8px; /* Rounded corners for the statistics area */
+    background-color: #f8f9fa; /* Light background for the statistics area */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+    width: 100%; /* Take the full width to center content */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Style for the paragraphs in the statistics section */
+.statistics p {
+    margin: 10px 0; /* Add top and bottom margins to space out the paragraphs */
+    font-size: 1.1em; /* Slightly larger font size for better readability */
+    color: #333; /* Dark grey color for text for contrast */
 }
