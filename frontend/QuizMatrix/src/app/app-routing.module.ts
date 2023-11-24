@@ -18,6 +18,8 @@ import { EditAccountComponent } from './edit-account/edit-account.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { MyTestInfoComponent } from './my-test-info/my-test-info.component';
 
+import { AddOwnTestComponent } from './add-own-test/add-own-test.component';
+
 const routes: Routes = [
   {
     path: 'home',
@@ -72,6 +74,10 @@ const routes: Routes = [
     component: AllDomainsComponent,
   },
   { path: 'domain-page/:domain', component: DomainPageComponent },
+  {
+    path: 'add-test',
+    component: AddOwnTestComponent,
+  },
   {
     path: '**',
     redirectTo: 'intro',

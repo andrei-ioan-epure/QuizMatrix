@@ -1,9 +1,5 @@
 import { NgModule } from '@angular/core';
 
-import {
-  BrowserModule,
-  provideClientHydration,
-} from '@angular/platform-browser';
 import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,11 +8,18 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { MatInputModule } from '@angular/material/input';
 
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AllDomainsComponent } from './all-domains/all-domains.component';
 import { DomainCardComponent } from './all-domains/domain-card/domain-card.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -38,6 +41,8 @@ import { EditAccountComponent } from './edit-account/edit-account.component';
 
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { MyTestInfoComponent } from './my-test-info/my-test-info.component';
+
+import { AddOwnTestComponent } from './add-own-test/add-own-test.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +68,8 @@ import { MyTestInfoComponent } from './my-test-info/my-test-info.component';
     AllDomainsComponent,
     DomainCardComponent,
     DomainPageComponent,
+
+    AddOwnTestComponent,
   ],
   imports: [
     MatInputModule,
@@ -71,6 +78,7 @@ import { MyTestInfoComponent } from './my-test-info/my-test-info.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+
     MatIconModule,
 
     HttpClientModule,
@@ -81,6 +89,8 @@ import { MyTestInfoComponent } from './my-test-info/my-test-info.component';
     MatCheckboxModule,
 
     HttpClientModule,
+
+    FormsModule,
   ],
   providers: [provideClientHydration()],
   bootstrap: [AppComponent],
