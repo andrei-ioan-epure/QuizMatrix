@@ -1,0 +1,39 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+  
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 5px;
+  }
+  
+th {
+    background-color: #f2f2f2;
+  }
+  
+h1{
+    color: #25283d;
+    text-align: center;
+    margin-top: 30px;
+    font-size: 40px;
+}
+.favorite{
+        color: #ba9797;
+}
+.tests-table{
+    margin: 0 auto;
+    max-width: 80%;
+}
+.mat-mdc-raised-button:not(:disabled) {
+    color: #ba9797;
+    width: 200px;
+    margin-right: 20px; 
+    margin-left:15px;
+}
+.actiuni-cell {
+    max-width: 200px; 
+    overflow: hidden;
+}

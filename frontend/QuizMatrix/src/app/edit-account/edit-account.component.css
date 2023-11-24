@@ -1,0 +1,70 @@
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+h1{
+    color: #25283d;
+    text-align: center;
+    margin-top: 30px;
+    font-size: 40px;
+}
+.cont{
+        color: #ba9797;
+}
+form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 0.5px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-right: 35%;
+    margin-top: 3%;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:disabled {
+    background-color: #dddddd;
+    cursor: not-allowed;
+  }
+.mat-mdc-raised-button:not(:disabled) {
+    color: #ba9797;
+    width: 200px;
+    margin-left:25%;
+}
+form input {
+    color: #25283d;
+    opacity: 0.8;
+}
+.elements{
+    display: flex;
+}
+ul{
+    margin-left: 10%;
+    margin-top: 5%;
+    list-style-type: none;
+}
+li{
+    margin-top: 20px;
+    font-size: 17px;
+}
+li:hover{
+    color:#ba9797;
+}
