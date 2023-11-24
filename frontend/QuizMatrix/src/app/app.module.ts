@@ -17,14 +17,18 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AllDomainsComponent } from './all-domains/all-domains.component';
+import { DomainCardComponent } from './all-domains/domain-card/domain-card.component';
+import { MatIconModule } from '@angular/material/icon';
+import { HttpClientModule } from '@angular/common/http';
+import { DomainPageComponent } from './domain-page/domain-page.component';
 
 import { LoginComponent } from './login/login.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { TimerComponent } from './quiz/timer/timer.component';
 
 import { IntroComponent } from './intro/intro.component';
-import { MatIconModule } from '@angular/material/icon';
-import { HttpClientModule } from '@angular/common/http';
+
 import { CardComponent } from './home/card/card.component';
 import { ContulMeuComponent } from './contul-meu/contul-meu.component';
 import { TesteParcurseComponent } from './teste-parcurse/teste-parcurse.component';
@@ -55,6 +59,10 @@ import { MyTestInfoComponent } from './my-test-info/my-test-info.component';
 
     LeaderboardComponent,
     MyTestInfoComponent,
+
+    AllDomainsComponent,
+    DomainCardComponent,
+    DomainPageComponent,
   ],
   imports: [
     MatInputModule,
@@ -64,12 +72,15 @@ import { MyTestInfoComponent } from './my-test-info/my-test-info.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatIconModule,
+
     HttpClientModule,
     MatSelectModule,
     MatFormFieldModule,
     MatListModule,
     MatButtonModule,
     MatCheckboxModule,
+
+    HttpClientModule,
   ],
   providers: [provideClientHydration()],
   bootstrap: [AppComponent],
