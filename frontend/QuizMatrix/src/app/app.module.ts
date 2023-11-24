@@ -10,11 +10,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
+import { MatInputModule } from '@angular/material/input';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginComponent } from './login/login.component';
+import { QuizComponent } from './quiz/quiz.component';
+import { TimerComponent } from './quiz/timer/timer.component';
 
 import { IntroComponent } from './intro/intro.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,6 +36,7 @@ import { EditAccountComponent } from './edit-account/edit-account.component';
     AppComponent,
     HomeComponent,
     HeaderComponent,
+
     ContulMeuComponent,
     TesteParcurseComponent,
     TesteAdaugateComponent,
@@ -38,8 +44,15 @@ import { EditAccountComponent } from './edit-account/edit-account.component';
     EditAccountComponent,
     CardComponent,
     IntroComponent,
+
+    LoginComponent,
+    QuizComponent,
+    TimerComponent,
   ],
   imports: [
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

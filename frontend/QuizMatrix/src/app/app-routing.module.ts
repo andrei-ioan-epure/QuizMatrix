@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { QuizComponent } from './quiz/quiz.component';
 
 import { IntroComponent } from './intro/intro.component';
 
@@ -40,6 +42,16 @@ const routes: Routes = [
     path: 'edit-account',
     component: EditAccountComponent,
   },
+
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'quiz',
+    component: QuizComponent,
+  },
+
   {
     path: '**',
     redirectTo: 'intro',
