@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+
 import { LoginComponent } from './login/login.component';
 import { QuizComponent } from './quiz/quiz.component';
 
@@ -11,6 +12,9 @@ import { TesteParcurseComponent } from './teste-parcurse/teste-parcurse.componen
 import { TesteAdaugateComponent } from './teste-adaugate/teste-adaugate.component';
 import { TesteFavoriteComponent } from './teste-favorite/teste-favorite.component';
 import { EditAccountComponent } from './edit-account/edit-account.component';
+
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { MyTestInfoComponent } from './my-test-info/my-test-info.component';
 
 const routes: Routes = [
   {
@@ -52,6 +56,14 @@ const routes: Routes = [
     component: QuizComponent,
   },
 
+  {
+    path: 'leaderboard',
+    component: LeaderboardComponent,
+  },
+  {
+    path: 'my-tests',
+    component: MyTestInfoComponent,
+  },
   {
     path: '**',
     redirectTo: 'intro',

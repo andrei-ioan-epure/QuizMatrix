@@ -1,0 +1,31 @@
+<h2>Leaderboard</h2>
+<table>
+  <thead>
+    <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Score</th>
+        <th>Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users | slice: (currentPage * itemsPerPage) : ((currentPage + 1) * itemsPerPage)">
+        <td>{{ user.rank }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.score }}</td>
+        <td>{{ user.time }}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<button [disabled]="currentPage === 0" (click)="prevPage()">Previous</button>
+<span>Page {{ currentPage + 1 }} of {{ pageCount() }}</span>
+<button [disabled]="currentPage >= users.length/itemsPerPage - 1" (click)="nextPage()">Next</button>
+
+<div *ngIf="testResult" class="test-result">
+  <h3>Your Test Result:</h3>
+  <p>Score: {{ testResult.score }}</p>
+  <p>Time: {{ testResult.time }}</p>
+</div>
+

@@ -17,6 +17,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { LoginComponent } from './login/login.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { TimerComponent } from './quiz/timer/timer.component';
@@ -30,6 +31,9 @@ import { TesteParcurseComponent } from './teste-parcurse/teste-parcurse.componen
 import { TesteAdaugateComponent } from './teste-adaugate/teste-adaugate.component';
 import { TesteFavoriteComponent } from './teste-favorite/teste-favorite.component';
 import { EditAccountComponent } from './edit-account/edit-account.component';
+
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { MyTestInfoComponent } from './my-test-info/my-test-info.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +52,9 @@ import { EditAccountComponent } from './edit-account/edit-account.component';
     LoginComponent,
     QuizComponent,
     TimerComponent,
+
+    LeaderboardComponent,
+    MyTestInfoComponent,
   ],
   imports: [
     MatInputModule,
