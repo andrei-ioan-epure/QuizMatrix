@@ -1,3 +1,7 @@
+<button mat-raised-button class="backBtn" routerLink="/my-account">
+  <mat-icon class="iconBack">arrow_back</mat-icon>
+  Back
+</button>
 <h1>Teste <span class="adaugate">adăugate</span></h1>
 
 <br />
@@ -23,7 +27,9 @@
         <td>{{ test.durata }}</td>
         <td>{{ test.domeniu }}</td>
         <td class="actiuni-cell">
-          <button mat-raised-button>Reîntoarcere la test</button>
+          <button mat-raised-button routerLink="/quiz">
+            Reîntoarcere la test
+          </button>
           <button mat-raised-button class="btn2" routerLink="/leaderboard">
             Vezi leaderboard
           </button>

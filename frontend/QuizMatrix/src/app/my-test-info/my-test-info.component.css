@@ -1,3 +1,9 @@
+.backBtn {
+  margin-top: 15px;
+  color: #ba9797;
+  width: 200px;
+  margin-left: -1300px;
+}
 .container {
   display: flex;
   justify-content: center;
@@ -94,7 +100,7 @@ button:disabled {
   background-color: #cccccc; /* Greyed out button for disabled state */
 }
 
-button:hover:not(:disabled) {
+button.btn:hover:not(:disabled) {
   background-color: #333b72; /* Darker blue when hovered */
 }
 
@@ -125,4 +131,6 @@ span {
 }
 .title {
   margin-top: 20px;
+  font-size: 40px;
+  color: #25283d;
 }

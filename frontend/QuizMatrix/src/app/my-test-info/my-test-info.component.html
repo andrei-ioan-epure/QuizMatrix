@@ -1,3 +1,7 @@
+<button mat-raised-button class="backBtn" routerLink="/my-account">
+  <mat-icon class="iconBack">arrow_back</mat-icon>
+  Back
+</button>
 <h2 class="title">Testele mele</h2>
 <table>
   <thead>
@@ -33,9 +37,12 @@
   </tbody>
 </table>
 
-<button [disabled]="currentPage === 0" (click)="prevPage()">Previous</button>
+<button class="btn" [disabled]="currentPage === 0" (click)="prevPage()">
+  Previous
+</button>
 <span>Page {{ currentPage + 1 }} of {{ pageCount() }}</span>
 <button
+  class="btn"
   [disabled]="currentPage >= users.length / itemsPerPage - 1"
   (click)="nextPage()"
 >

@@ -180,7 +180,8 @@ input {
 }
 
 .overlay {
-  background: url("/assets/img/quizLoginRegister.jpg") no-repeat center center;
+  background: url("/assets/images/quizLoginRegister.jpg") no-repeat center
+    center;
   background-size: cover;
   color: #ffffff;
   position: relative;

@@ -1,3 +1,10 @@
+.backBtn {
+  margin-top: 15px;
+  color: #ba9797;
+  width: 200px;
+  margin-left: -1300px;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -53,6 +60,7 @@ table {
 /* Table headers and cells styling */
 th,
 td {
+  color: #25283d;
   text-align: left;
   padding: 8px 16px;
   border-bottom: 1px solid #ddd; /* Adds a line between rows */
@@ -80,7 +88,7 @@ tr:hover {
 
 /* Button styling */
 button {
-  background-color: #25283d; /* Blue background */
+  background-color: #25283d;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -94,7 +102,7 @@ button:disabled {
   background-color: #cccccc; /* Greyed out button for disabled state */
 }
 
-button:hover:not(:disabled) {
+button.btn:hover:not(:disabled) {
   background-color: #333b72; /* Darker blue when hovered */
 }
 
@@ -113,4 +121,6 @@ span {
 }
 .title {
   margin-top: 20px;
+  font-size: 40px;
+  color: #25283d;
 }
