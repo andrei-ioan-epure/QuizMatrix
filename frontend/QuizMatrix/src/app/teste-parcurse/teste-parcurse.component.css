@@ -1,39 +1,48 @@
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
-  
-th, td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 5px;
-  }
-  
+
+th,
+td {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 5px;
+}
+
 th {
-    background-color: #f2f2f2;
-  }
-  
-h1{
-    color: #25283d;
-    text-align: center;
-    margin-top: 30px;
-    font-size: 40px;
+  background-color: #f2f2f2;
 }
-.parcurse{
-        color: #ba9797;
+
+h1 {
+  color: #25283d;
+  text-align: center;
+  margin-top: 30px;
+  font-size: 40px;
 }
-.tests-table{
-    margin: 0 auto;
-    max-width: 80%;
+.parcurse {
+  color: #ba9797;
+}
+.tests-table {
+  margin: 0 auto;
+  max-width: 80%;
 }
 .mat-mdc-raised-button:not(:disabled) {
-    color: #ba9797;
-    width: 200px;
-    margin-right: 15px; 
-    margin-left:30px;
+  color: #ba9797;
+  width: 200px;
+  margin-right: 15px;
+  margin-left: 30px;
 }
 .actiuni-cell {
-    max-width: 80px; 
-    overflow: hidden;
+  max-width: 80px;
+  overflow: hidden;
+}
+img {
+  border-radius: 35%;
+  object-fit: cover;
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin: 0 auto;
 }
