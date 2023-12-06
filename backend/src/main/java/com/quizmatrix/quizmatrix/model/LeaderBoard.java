@@ -1,4 +1,4 @@
-package com.quizmatrix.quizmatrix.repository.model;
+package com.quizmatrix.quizmatrix.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,16 +9,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "score")
+@Entity(name = "leaderboard_domain")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserScore {
+public class LeaderBoard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Long id;
-    private Long userId;
+    private Integer id_leaderboard;
+    private Integer id_user;
+    private Integer id_domain;
     private Integer score;
     private Integer time;
 
