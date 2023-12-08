@@ -1,59 +1,201 @@
+.backBtn {
+  margin-top: 15px;
+  color: #ba9797;
+  width: 200px;
+  margin-left: 15px;
+}
+
+h2 {
+  color: #25283d;
+  text-align: center;
+  margin-top: 30px;
+  font-size: 40px;
+  margin-bottom: 30px;
+}
 .domain-page {
-    text-align: center;
-    margin-top: 30px;
-  }
-  
-  .leaderboard-container {
-    display: flex;
-    align-items: center; 
-    margin-top: 20px;
-    margin-left: 20vh;
-  }
-  
-  h2 {
-    color: #25283d;
-    font-size: 24px;
-    margin-right: 20px; 
-  }
-  
-  .content-box {
-    width: 60%;
-    height: 300px;
-    background-color: white;
-    border: 1px solid #ddd;
-    margin-left: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .leaderboard ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .leaderboard li {
-    margin-bottom: 10px;
-  }
-  
-  .quizzes {
-    margin-top: 20px;
-  }
-  
-  .quiz-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 20px;
-  }
-  
-  .quiz-item {
-    text-align: center;
-    margin: 10px;
-    padding: 10px;
-  }
-  
-  button {
-    margin-top: 10px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+}
+
+.quizzes,
+.leaderboard-container {
+  flex: 0 0 48%;
+  margin-top: 20px;
+}
+
+button.btn {
+  background-color: #25283d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+  transition: background-color 0.3s;
+}
+
+button:disabled {
+  background-color: #cccccc;
+}
+
+button.btn:hover:not(:disabled) {
+  background-color: #333b72;
+}
+
+span {
+  margin: 0 10px;
+}
+
+.statistics {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+.buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.button-container {
+  margin: 0 10px;
+}
+
+.quizzes {
+  margin-top: 20px;
+  align-items: center;
+  margin-right: 100px;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.quizzes table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.quizzes th,
+.quizzes td {
+  border: 1px solid #d0d0d0;
+  text-align: center;
+  padding: 10px;
+}
+
+.quizzes th {
+  background-color: #f2f2f2;
+}
+
+.adaugate {
+  color: #ba9797;
+}
+
+.tests-table {
+  margin: 0 auto;
+  max-width: 80%;
+}
+.actiuni-cell {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.btn2 {
+  margin: 10px;
+  flex: 1;
+}
+
+.leaderboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 150px auto 0;
+}
+
+.leaderboard-container table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.leaderboard-container th,
+.leaderboard-container td {
+  color: #25283d;
+  text-align: left;
+  padding: 8px 16px;
+  border: 1px solid #d0d0d0;
+  /* border-bottom: 1px solid #ddd; */
+}
+
+.leaderboard-container th {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.leaderboard-container th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.leaderboard-container th:last-child {
+  border-top-right-radius: 10px;
+}
+
+.leaderboard-container tr:hover {
+  background-color: #f5f5f5;
+}
+
+.leaderboard-container button {
+  background-color: #25283d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+  transition: background-color 0.3s;
+}
+
+.leaderboard-container button:disabled {
+  background-color: #cccccc;
+}
+
+.leaderboard-container button:hover:not(:disabled) {
+  background-color: #333b72;
+}
+
+.leaderboard-container span {
+  margin: 0 10px;
+}
+
+.test-result {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.title {
+  margin-top: 20px;
+  font-size: 40px;
+  color: #25283d;
+}

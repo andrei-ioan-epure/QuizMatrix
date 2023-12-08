@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { DomainCards } from '../all-domains/model/domain-card';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CardsDomainService {
-
-  constructor() { }
+  constructor() {}
 
   cards: DomainCards = [
     {
@@ -38,8 +37,12 @@ export class CardsDomainService {
       title: 'Matematica',
     },
     {
-      image: '../../assets/images/phisic.png',
+      image: '../../assets/images/phisics1.png',
       title: 'Fizica',
+    },
+    {
+      image: '../../assets/images/history1.png',
+      title: 'Istorie',
     },
   ];
   getCards(): DomainCards {

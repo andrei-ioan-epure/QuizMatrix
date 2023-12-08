@@ -3,7 +3,8 @@
 html,
 body {
   height: 100%;
-  background-color: #f5e6e8;
+  /* background-color: #f5e6e8; */
+  background-color: rgb(250, 245, 255);
 }
 body {
   margin: 0;

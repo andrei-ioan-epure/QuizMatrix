@@ -20,9 +20,9 @@ body {
   width: 80%;
   height: 75%;
   border-radius: 20px;
-  border: 1px solid #25283d;
+  border: 1px solid transparent;
+  box-shadow: 0 0 10px rgba(1, 13, 21, 0.5), 0 0 20px rgba(2, 30, 47, 0.3);
   background-color: #fff;
-  box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.1);
   margin-left: 10%;
   margin-top: 5%;
 }
@@ -52,7 +52,8 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 20px;
-  border: 1px solid #25283d;
+  border: 1px solid transparent;
+  box-shadow: 0 0 10px rgba(8, 33, 49, 0.5), 0 0 20px rgba(0, 49, 79, 0.3);
   margin-top: -15px;
   width: 80%;
 }
@@ -77,15 +78,18 @@ button {
   padding: 1em;
   margin: 2%;
   border-radius: 10px;
-  border: 1px solid #25283d;
-  background-color: #e4f2fd;
+
+  border: 1px solid transparent;
+  box-shadow: 0 0 10px rgba(7, 46, 71, 0.5), 0 0 20px rgba(2, 59, 94, 0.3);
+  background-color: rgb(255, 255, 255);
   cursor: pointer;
   transition: all 0.3s ease;
   color: #333;
 }
 
 button:hover {
-  background-color: #b5deff;
+  background-color: #25283d;
+  color: #ffffff;
   box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.1);
 }
 .next {

@@ -1,93 +1,112 @@
-/* add-own-test.component.css */
+/* butoane mai mari si la hover culoarea schimbata si cursor pointer */
+/* sa nu mai poti seta chestii cu - */
+/* la intrebari sa fie centrat pe pagina iar textul intrebarii sa aiba o dimensiune fixa */
 
 .add-own-test-container {
-    text-align: center;
-    margin-top: 30px;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 600px;
-    margin: 0 auto; 
-  }
-  
-  .label-container {
-    margin-top: 15px;
-  }
-  
-  
-  label {
-    margin-top: 15px;
-    font-weight: bold;
-  }
-  
-  textarea, input, select {
-    margin-top: 5px;
-    width: 100%; 
-    padding: 8px;
-    box-sizing: border-box;
-  }
-  
-  button {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button.share-button {
-    align-items: center;
-    background-color: #007BFF;
-  }
-  
-  .share-domain-container {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  #domainSelect {
-    margin-top: 5px;
-  }
+  text-align: center;
+  align-items: center;
+  margin-top: 100px !important;
+  border: 2px solid transparent;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 600px;
+  margin: 0 auto;
+}
 
-    button[disabled] {
-        background-color: #ddd; 
-        color: #888; 
-        cursor: not-allowed; 
-    }
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+}
 
-    .share-domain-container {
-        margin-top: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      
-      .select-container {
-        margin-top: 5px;
-        margin-right: 10px; 
-        width: 48%; 
-      }
-      
-      #domainSelect, #quizDuration {
-        width: 100%; 
-        padding: 8px;
-        box-sizing: border-box;
-      }
-      
-      .share-button {
-        padding: 10px;
-        background-color: #007BFF;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-  
-  
+.label-container {
+  margin-top: 15px;
+}
+
+label {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+textarea,
+input,
+select {
+  margin-top: 20px;
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.select-container {
+  margin-top: 15px;
+  margin-right: 10px;
+  width: calc(50% - 5px); /* 50% width minus margin-right */
+}
+
+.select-container .durata-label,
+.select-container .numar-intrebari-label {
+  margin-top: 40px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #25283d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 40px;
+  margin-bottom: 15px;
+}
+
+button.share-button {
+  align-items: center;
+  background-color: #25283d;
+}
+
+.share-domain-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#domainSelect,
+#quizDuration,
+#quizLength {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  margin-top: 20px; /* Spațiere între componente */
+}
+
+button[disabled] {
+  background-color: #ddd;
+  color: #888;
+  cursor: not-allowed;
+}
+
+label {
+  color: #25283d;
+  font-size: 20px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.share-domain-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.share-button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
