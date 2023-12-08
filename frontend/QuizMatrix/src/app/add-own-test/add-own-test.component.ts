@@ -16,7 +16,7 @@ export class AddOwnTestComponent {
   quizLength: number = 0;
 
   questionText: string = '';
-  answers: string[] = ['', '', '', ''];
+  raspuns: string[] = ['', '', '', ''];
   correctAnswer: number = 0;
   currentQuestion: number = 0;
 
@@ -32,7 +32,7 @@ export class AddOwnTestComponent {
 
     // clear form
     this.questionText = '';
-    this.answers = ['', '', '', ''];
+    this.raspuns = ['', '', '', ''];
     this.correctAnswer = 0;
     this.currentQuestion++;
     this.disableButtons = true;
@@ -62,10 +62,10 @@ export class AddOwnTestComponent {
     } else if (this.currentState == 'enterQuestions') {
       this.disableButtons = !(
         this.questionText &&
-        this.answers[0] &&
-        this.answers[1] &&
-        this.answers[2] &&
-        this.answers[3] &&
+        this.raspuns[0] &&
+        this.raspuns[1] &&
+        this.raspuns[2] &&
+        this.raspuns[3] &&
         this.correctAnswer
       );
     }

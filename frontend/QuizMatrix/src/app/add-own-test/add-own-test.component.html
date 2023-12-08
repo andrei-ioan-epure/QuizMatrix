@@ -2,6 +2,7 @@
   class="add-own-test-container"
   *ngIf="currentState === 'selectDomainLengthDuration'"
 >
+  <h1>Adaugă propriul test</h1>
   <div class="share-domain-container">
     <div class="select-container">
       <label for="domainSelect">Domeniu:</label>
@@ -13,12 +14,17 @@
         (ngModelChange)="updateDisableButtons()"
       >
         <option value="biology">Biologie</option>
-        <option value="physics">Fizica</option>
-        <option value="math">Matematica</option>
+        <option value="physics">Fizică</option>
+        <option value="math">Matematică</option>
+        <option value="informatics">Informatică</option>
+        <option value="economics">Economie</option>
+        <option value="geography">Geografie</option>
+        <option value="science">Știinte</option>
+        <option value="astronomy">Astronomie</option>
       </select>
     </div>
     <div class="select-container">
-      <label for="quizDuration">Durata (minute):</label>
+      <label for="quizDuration">Durată (minute):</label>
       <input
         type="number"
         id="quizDuration"
@@ -30,7 +36,7 @@
     </div>
 
     <div class="select-container">
-      <label for="quizLength">Numar de intrebari:</label>
+      <label for="quizLength">Număr de întrebări:</label>
       <input
         type="number"
         id="quizLength"
@@ -50,10 +56,10 @@
   </button>
 </div>
 
-<div class="add-own-test-container" *ngIf="currentState === 'enterQuestions'">
-  <h1>Question {{ currentQuestion + 1 / quizLength }}</h1>
+<div class="add-question" *ngIf="currentState === 'enterQuestions'">
+  <h1>Întrebare {{ currentQuestion + 1 / quizLength }}</h1>
   <form (ngSubmit)="submitQuestion()" #questionForm="ngForm">
-    <label for="questionText">Text intrebare:</label>
+    <label for="questionText">Text întrebare:</label>
     <textarea
       id="questionText"
       name="questionText"
@@ -62,47 +68,47 @@
       (ngModelChange)="updateDisableButtons()"
     ></textarea>
 
-    <label for="answer1">Raspuns 1:</label>
+    <label for="answer1">Răspuns 1 :</label>
     <input
       type="text"
       id="answer1"
       name="answer1"
-      [(ngModel)]="answers[0]"
+      [(ngModel)]="raspuns[0]"
       required
       (ngModelChange)="updateDisableButtons()"
     />
 
-    <label for="answer2">Raspuns 2:</label>
+    <label for="answer2">Răspuns 2 :</label>
     <input
       type="text"
       id="answer2"
       name="answer2"
-      [(ngModel)]="answers[1]"
+      [(ngModel)]="raspuns[1]"
       required
       (ngModelChange)="updateDisableButtons()"
     />
 
-    <label for="answer3">Raspuns 3:</label>
+    <label for="answer3">Răspuns 3 :</label>
     <input
       type="text"
       id="answer3"
       name="answer3"
-      [(ngModel)]="answers[2]"
+      [(ngModel)]="raspuns[2]"
       required
       (ngModelChange)="updateDisableButtons()"
     />
 
-    <label for="answer4">Raspuns 4:</label>
+    <label for="answer4">Răspuns 4 :</label>
     <input
       type="text"
       id="answer4"
       name="answer4"
-      [(ngModel)]="answers[3]"
+      [(ngModel)]="raspuns[3]"
       required
       (ngModelChange)="updateDisableButtons()"
     />
 
-    <label for="correctAnswer">Raspuns Corect:</label>
+    <label for="correctAnswer">Răspuns Corect :</label>
     <select
       id="correctAnswer"
       name="correctAnswer"
@@ -110,8 +116,8 @@
       required
       (ngModelChange)="updateDisableButtons()"
     >
-      <option *ngFor="let answer of answers; let i = index" [value]="i">
-        {{ "Answer " + (i + 1) }}
+      <option *ngFor="let answer of raspuns; let i = index" [value]="i">
+        {{ "Răspuns " + (i + 1) }}
       </option>
     </select>
     <button
@@ -123,12 +129,13 @@
     </button>
   </form>
 </div>
-
+<br />
+<br />
 <div class="add-own-test-container" *ngIf="currentState === 'quizComplete'">
   <div>
     <h1>
-      Chestionarul tau este complet! Incepe-l acum sau da share pentru a juca cu
-      prietenii tai!
+      Chestionarul tău este complet! <br />
+      Începe-l acum sau dă share pentru a juca cu prietenii tăi!
     </h1>
   </div>
   <button type="button" (click)="startQuiz()" class="start-button">
