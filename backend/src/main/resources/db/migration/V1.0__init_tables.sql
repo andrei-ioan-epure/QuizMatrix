@@ -1,6 +1,6 @@
 
 
--- CREATE TABLE IF NOT EXISTS `User` (
+-- CREATE TABLE IF NOT EXISTS `user` (
 --    id_user INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 --    username VARCHAR(30) NOT NULL UNIQUE,
 --    firstname VARCHAR(50) NOT NULL,
