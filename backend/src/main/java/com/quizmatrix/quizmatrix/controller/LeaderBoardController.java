@@ -28,17 +28,22 @@ public class LeaderBoardController {
         return new ResponseEntity<>(this.leaderBoardService.findById(id), HttpStatus.OK);
     }
     @PostMapping
-    public ResponseEntity<?> findById(@RequestBody LeaderBoardDTO leaderBoardDTO){
+    public ResponseEntity<?> addLeaderBoard(@RequestBody LeaderBoardDTO leaderBoardDTO){
         LeaderBoardDTO newLeaderBoardDTO=this.leaderBoardService.add(leaderBoardDTO);
         return new ResponseEntity<>(newLeaderBoardDTO, HttpStatus.CREATED);
     }
     @PutMapping("/{id}")
     public ResponseEntity<?> updateById(@PathVariable Integer id, @RequestBody LeaderBoardDTO leaderBoardDTO){
-        this.leaderBoardService.update(id,leaderBoardDTO);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        if (this.leaderBoardService.findById(id) != null) {
+            this.leaderBoardService.update(id, leaderBoardDTO);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(this.leaderBoardService.add(leaderBoardDTO), HttpStatus.CREATED);
+
+        }
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteById(Integer id){
+    public ResponseEntity<?> deleteById(@PathVariable Integer id){
         this.leaderBoardService.deleteById(id);
         return new ResponseEntity<>( HttpStatus.NO_CONTENT);
     }

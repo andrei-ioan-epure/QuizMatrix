@@ -1,6 +1,5 @@
 package com.quizmatrix.quizmatrix.repository.impl;
 
-import com.quizmatrix.quizmatrix.dto.LeaderBoardDTO;
 import com.quizmatrix.quizmatrix.model.LeaderBoard;
 import com.quizmatrix.quizmatrix.repository.interfaces.LeaderBoardJPARepository;
 import com.quizmatrix.quizmatrix.repository.interfaces.LeaderBoardRepository;
