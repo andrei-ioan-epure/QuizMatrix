@@ -32,6 +32,8 @@
         [(ngModel)]="quizDuration"
         required
         (ngModelChange)="updateDisableButtons()"
+        min="0"
+        max="60"
       />
     </div>
 
@@ -44,6 +46,8 @@
         [(ngModel)]="quizLength"
         required
         (ngModelChange)="updateDisableButtons()"
+        min="0"
+        max="30"
       />
     </div>
   </div>
@@ -57,7 +61,7 @@
 </div>
 
 <div class="add-question" *ngIf="currentState === 'enterQuestions'">
-  <h1>Întrebare {{ currentQuestion + 1 / quizLength }}</h1>
+  <h1>Întrebarea {{ currentQuestion + 1 }} / {{ quizLength }}</h1>
   <form (ngSubmit)="submitQuestion()" #questionForm="ngForm">
     <label for="questionText">Text întrebare:</label>
     <textarea

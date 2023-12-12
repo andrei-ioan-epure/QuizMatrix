@@ -23,6 +23,8 @@ export class AddOwnTestComponent {
   disableButtons: boolean = true;
 
   submitParameters() {
+    this.quizDuration = parseInt(this.quizDuration.toString(), 10);
+    this.quizLength = parseInt(this.quizLength.toString(), 10);
     this.currentState = 'enterQuestions';
     this.disableButtons = true;
   }
@@ -30,7 +32,7 @@ export class AddOwnTestComponent {
   submitQuestion() {
     //de implementat logica pt adaugare in baza de date
 
-    // clear form
+    // Clear form
     this.questionText = '';
     this.raspuns = ['', '', '', ''];
     this.correctAnswer = 0;
