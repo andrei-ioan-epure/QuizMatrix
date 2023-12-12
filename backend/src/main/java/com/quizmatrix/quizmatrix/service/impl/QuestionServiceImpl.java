@@ -1,12 +1,11 @@
 package com.quizmatrix.quizmatrix.service.impl;
 
 import com.quizmatrix.quizmatrix.dto.QuestionDTO;
-import com.quizmatrix.quizmatrix.dto.UserDTO;
-import com.quizmatrix.quizmatrix.model.LeaderBoard;
 import com.quizmatrix.quizmatrix.model.Question;
 import com.quizmatrix.quizmatrix.repository.interfaces.QuestionRepository;
 import com.quizmatrix.quizmatrix.service.interfaces.QuestionService;
 import com.quizmatrix.quizmatrix.service.mapper.QuestionMapper;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
