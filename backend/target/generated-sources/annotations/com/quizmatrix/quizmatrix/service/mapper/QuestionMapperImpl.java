@@ -2,13 +2,14 @@ package com.quizmatrix.quizmatrix.service.mapper;
 
 import com.quizmatrix.quizmatrix.dto.QuestionDTO;
 import com.quizmatrix.quizmatrix.model.Question;
+import com.quizmatrix.quizmatrix.model.Quiz;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-12-15T01:17:23+0200",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
+    date = "2023-12-15T11:00:17+0200",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 18.0.2 (Amazon.com Inc.)"
 )
 @Component
 public class QuestionMapperImpl implements QuestionMapper {
@@ -21,8 +22,11 @@ public class QuestionMapperImpl implements QuestionMapper {
 
         QuestionDTO questionDTO = new QuestionDTO();
 
+        Integer id_quiz = questionQuizId_quiz( question );
+        if ( id_quiz != null ) {
+            questionDTO.setId_quiz( String.valueOf( id_quiz ) );
+        }
         questionDTO.setId_question( question.getId_question() );
-        questionDTO.setId_quiz( question.getId_quiz() );
         questionDTO.setText( question.getText() );
         questionDTO.setPoints( question.getPoints() );
 
@@ -37,11 +41,40 @@ public class QuestionMapperImpl implements QuestionMapper {
 
         Question question = new Question();
 
+        question.setQuiz( questionDTOToQuiz( questionDTO ) );
         question.setId_question( questionDTO.getId_question() );
-        question.setId_quiz( questionDTO.getId_quiz() );
         question.setText( questionDTO.getText() );
         question.setPoints( questionDTO.getPoints() );
 
         return question;
+    }
+
+    private Integer questionQuizId_quiz(Question question) {
+        if ( question == null ) {
+            return null;
+        }
+        Quiz quiz = question.getQuiz();
+        if ( quiz == null ) {
+            return null;
+        }
+        Integer id_quiz = quiz.getId_quiz();
+        if ( id_quiz == null ) {
+            return null;
+        }
+        return id_quiz;
+    }
+
+    protected Quiz questionDTOToQuiz(QuestionDTO questionDTO) {
+        if ( questionDTO == null ) {
+            return null;
+        }
+
+        Quiz quiz = new Quiz();
+
+        if ( questionDTO.getId_quiz() != null ) {
+            quiz.setId_quiz( Integer.parseInt( questionDTO.getId_quiz() ) );
+        }
+
+        return quiz;
     }
 }
