@@ -11,7 +11,6 @@ import java.util.List;
 @ToString
 public class QuizDTO {
     private Integer id_quiz;
-    private List<QuestionDTO> questions;
     private Integer id_domain;
     private String title;
     private String description;

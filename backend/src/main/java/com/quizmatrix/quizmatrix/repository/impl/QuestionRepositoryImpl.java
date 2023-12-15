@@ -41,14 +41,14 @@ public class QuestionRepositoryImpl implements QuestionRepository {
     @Transactional
     public void deleteById(Integer id) {
         Optional<Question> optionalQuestion = questionJPARepository.findById(id);
-        optionalQuestion.ifPresent(question -> {
+      //  optionalQuestion.ifPresent(question -> {
             // Remove the question from the associated quiz
-            Quiz quiz = question.getQuiz();
-            if (quiz != null) {
-                quiz.getQuestions().remove(question);
-            }
+//            Quiz quiz = question.getQuiz();
+//            if (quiz != null) {
+//                quiz.getQuestions().remove(question);
+//            }
             questionJPARepository.deleteById(id);
-        });
+
     }
 
     @Override
