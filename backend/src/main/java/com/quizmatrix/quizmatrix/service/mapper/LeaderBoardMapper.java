@@ -6,7 +6,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface LeaderBoardMapper {
-
     LeaderBoardDTO mapEntityToDto(LeaderBoard leaderBoard);
     LeaderBoard mapDtoToEntity(LeaderBoardDTO leaderBoardDTO);
 }
