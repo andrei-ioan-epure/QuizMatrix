@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Location } from '@angular/common';
 
 interface User {
   rank: number;
@@ -18,31 +19,35 @@ interface TestResult {
   // ... any other properties of the test result
 }
 
-
 @Component({
   selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
-  styleUrl: './leaderboard.component.css'
+  styleUrl: './leaderboard.component.css',
 })
-export class LeaderboardComponent implements OnChanges{
+export class LeaderboardComponent implements OnChanges {
+  constructor(private location: Location) {}
+
+  goBack(): void {
+    this.location.back();
+  }
+
   @Input() test?: Test;
   //@Input() testResult?: TestResult;
 
-  testResult = { score: 1100, time: "04:24"}
+  testResult = { score: 1100, time: '04:24' };
 
   users: User[] = [
-    { rank: 1, name: 'Alice', score: 1000 , time: "05:52"},
-    { rank: 2, name: 'Bob', score: 950, time: "05:20" },
-    { rank: 3, name: 'Melisandre', score: 900, time: "04:20" },
-    { rank: 4, name: 'Snow', score: 880 , time: "05:30"},
-    { rank: 5, name: 'Tormund', score: 870, time: "05:20" },
-    { rank: 6, name: 'Cersei', score: 100, time: "04:40" },
+    { rank: 1, name: 'Alice', score: 1000, time: '05:52' },
+    { rank: 2, name: 'Bob', score: 950, time: '05:20' },
+    { rank: 3, name: 'Melisandre', score: 900, time: '04:20' },
+    { rank: 4, name: 'Snow', score: 880, time: '05:30' },
+    { rank: 5, name: 'Tormund', score: 870, time: '05:20' },
+    { rank: 6, name: 'Cersei', score: 100, time: '04:40' },
     // ... more users ...
   ];
 
-
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["test"] && this.test) {
+    if (changes['test'] && this.test) {
       console.log(this.test);
       this.loadLeaderboardData(this.test);
     }
@@ -52,12 +57,12 @@ export class LeaderboardComponent implements OnChanges{
     // Fetch leaderboard data based on this.test
     // Example hardcoded data (replace with actual data fetching logic)
     this.users = [
-      { rank: 1, name: 'Alice', score: 1000 , time: "05:52"},
-      { rank: 2, name: 'Bob', score: 950, time: "05:20" },
-      { rank: 3, name: 'Melisandre', score: 900, time: "04:20" },
-      { rank: 4, name: 'Snow', score: 880 , time: "05:30"},
-      { rank: 5, name: 'Tormund', score: 870, time: "05:20" },
-      { rank: 6, name: 'Cersei', score: 100, time: "04:40" },
+      { rank: 1, name: 'Alice', score: 1000, time: '05:52' },
+      { rank: 2, name: 'Bob', score: 950, time: '05:20' },
+      { rank: 3, name: 'Melisandre', score: 900, time: '04:20' },
+      { rank: 4, name: 'Snow', score: 880, time: '05:30' },
+      { rank: 5, name: 'Tormund', score: 870, time: '05:20' },
+      { rank: 6, name: 'Cersei', score: 100, time: '04:40' },
       // ... more users for the selected test ...
     ];
   }
@@ -72,7 +77,7 @@ export class LeaderboardComponent implements OnChanges{
   }
 
   nextPage(): void {
-    console.log("hi");
+    console.log('hi');
     if (this.currentPage < this.pageCount() - 1) {
       this.currentPage++;
     }
