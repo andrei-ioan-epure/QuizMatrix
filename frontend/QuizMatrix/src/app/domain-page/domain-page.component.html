@@ -85,6 +85,7 @@
               mat-raised-button
               class="btn2"
               (click)="startQuiz(test.nume, 'singleplayer')"
+              routerLink="/quiz"
             >
               Singleplayer
             </button>
@@ -94,9 +95,6 @@
               (click)="startQuiz(test.nume, 'multiplayer')"
             >
               Multiplayer
-            </button>
-            <button mat-raised-button class="btn2" routerLink="/leaderboard">
-              Leaderboard
             </button>
           </td>
         </tr>
