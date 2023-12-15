@@ -17,10 +17,6 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer id_quiz;
-
-    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Question> questions;
-
     private Integer id_domain;
     private String title;
     private String description;
