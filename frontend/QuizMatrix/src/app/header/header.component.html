@@ -1,5 +1,5 @@
 <div class="header-content">
-  <a routerLink="/home">
+  <a routerLink="/intro">
     <img
       align="left"
       [src]="ImagePath"
@@ -7,7 +7,50 @@
       class="logo"
     />
   </a>
-  <button mat-button class="button" routerLink="/login">
-    <mat-icon class="signin_icon">person_outline</mat-icon> Sign In
-  </button>
+
+  <div class="buttons-container">
+    <button
+      id="home"
+      mat-raised-button
+      routerLink="/home"
+      routerLinkActive="active_route"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <mat-icon>home</mat-icon>
+      Acasă
+    </button>
+    <button
+      id="domain"
+      mat-raised-button
+      routerLink="/domains"
+      routerLinkActive="active_route"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <mat-icon>domain</mat-icon>
+      Domenii
+    </button>
+
+    <button
+      id="fav"
+      mat-raised-button
+      routerLink="/favorite-tests"
+      routerLinkActive="active_route"
+    >
+      <mat-icon>favorite_border</mat-icon>
+      Favorite
+    </button>
+    <button
+      id="add_test"
+      mat-raised-button
+      routerLink="/added-tests"
+      routerLinkActive="active_route"
+    >
+      <mat-icon>add</mat-icon>
+      Adaugă un test
+    </button>
+
+    <button mat-button class="button" routerLink="/login">
+      <mat-icon class="signin_icon">person_outline</mat-icon> Înregistrează-te
+    </button>
+  </div>
 </div>

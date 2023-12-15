@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-teste-parcurse',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrl: './teste-parcurse.component.css',
 })
 export class TesteParcurseComponent {
+  constructor(private location: Location) {}
+
   teste = [
     {
       nume: 'Test 1',
@@ -36,4 +39,7 @@ export class TesteParcurseComponent {
       icon: '../../assets/images/geography.png',
     },
   ];
+  goBack(): void {
+    this.location.back();
+  }
 }

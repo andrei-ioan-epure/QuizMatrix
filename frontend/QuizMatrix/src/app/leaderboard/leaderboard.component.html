@@ -1,15 +1,16 @@
-<button mat-raised-button class="backBtn" routerLink="/my-account">
+<button mat-raised-button class="backBtn" (click)="goBack()">
   <mat-icon class="iconBack">arrow_back</mat-icon>
   Back
 </button>
+
 <h2 class="title">Leaderboard</h2>
 <table>
   <thead>
     <tr>
-      <th>Rank</th>
-      <th>Name</th>
-      <th>Score</th>
-      <th>Time</th>
+      <th>Rang</th>
+      <th>Nume</th>
+      <th>Scor</th>
+      <th>Timp</th>
     </tr>
   </thead>
   <tbody>
@@ -42,7 +43,7 @@
 </button>
 
 <div *ngIf="testResult" class="test-result">
-  <h3>Your Test Result:</h3>
-  <p>Score: {{ testResult.score }}</p>
-  <p>Time: {{ testResult.time }}</p>
+  <h3>Rezultatul tău:</h3>
+  <p>Scor: {{ testResult.score }}</p>
+  <p>Timp: {{ testResult.time }}</p>
 </div>
