@@ -10,11 +10,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponseDTO {
+public class LoginResponseDTO {
     private int id_user;
     private String firstname;
     private String lastname;
     private String email;
-    private String username;
     private Constant.UserRole role;
 }

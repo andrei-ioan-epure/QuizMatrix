@@ -41,6 +41,13 @@ export class LoginComponent {
 
   register(formData: any)
   {
-    
+    this.authService.signup(formData).subscribe(
+      (response) => {
+        console.log("Register successful", response);
+      },
+      (error) => {
+        console.error("Register failed!", error);
+      }
+    )
   }
 }

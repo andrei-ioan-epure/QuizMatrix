@@ -11,5 +11,5 @@ public interface UserHandlingService {
     User registerUser(UserRegisterDTO registerDTO);
     Integer makeAdmin(Integer id);
 
-    Optional<User> findUserByUsername(String username);
+    Optional<User> findUserByEmail(String email);
 }

@@ -2,10 +2,10 @@
   <div class="form-container register-container">
     <form action="#" (ngSubmit)="register(registerForm.value)" #registerForm="ngForm">
       <h1>Să creăm un cont</h1>
-      <input type="text" placeholder="First Name" />
-      <input type="text" placeholder="Last Name" />
-      <input type="email" placeholder="Email" />
-      <input type="password" placeholder="Password" />
+      <input ngModel name="firstname" type="text" placeholder="First Name" />
+      <input ngModel name="lastname" type="text" placeholder="Last Name" />
+      <input ngModel name="email" type="email" placeholder="Email" />
+      <input ngModel name="password" type="password" placeholder="Password" />
       <input type="password" placeholder="Confirm Password" />
       <button type="submit" id="true_register">Înregistrează-te</button>
     </form>
@@ -14,7 +14,7 @@
   <div class="form-container login-container">
     <form (ngSubmit)="login(loginForm.value)" action="#" #loginForm="ngForm">
       <h1>Bine ai revenit!</h1>
-      <input ngModel name="username" type="email" placeholder="Email" />
+      <input ngModel name="email" type="email" placeholder="Email" />
       <input ngModel name="password" type="password" placeholder="Password" />
       <a href="#">Ți-ai uitat parola ?</a>
       <button type="submit" id="true_login">Conectează-te</button>

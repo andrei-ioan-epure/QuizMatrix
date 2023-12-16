@@ -2,17 +2,15 @@ package com.quizmatrix.quizmatrix.auth.controller;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.quizmatrix.quizmatrix.auth.config.jwt.TokenProvider;
+import com.quizmatrix.quizmatrix.auth.dto.RegisterResponseDTO;
 import com.quizmatrix.quizmatrix.auth.dto.UserLoginDTO;
 import com.quizmatrix.quizmatrix.auth.dto.UserRegisterDTO;
-import com.quizmatrix.quizmatrix.auth.dto.UserResponseDTO;
+import com.quizmatrix.quizmatrix.auth.dto.LoginResponseDTO;
 import com.quizmatrix.quizmatrix.auth.model.User;
-import com.quizmatrix.quizmatrix.auth.repository.UserRepository;
-import com.quizmatrix.quizmatrix.auth.service.AuthenticationService;
 import com.quizmatrix.quizmatrix.auth.service.UserHandlingService;
 import jakarta.persistence.PersistenceException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +19,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -43,10 +38,10 @@ public class AuthController {
         this.userHandlingService = userHandlingService;
     }
     @PostMapping("/login")
-    public ResponseEntity<UserResponseDTO> login(@RequestBody UserLoginDTO authDTO, HttpServletResponse response) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody UserLoginDTO authDTO, HttpServletResponse response) {
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                authDTO.getUsername(),
+                authDTO.getEmail(),
                 authDTO.getPassword()
         );
 
@@ -61,30 +56,29 @@ public class AuthController {
         c.setHttpOnly(true);
         response.addCookie(new Cookie("token", jwt));
 
-        User u = userHandlingService.findUserByUsername(authDTO.getUsername()).get();
+        User u = userHandlingService.findUserByEmail(authDTO.getEmail()).get();
 
-        UserResponseDTO r = new UserResponseDTO();
+        LoginResponseDTO r = new LoginResponseDTO();
         r.setFirstname(u.getFirstname());
         r.setLastname(u.getLastname());
         r.setId_user(u.getId_user());
         r.setEmail(u.getEmail());
-        r.setUsername(u.getUsername());
         r.setRole(u.getRole());
 
         return new ResponseEntity<>(r, HttpStatus.OK);
     }
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody UserRegisterDTO userDTO)
+    public ResponseEntity<RegisterResponseDTO> register(@RequestBody UserRegisterDTO userDTO)
     {
         try{
             User u = userHandlingService.registerUser(userDTO);
-            return new ResponseEntity<>("User " + u.getUsername() + " created", HttpStatus.OK);
+            return new ResponseEntity<>(new RegisterResponseDTO("User " + u.getEmail() + " created"), HttpStatus.OK);
         } catch (DataIntegrityViolationException e)
         {
-            return new ResponseEntity<>("User already exists", HttpStatus.I_AM_A_TEAPOT);
+            return new ResponseEntity<>(new RegisterResponseDTO("User already exists"), HttpStatus.I_AM_A_TEAPOT);
         } catch (PersistenceException e)
         {
-            return new ResponseEntity<>("DB ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new RegisterResponseDTO("DB ERROR"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

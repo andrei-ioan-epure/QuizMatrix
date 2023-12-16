@@ -9,8 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserLoginDTO {
-    private String email;
-    private String password;
-    private boolean rememberMe;
+public class RegisterResponseDTO {
+    private String message;
 }

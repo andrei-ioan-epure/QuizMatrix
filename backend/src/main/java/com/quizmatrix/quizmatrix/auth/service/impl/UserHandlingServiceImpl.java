@@ -29,7 +29,6 @@ public class UserHandlingServiceImpl implements UserHandlingService {
         u.setFirstname(user.getFirstname());
         u.setLastname(user.getLastname());
         u.setEmail(user.getEmail());
-        u.setUsername(user.getUsername());
         u.setPassword(passwordEncoder.encode(user.getPassword()));
         u.setRole(Constant.UserRole.USER);
         return userRepository.save(u);
@@ -42,7 +41,7 @@ public class UserHandlingServiceImpl implements UserHandlingService {
     }
 
     @Override
-    public Optional<User> findUserByUsername(String username) {
-        return userRepository.findUserByUsername(username);
+    public Optional<User> findUserByEmail(String username) {
+        return userRepository.findUserByEmail(username);
     }
 }
