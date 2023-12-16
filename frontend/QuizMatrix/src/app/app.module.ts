@@ -30,6 +30,9 @@ import { EditAccountComponent } from './edit-account/edit-account.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { MyTestInfoComponent } from './my-test-info/my-test-info.component';
 import { AddOwnTestComponent } from './add-own-test/add-own-test.component';
+import { httpInterceptorProviders } from '../_helpers/http.interceptor';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { AuthInterceptorProviders } from '../_helpers/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -70,7 +73,7 @@ import { AddOwnTestComponent } from './add-own-test/add-own-test.component';
     HttpClientModule,
     FormsModule,
   ],
-  providers: [provideClientHydration()],
+  providers: [provideClientHydration(), httpInterceptorProviders, provideHttpClient(withFetch()), AuthInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -19,8 +19,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Modifying
     @Query("update User u set u.role=com.quizmatrix.quizmatrix.auth.util.Constant$UserRole.ADMIN where u.id_user=?1")
     Integer makeAdmin(Integer id);
-
-
-
     Optional<User> findUserByUsername(String username);
 }

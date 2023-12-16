@@ -40,4 +40,9 @@ public class UserHandlingServiceImpl implements UserHandlingService {
     public Integer makeAdmin(Integer id) {
         return userRepository.makeAdmin(id);
     }
+
+    @Override
+    public Optional<User> findUserByUsername(String username) {
+        return userRepository.findUserByUsername(username);
+    }
 }

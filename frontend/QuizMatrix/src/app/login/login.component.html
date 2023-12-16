@@ -1,23 +1,23 @@
 <div class="container" id="container">
   <div class="form-container register-container">
-    <form action="#">
+    <form action="#" (ngSubmit)="register(registerForm.value)" #registerForm="ngForm">
       <h1>Să creăm un cont</h1>
       <input type="text" placeholder="First Name" />
       <input type="text" placeholder="Last Name" />
       <input type="email" placeholder="Email" />
       <input type="password" placeholder="Password" />
       <input type="password" placeholder="Confirm Password" />
-      <button>Înregistrează-te</button>
+      <button type="submit" id="true_register">Înregistrează-te</button>
     </form>
   </div>
 
   <div class="form-container login-container">
-    <form action="#">
+    <form (ngSubmit)="login(loginForm.value)" action="#" #loginForm="ngForm">
       <h1>Bine ai revenit!</h1>
-      <input type="email" placeholder="Email" />
-      <input type="password" placeholder="Password" />
+      <input ngModel name="username" type="email" placeholder="Email" />
+      <input ngModel name="password" type="password" placeholder="Password" />
       <a href="#">Ți-ai uitat parola ?</a>
-      <button>Conectează-te</button>
+      <button type="submit" id="true_login">Conectează-te</button>
     </form>
   </div>
 
@@ -32,7 +32,7 @@
             personale.</b
           >
         </p>
-        <button class="slider" id="login">Login</button>
+        <button class="slider" id="login">Conectează-te</button>
       </div>
       <div class="overlay-panel overlay-right">
         <h1>Înceară QuizMatrix acum!</h1>
