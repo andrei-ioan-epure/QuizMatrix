@@ -1,5 +1,6 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Subject } from 'rxjs';
 
 const USER_KEY = 'auth_user';
 
@@ -12,6 +13,7 @@ export class StorageService {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
+  private isLoggedInSubject = new Subject<boolean>();
   private getWindow(): Window | null {
     if (isPlatformBrowser(this.platformId)) {
       return this._doc.defaultView;
@@ -24,8 +26,9 @@ export class StorageService {
   }
 
   public saveUser(user: any): void {
-    this.getWindow()?.sessionStorage.removeItem(USER_KEY);
-    this.getWindow()?.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    sessionStorage.removeItem(USER_KEY);
+    sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    this.isLoggedInSubject.next(true); // Emite eveniment pentru notificarea componentelor
   }
 
   public getUser(): any {
@@ -37,7 +40,6 @@ export class StorageService {
     return {};
   }
 
-  // În StorageService
   public isLoggedIn(): boolean {
     const user = this.getWindow()?.sessionStorage.getItem(USER_KEY);
     console.log('IsLoggedIn:', user ? true : false);
@@ -46,5 +48,9 @@ export class StorageService {
 
   public logout(): void {
     this.getWindow()?.sessionStorage.removeItem(USER_KEY);
+    this.isLoggedInSubject.next(false);
+  }
+  getIsLoggedInSubject(): Subject<boolean> {
+    return this.isLoggedInSubject;
   }
 }

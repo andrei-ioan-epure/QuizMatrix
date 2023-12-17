@@ -1,21 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StorageService } from '../services/storage.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'], // Trebuie să fie 'styleUrls' în loc de 'styleUrl'
+  styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
   ImagePath: string;
-  isLoggedIn!: boolean;
+  isLoggedIn: boolean;
   public showLogout: boolean = false;
-  showLogoutPopup: boolean = false; // Adăugat pentru a gestiona vizibilitatea popup-ului
+  showLogoutPopup: boolean = false;
+
+  private isLoggedInSubscription!: Subscription;
 
   constructor(private storageService: StorageService, private router: Router) {
     this.ImagePath = '../../assets/images/logo1.png';
+    this.isLoggedIn = this.storageService.isLoggedIn();
+  }
+
+  ngOnInit(): void {
     this.updateLoggedInStatus();
+    this.isLoggedInSubscription = this.storageService
+      .getIsLoggedInSubject()
+      .subscribe((isLoggedIn) => {
+        this.isLoggedIn = isLoggedIn;
+        this.router.navigate(['/home']);
+      });
+  }
+
+  ngOnDestroy(): void {
+    if (this.isLoggedInSubscription) {
+      this.isLoggedInSubscription.unsubscribe();
+    }
   }
 
   onClickIcon(): void {
@@ -23,82 +42,22 @@ export class HeaderComponent {
     this.showLogout = !this.showLogout;
   }
 
-  ngOnInit(): void {
-    // Inițializați starea de autentificare la încărcarea aplicației
-    this.updateLoggedInStatus();
-  }
-
   logOut(): void {
     this.storageService.logout();
     this.showLogout = false;
-    this.showLogoutPopup = false;
-    this.updateLoggedInStatus(); // Reevaluare starea isLoggedIn
+    this.showLogoutPopup = true;
   }
 
-  updateLoggedInStatus(): void {
-    this.isLoggedIn = this.storageService.isLoggedIn();
-  }
   onLogoutConfirmation(response: boolean): void {
-    // Ascunde pop-up-ul de confirmare
     this.showLogoutPopup = false;
 
-    // Dacă utilizatorul a apăsat pe OK, atunci să facem logout
     if (response === true) {
       this.storageService.logout();
-      this.updateLoggedInStatus(); // Reevaluare starea isLoggedIn
-      this.router.navigate(['/login']); // Redirecționare către pagina de login
+      this.router.navigate(['/intro']);
     }
   }
+
+  private updateLoggedInStatus(): void {
+    this.isLoggedIn = this.storageService.isLoggedIn();
+  }
 }
-
-// import { Component, OnInit } from '@angular/core';
-// import { StorageService } from '../services/storage.service';
-// import { Router } from '@angular/router';
-// import { Observable } from 'rxjs';
-
-// @Component({
-//   selector: 'app-header',
-//   templateUrl: './header.component.html',
-//   styleUrls: ['./header.component.css'],
-// })
-// export class HeaderComponent implements OnInit {
-//   ImagePath: string;
-//   isLoggedIn: boolean;
-//   public showLogout: boolean = false;
-//   showLogoutPopup: boolean = false;
-
-//   constructor(private storageService: StorageService, private router: Router) {
-//     this.ImagePath = '../../assets/images/logo1.png';
-//     this.isLoggedIn = this.storageService.isLoggedIn();
-//   }
-
-//   ngOnInit(): void {
-//     // Inițializați starea de autentificare la încărcarea componentei
-//     this.updateLoggedInStatus();
-//   }
-
-//   onClickIcon(): void {
-//     console.log('Ai apăsat pe iconiță');
-//     this.showLogout = !this.showLogout;
-//   }
-//   updateLoggedInStatus(): void {
-//     this.isLoggedIn = this.storageService.isLoggedIn();
-//   }
-
-//   // În HeaderComponent
-//   logOut(): void {
-//     //this.storageService.logout();
-//     this.showLogout = false;
-//     this.showLogoutPopup = false;
-//     this.updateLoggedInStatus();
-//   }
-
-//   onLogoutConfirmation(response: boolean): void {
-//     this.showLogoutPopup = false;
-
-//     if (response === true) {
-//       this.storageService.logout();
-//       this.router.navigate(['/home']);
-//     }
-//   }
-// }

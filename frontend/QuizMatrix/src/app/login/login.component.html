@@ -1,6 +1,10 @@
 <div class="container" id="container">
   <div class="form-container register-container">
-    <form action="#" (ngSubmit)="register(registerForm.value)" #registerForm="ngForm">
+    <form
+      action="#"
+      (ngSubmit)="register(registerForm.value)"
+      #registerForm="ngForm"
+    >
       <h1>Să creăm un cont</h1>
       <input ngModel name="firstname" type="text" placeholder="First Name" />
       <input ngModel name="lastname" type="text" placeholder="Last Name" />

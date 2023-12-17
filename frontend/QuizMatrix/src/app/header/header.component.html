@@ -66,7 +66,7 @@
         <mat-icon class="user">account_circle</mat-icon>
         <div class="logout-popup" *ngIf="showLogout">
           <button mat-raised-button (click)="logOut()">
-            <mat-icon class="signout_icon">exit_to_app</mat-icon>Sign out
+            <mat-icon class="signout_icon">exit_to_app</mat-icon>Deconectează-te
           </button>
         </div>
       </div>
@@ -74,14 +74,14 @@
 
     <div class="confirm-popup" *ngIf="showLogoutPopup">
       <div class="confirm-content">
-        <div class="confirm-message">Are you sure you want to sign out?</div>
+        <div class="confirm-message">Ești sigur că vrei să te deconectezi?</div>
         <div class="confirm-buttons">
           <button
             mat-raised-button
             class="confirm-btn-cancel"
             (click)="onLogoutConfirmation(false)"
           >
-            Cancel
+            înapoi
           </button>
           <button
             mat-raised-button

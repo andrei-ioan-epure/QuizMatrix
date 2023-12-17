@@ -144,15 +144,14 @@
 }
 
 .confirm-message {
-  font-family: "Karla";
   margin-bottom: 10px;
   font-size: 18px;
   font-weight: bold;
+  color: #25283d;
 }
 
 .confirm-buttons {
   display: flex;
-  font-family: "Karla";
 }
 
 .confirm-btn-cancel {
@@ -160,16 +159,16 @@
   width: 80px;
 }
 .confirm-btn-ok {
-  background-color: #006400 !important;
+  background-color: #25283d !important;
   color: #fff !important;
 }
 .confirm-btn-cancel:hover {
   background-color: rgb(250, 250, 250) !important;
-  color: #006400 !important;
+  color: #333b72 !important;
 }
 
 .confirm-btn-ok:hover {
-  background-color: #008000 !important;
+  background-color: #333b72 !important;
 }
 
 .page-overlay {
