@@ -9,7 +9,6 @@
   </a>
 
   <div class="buttons-container">
-    <!-- Afișați butoanele doar dacă utilizatorul este autentificat -->
     <button
       id="home"
       mat-raised-button
@@ -48,17 +47,22 @@
       <mat-icon>add</mat-icon>
       Adaugă un test
     </button>
-    <button mat-button class="button" routerLink="/login" *ngIf="!isLoggedIn">
-      <mat-icon class="signin_icon">person_outline</mat-icon> Înregistrează-te
-    </button>
-    <div class="user-icon" (click)="onClickIcon()">
-      <mat-icon class="user">account_circle</mat-icon>
-      <div class="logout-popup" *ngIf="showLogout">
-        <button mat-raised-button (click)="logOut()">
-          <mat-icon class="signout_icon">exit_to_app</mat-icon>Sign out
-        </button>
+    <!-- Verificați starea de autentificare pentru a decide ce să afișați -->
+    <ng-container *ngIf="isLoggedIn; else notLoggedInTemplate">
+      <div class="user-icon" (click)="onClickIcon()">
+        <mat-icon class="user">account_circle</mat-icon>
+        <div class="logout-popup" *ngIf="showLogout">
+          <button mat-raised-button (click)="logOut()">
+            <mat-icon class="signout_icon">exit_to_app</mat-icon>Sign out
+          </button>
+        </div>
       </div>
-    </div>
+    </ng-container>
+    <ng-template #notLoggedInTemplate>
+      <button mat-button class="button" routerLink="/login">
+        <mat-icon class="signin_icon">person_outline</mat-icon> Înregistrează-te
+      </button>
+    </ng-template>
 
     <div class="confirm-popup" *ngIf="showLogoutPopup">
       <div class="confirm-content">
