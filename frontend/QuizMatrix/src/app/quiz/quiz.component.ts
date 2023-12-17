@@ -25,10 +25,6 @@ export class QuizComponent implements OnInit {
   isLastQuestion(): boolean {
     return this.increment === this.questions.length - 1;
   }
-  // finishQuiz() {
-  //   this.quizDataService.setQuizData(this.score, this.time);
-  //   this.router.navigate(['/final-test']);
-  // }
 
   ngOnInit(): void {
     this.time = 10;
@@ -71,12 +67,6 @@ export class QuizComponent implements OnInit {
       'Mark Zuckerberg',
     ]);
   }
-  // nextQuestion(): void {
-  //   if (this.increment < this.questions.length - 1) {
-  //     this.increment += 1;
-  //     console.log(this.increment);
-  //   }
-  // }
 
   nextQuestion(): void {
     if (this.increment < this.questions.length - 1) {
@@ -87,22 +77,11 @@ export class QuizComponent implements OnInit {
   }
 
   finishQuiz() {
-    // Terminați testul și salvați timpul total petrecut în serviciu
     this.quizDataService.setTotalTimeSpent(this.totalTimeSpent);
-
-    // Restul codului pentru navigare
     this.router.navigate(['/final-test']);
   }
 
   onTimeSpent(timeSpent: number): void {
-    // Ascultați evenimentul de timp petrecut și actualizați timpul total
     this.totalTimeSpent = timeSpent;
   }
-  // resetTimer() {
-  //   if (this.timerComponent) {
-  //     this.timerComponent.startTimer();
-  //   } else {
-  //     console.error('Timer component is undefined.');
-  //   }
-  // }
 }

@@ -1,6 +1,12 @@
-<p>final-test</p>
 <div class="container">
-  <h1>Final Test Results</h1>
-  <p>Your Score: {{ score }}</p>
-  <p>Time Taken: {{ totalTimeSpent }} seconds</p>
+  <h1>Rezultat test:</h1>
+  <br />
+
+  <p>Scorul tău: {{ score }}</p>
+  <p>Timp : {{ totalTimeSpent }} secunde</p>
+  <br />
+  <p *ngIf="score >= 5">Foarte bine! Ești pe drumul cel bun!</p>
+  <p *ngIf="score < 5">Poți face mai bine. Continuă să exersezi!</p>
+
+  <button (click)="retryTest()">Refă Testul</button>
 </div>
