@@ -15,6 +15,7 @@
       routerLink="/home"
       routerLinkActive="active_route"
       [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="isLoggedIn"
     >
       <mat-icon>home</mat-icon>
       Acasă
@@ -25,6 +26,7 @@
       routerLink="/domains"
       routerLinkActive="active_route"
       [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="isLoggedIn"
     >
       <mat-icon>domain</mat-icon>
       Domenii
@@ -34,6 +36,7 @@
       mat-raised-button
       routerLink="/favorite-tests"
       routerLinkActive="active_route"
+      *ngIf="isLoggedIn"
     >
       <mat-icon>favorite_border</mat-icon>
       Favorite
@@ -43,12 +46,22 @@
       mat-raised-button
       routerLink="/add-test"
       routerLinkActive="active_route"
+      *ngIf="isLoggedIn"
     >
       <mat-icon>add</mat-icon>
       Adaugă un test
     </button>
-    <!-- Verificați starea de autentificare pentru a decide ce să afișați -->
-    <ng-container *ngIf="isLoggedIn; else notLoggedInTemplate">
+
+    <!-- Afișează butonul "Înregistrează-te" sau butonul cu iconița utilizatorului, în funcție de starea de autentificare -->
+    <button
+      mat-button
+      class="button"
+      routerLink="/login"
+      *ngIf="!isLoggedIn; else userButton"
+    >
+      <mat-icon class="signin_icon">person_outline</mat-icon> Înregistrează-te
+    </button>
+    <ng-template #userButton>
       <div class="user-icon" (click)="onClickIcon()">
         <mat-icon class="user">account_circle</mat-icon>
         <div class="logout-popup" *ngIf="showLogout">
@@ -57,11 +70,6 @@
           </button>
         </div>
       </div>
-    </ng-container>
-    <ng-template #notLoggedInTemplate>
-      <button mat-button class="button" routerLink="/login">
-        <mat-icon class="signin_icon">person_outline</mat-icon> Înregistrează-te
-      </button>
     </ng-template>
 
     <div class="confirm-popup" *ngIf="showLogoutPopup">

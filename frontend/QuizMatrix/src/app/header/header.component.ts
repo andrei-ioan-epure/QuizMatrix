@@ -42,10 +42,11 @@ export class HeaderComponent {
     // Ascunde pop-up-ul de confirmare
     this.showLogoutPopup = false;
 
-    // Daca utilizatorul a apasat pe OK, atunci sa facem logout
+    // Dacă utilizatorul a apăsat pe OK, atunci să facem logout
     if (response === true) {
       this.storageService.logout();
-      this.router.navigate(['/home']); // Redirectionăm către pagina de "home"
+      this.updateLoggedInStatus(); // Reevaluare starea isLoggedIn
+      this.router.navigate(['/login']); // Redirecționare către pagina de login
     }
   }
 }
