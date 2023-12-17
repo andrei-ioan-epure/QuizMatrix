@@ -43,8 +43,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logOut(): void {
-    this.storageService.logout();
-    this.showLogout = false;
     this.showLogoutPopup = true;
   }
 
