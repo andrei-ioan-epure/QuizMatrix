@@ -54,3 +54,130 @@
   font-size: 22px;
   margin-right: 5px;
 }
+.user-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  top: -2px;
+  background-color: white;
+  color: #ffffff;
+  font-weight: bold;
+  margin-left: 20px;
+  cursor: pointer;
+  position: relative;
+  right: 5px;
+}
+.user {
+  color: #25283d;
+}
+
+.logout-popup {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: -58px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+  padding-right: 24px;
+  padding-bottom: 16px;
+  min-width: 120px;
+}
+
+.logout-popup button {
+  padding: 5px 5px 3px 4px;
+  margin-top: 6px;
+  border: 1px solid #25283d;
+  color: #25283d;
+  background-color: #ffffff;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: bold;
+  display: inline;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  line-height: 1;
+}
+
+.logout-popup button:hover {
+  background-color: #333b72;
+  color: #ffffff;
+}
+
+.logout-popup button:focus {
+  outline: none;
+}
+
+.signout_icon {
+  font-size: 20px;
+  top: -2px;
+  left: 5px;
+}
+.confirm-popup {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.confirm-content {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.confirm-message {
+  font-family: "Karla";
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.confirm-buttons {
+  display: flex;
+  font-family: "Karla";
+}
+
+.confirm-btn-cancel {
+  margin: 0;
+  width: 80px;
+}
+.confirm-btn-ok {
+  background-color: #006400 !important;
+  color: #fff !important;
+}
+.confirm-btn-cancel:hover {
+  background-color: rgb(250, 250, 250) !important;
+  color: #006400 !important;
+}
+
+.confirm-btn-ok:hover {
+  background-color: #008000 !important;
+}
+
+.page-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}

@@ -9,6 +9,7 @@
   </a>
 
   <div class="buttons-container">
+    <!-- Afișați butoanele doar dacă utilizatorul este autentificat -->
     <button
       id="home"
       mat-raised-button
@@ -29,7 +30,6 @@
       <mat-icon>domain</mat-icon>
       Domenii
     </button>
-
     <button
       id="fav"
       mat-raised-button
@@ -48,9 +48,40 @@
       <mat-icon>add</mat-icon>
       Adaugă un test
     </button>
-
-    <button mat-button class="button" routerLink="/login">
+    <button mat-button class="button" routerLink="/login" *ngIf="!isLoggedIn">
       <mat-icon class="signin_icon">person_outline</mat-icon> Înregistrează-te
     </button>
+    <div class="user-icon" (click)="onClickIcon()">
+      <mat-icon class="user">account_circle</mat-icon>
+      <div class="logout-popup" *ngIf="showLogout">
+        <button mat-raised-button (click)="logOut()">
+          <mat-icon class="signout_icon">exit_to_app</mat-icon>Sign out
+        </button>
+      </div>
+    </div>
+
+    <div class="confirm-popup" *ngIf="showLogoutPopup">
+      <div class="confirm-content">
+        <div class="confirm-message">Are you sure you want to sign out?</div>
+        <div class="confirm-buttons">
+          <button
+            mat-raised-button
+            class="confirm-btn-cancel"
+            (click)="onLogoutConfirmation(false)"
+          >
+            Cancel
+          </button>
+          <button
+            mat-raised-button
+            class="confirm-btn-ok"
+            (click)="onLogoutConfirmation(true)"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
+  <!-- Fundal semi-transparent pentru a acoperi restul paginii -->
+  <div class="page-overlay" *ngIf="showLogoutPopup"></div>
 </div>

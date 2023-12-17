@@ -1,13 +1,16 @@
-import { DOCUMENT, isPlatformBrowser  } from '@angular/common';
-import { Injectable, Inject, PLATFORM_ID  } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 
 const USER_KEY = 'auth_user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StorageService {
-  constructor(@Inject(DOCUMENT) private _doc: Document, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(
+    @Inject(DOCUMENT) private _doc: Document,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   private getWindow(): Window | null {
     if (isPlatformBrowser(this.platformId)) {
@@ -34,12 +37,14 @@ export class StorageService {
     return {};
   }
 
+  // În StorageService
   public isLoggedIn(): boolean {
     const user = this.getWindow()?.sessionStorage.getItem(USER_KEY);
-    if (user) {
-      return true;
-    }
+    console.log('IsLoggedIn:', user ? true : false);
+    return user ? true : false;
+  }
 
-    return false;
+  public logout(): void {
+    this.getWindow()?.sessionStorage.removeItem(USER_KEY);
   }
 }
