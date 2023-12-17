@@ -1,6 +1,9 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { TimerComponent } from './timer/timer.component';
 
+import { Router } from '@angular/router';
+import { QuizDataService } from '../services/quiz-data.service';
+
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
@@ -8,13 +11,28 @@ import { TimerComponent } from './timer/timer.component';
 })
 export class QuizComponent implements OnInit {
   @ViewChild('timerComponent') timerComponent?: TimerComponent;
-
   @Input() questions = new Array<string>();
   @Input() answers = new Map<number, string[]>();
   @Input() increment: number = 0;
+  totalTimeSpent: number = 0;
   time: number = 10;
+  score: number = 0;
+
+  constructor(
+    private router: Router,
+    private quizDataService: QuizDataService
+  ) {}
+  isLastQuestion(): boolean {
+    return this.increment === this.questions.length - 1;
+  }
+  // finishQuiz() {
+  //   this.quizDataService.setQuizData(this.score, this.time);
+  //   this.router.navigate(['/final-test']);
+  // }
 
   ngOnInit(): void {
+    this.time = 10;
+    this.timerComponent?.startTimer();
     this.questions = [
       'What is the capital of England?',
       'Who wrote "Romeo and Juliet"?',
@@ -53,19 +71,38 @@ export class QuizComponent implements OnInit {
       'Mark Zuckerberg',
     ]);
   }
+  // nextQuestion(): void {
+  //   if (this.increment < this.questions.length - 1) {
+  //     this.increment += 1;
+  //     console.log(this.increment);
+  //   }
+  // }
+
   nextQuestion(): void {
     if (this.increment < this.questions.length - 1) {
       this.increment += 1;
-      this.time = 10;
-      this.resetTimer();
-      console.log(this.increment);
-    }
-  }
-  resetTimer() {
-    if (this.timerComponent) {
-      this.timerComponent.startTimer();
     } else {
-      console.error('Timer component is undefined.');
+      this.finishQuiz();
     }
   }
+
+  finishQuiz() {
+    // Terminați testul și salvați timpul total petrecut în serviciu
+    this.quizDataService.setTotalTimeSpent(this.totalTimeSpent);
+
+    // Restul codului pentru navigare
+    this.router.navigate(['/final-test']);
+  }
+
+  onTimeSpent(timeSpent: number): void {
+    // Ascultați evenimentul de timp petrecut și actualizați timpul total
+    this.totalTimeSpent = timeSpent;
+  }
+  // resetTimer() {
+  //   if (this.timerComponent) {
+  //     this.timerComponent.startTimer();
+  //   } else {
+  //     console.error('Timer component is undefined.');
+  //   }
+  // }
 }

@@ -19,6 +19,7 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { MyTestInfoComponent } from './my-test-info/my-test-info.component';
 
 import { AddOwnTestComponent } from './add-own-test/add-own-test.component';
+import { FinalTestComponent } from './final-test/final-test.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,10 @@ const routes: Routes = [
   {
     path: 'quiz',
     component: QuizComponent,
+  },
+  {
+    path: 'final-test',
+    component: FinalTestComponent,
   },
 
   {

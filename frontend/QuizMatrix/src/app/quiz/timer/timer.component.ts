@@ -1,10 +1,12 @@
 import {
   Component,
-  OnInit,
   Input,
+  OnInit,
   OnDestroy,
   AfterViewInit,
   NgZone,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { Subscription, interval } from 'rxjs';
 
@@ -14,15 +16,17 @@ import { Subscription, interval } from 'rxjs';
   styleUrls: ['./timer.component.css'],
 })
 export class TimerComponent implements AfterViewInit, OnDestroy {
-  @Input() duration: number = 5; //default value(seconds)
+  @Input() duration: number = 5;
   countdown: number = this.duration;
   private timerSubscription!: Subscription;
+
+  @Output() timeSpent: EventEmitter<number> = new EventEmitter<number>();
+
   constructor(private zone: NgZone) {}
 
   ngAfterViewInit() {
     setTimeout(() => {
       this.zone.runOutsideAngular(() => {
-        console.log('start timer');
         this.startTimer();
       });
     });
@@ -38,6 +42,7 @@ export class TimerComponent implements AfterViewInit, OnDestroy {
       this.zone.run(() => {
         if (this.countdown > 0) {
           this.countdown--;
+          this.timeSpent.emit(this.duration - this.countdown);
         } else {
           this.timerSubscription.unsubscribe();
         }

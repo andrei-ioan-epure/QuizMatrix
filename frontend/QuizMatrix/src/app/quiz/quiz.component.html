@@ -5,10 +5,15 @@
     </div>
     <div class="middle">
       <div>
-        <app-timer [duration]="time" #timerComponent></app-timer>
+        <app-timer
+          [duration]="time"
+          (timeSpent)="onTimeSpent($event)"
+        ></app-timer>
       </div>
     </div>
-    <div class="right"><h2>2 puncte</h2></div>
+    <div class="right">
+      <h2>{{ score }}</h2>
+    </div>
     <div></div>
   </div>
 
@@ -25,5 +30,10 @@
       </div>
     </div>
   </div>
-  <button class="next" (click)="nextQuestion()">Next question</button>
+  <button *ngIf="!isLastQuestion()" class="next" (click)="nextQuestion()">
+    Next question
+  </button>
+  <button *ngIf="isLastQuestion()" class="finish" (click)="finishQuiz()">
+    Finish Test
+  </button>
 </div>

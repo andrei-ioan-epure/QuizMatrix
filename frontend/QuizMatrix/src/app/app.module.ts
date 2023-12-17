@@ -33,6 +33,7 @@ import { AddOwnTestComponent } from './add-own-test/add-own-test.component';
 import { httpInterceptorProviders } from '../_helpers/http.interceptor';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { AuthInterceptorProviders } from '../_helpers/auth.interceptor';
+import { FinalTestComponent } from './final-test/final-test.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { AuthInterceptorProviders } from '../_helpers/auth.interceptor';
     DomainCardComponent,
     DomainPageComponent,
     AddOwnTestComponent,
+    FinalTestComponent,
   ],
   imports: [
     MatInputModule,
