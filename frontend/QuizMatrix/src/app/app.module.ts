@@ -23,7 +23,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AllDomainsComponent } from './all-domains/all-domains.component';
 import { DomainCardComponent } from './all-domains/domain-card/domain-card.component';
 import { MatIconModule } from '@angular/material/icon';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  HttpClientModule,
+  HttpClient,
+  withFetch,
+  provideHttpClient,
+} from '@angular/common/http';
 import { DomainPageComponent } from './domain-page/domain-page.component';
 
 import { LoginComponent } from './login/login.component';
@@ -92,7 +97,7 @@ import { AddOwnTestComponent } from './add-own-test/add-own-test.component';
 
     FormsModule,
   ],
-  providers: [provideClientHydration()],
+  providers: [provideHttpClient(withFetch()), provideClientHydration()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

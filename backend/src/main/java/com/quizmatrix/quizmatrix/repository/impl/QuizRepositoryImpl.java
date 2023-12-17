@@ -49,7 +49,6 @@ public class QuizRepositoryImpl implements QuizRepository {
             updatedQuiz.setId_domain(quiz.getId_domain());
             updatedQuiz.setTitle(quiz.getTitle());
             updatedQuiz.setDescription(quiz.getDescription());
-            // Set other fields as needed
             quizJPARepository.save(updatedQuiz);
         } else {
             quizJPARepository.save(quiz);
