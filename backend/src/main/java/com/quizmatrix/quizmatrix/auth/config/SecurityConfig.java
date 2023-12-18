@@ -52,7 +52,7 @@ public class SecurityConfig{
                 .authorizeHttpRequests( auth -> auth
                         .requestMatchers("/api/auth/login").permitAll()
                         .requestMatchers("/api/auth/register").permitAll()
-                        .requestMatchers("/api/auth/elevateToAdmin/*").hasAnyAuthority(Constant.UserRole.ADMIN.value)
+                        //.requestMatchers("/api/auth/elevateToAdmin/*").hasAnyAuthority(Constant.UserRole.ADMIN.value)
                         .requestMatchers("/api/auth/test_admin").hasAnyAuthority(Constant.UserRole.ADMIN.value)
                         .requestMatchers("/api/auth/test_user").hasAnyAuthority(Constant.UserRole.USER.value)
                         //.requestMatchers("/leaderboard").hasAnyAuthority(Constant.UserRole.ADMIN.value)
