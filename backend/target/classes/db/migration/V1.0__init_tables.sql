@@ -6,7 +6,7 @@
 --    lastname VARCHAR(50) NOT NULL,
 --    email VARCHAR(50) NOT NULL UNIQUE,
 --    password VARCHAR(50) NOT NULL,
---    role INT NOT NULL
+--    role enum('USER','ADMIN') NOT NULL
 --    );
 --
 --
@@ -56,6 +56,14 @@
 --       time INT NOT NULL
 --);
 --
+--
+--CREATE TABLE IF NOT EXISTS `QuizUser` (
+--       id_quiz INT NOT NULL,
+--       id_user INT NOT NULL,
+--       PRIMARY KEY (id_quiz, id_user),
+--       FOREIGN KEY (id_quiz) REFERENCES Quiz(id_quiz),
+--       FOREIGN KEY (id_user) REFERENCES User(id_user)
+--);
 --
 --
 --
