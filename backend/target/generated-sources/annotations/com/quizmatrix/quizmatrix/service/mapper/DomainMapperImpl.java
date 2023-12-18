@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-12-18T16:27:09+0200",
+    date = "2023-12-18T17:05:25+0200",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -23,6 +23,7 @@ public class DomainMapperImpl implements DomainMapper {
 
         domainDTO.setId_domain( domain.getId_domain() );
         domainDTO.setDomain_name( domain.getDomain_name() );
+        domainDTO.setIcon_path( domain.getIcon_path() );
 
         return domainDTO;
     }
@@ -37,6 +38,7 @@ public class DomainMapperImpl implements DomainMapper {
 
         domain.setId_domain( domainDTO.getId_domain() );
         domain.setDomain_name( domainDTO.getDomain_name() );
+        domain.setIcon_path( domainDTO.getIcon_path() );
 
         return domain;
     }

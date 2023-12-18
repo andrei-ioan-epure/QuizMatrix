@@ -44,4 +44,26 @@ public class UserHandlingServiceImpl implements UserHandlingService {
     public Optional<User> findUserByEmail(String username) {
         return userRepository.findUserByEmail(username);
     }
+
+    @Override
+    public Optional<User> findUserById_user(int id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public void deleteUserById(int id) {
+        userRepository.deleteById(id);
+    }
+    @Override
+    public User updateUser(int id, User updatedUser) {
+        return userRepository.findById(id)
+                .map(user -> {
+                    user.setFirstname(updatedUser.getFirstname());
+                    user.setLastname(updatedUser.getLastname());
+                    user.setEmail(updatedUser.getEmail());
+                    user.setPassword(updatedUser.getPassword());
+                    user.setRole(updatedUser.getRole());
+                    return userRepository.save(user);
+                }).orElseThrow(() -> new RuntimeException("User not found with id " + id));
+    }
 }

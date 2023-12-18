@@ -1,6 +1,7 @@
 package com.quizmatrix.quizmatrix.model;
 
 
+import com.quizmatrix.quizmatrix.auth.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,8 +14,17 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuizUser {
-    @EmbeddedId
-    private QuizUserKey quizUserKey;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "id_quiz")
+    private Quiz quiz;
 
 }
 

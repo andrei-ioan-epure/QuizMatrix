@@ -1,9 +1,7 @@
 package com.quizmatrix.quizmatrix.service.impl;
 
 import com.quizmatrix.quizmatrix.dto.QuizUserDTO;
-import com.quizmatrix.quizmatrix.dto.UserDTO;
 import com.quizmatrix.quizmatrix.model.QuizUser;
-import com.quizmatrix.quizmatrix.model.QuizUserKey;
 import com.quizmatrix.quizmatrix.repository.interfaces.QuizUserRepository;
 import com.quizmatrix.quizmatrix.service.interfaces.QuizUserService;
 import com.quizmatrix.quizmatrix.service.mapper.QuizUserMapper;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class QuizUserServiceImpl implements QuizUserService {
@@ -49,24 +48,28 @@ public class QuizUserServiceImpl implements QuizUserService {
 //    }
     @Override
     public QuizUserDTO add(QuizUserDTO quizUserDTO) {
-        System.out.println(quizUserDTO);
-        QuizUserKey quizUserKey = new QuizUserKey(quizUserDTO.getId_user(), quizUserDTO.getId_quiz());
-        QuizUser quizUser = new QuizUser(quizUserKey);
-        System.out.println(quizUser);
-        System.out.println(quizUserMapper
-                .mapEntityToDto(
-                        quizUserRepository.add(quizUser)
-                ));
         return quizUserMapper
                 .mapEntityToDto(
-                        quizUserRepository.add(quizUser)
+                        quizUserRepository.add(quizUserMapper.mapDtoToEntity(quizUserDTO))
                 );
     }
 
     @Override
-    public void deleteById(QuizUserKey key) {
-        quizUserRepository.deleteById(key);
+    public void deleteByQuizIdQuiz(Integer id_quiz) {
+        quizUserRepository.deleteByQuizIdQuiz(id_quiz);
     }
+
+    @Override
+    public List<QuizUserDTO> findByIdUser(Integer id_user) {
+        List<QuizUser> quizUsers = quizUserRepository.findByIdUser(id_user);
+        return quizUsers.stream()
+                .map(quizUserMapper::mapEntityToDto)
+                .collect(Collectors.toList());
+    }
+//    public List<Quiz> getFavoriteQuizzesByUser(Integer userId) {
+//        List<QuizUser> quizUserList = quizUserRepository.findByIdUserId(userId);
+//        return quizUserList.stream().map(QuizUser::getQuiz).collect(Collectors.toList());
+//    }
 
 
 //    @Override

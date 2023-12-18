@@ -139,6 +139,23 @@ public class AuthController {
             this.idToken = idToken;
         }
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable int id) {
+        return userHandlingService.findUserById_user(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable int id) {
+        userHandlingService.deleteUserById(id);
+        return ResponseEntity.ok().build();
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable int id, @RequestBody User user){
+        this.userHandlingService.updateUser(id,user);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
 
 

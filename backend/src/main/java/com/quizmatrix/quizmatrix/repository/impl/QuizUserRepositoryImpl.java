@@ -2,7 +2,6 @@ package com.quizmatrix.quizmatrix.repository.impl;
 
 
 import com.quizmatrix.quizmatrix.model.QuizUser;
-import com.quizmatrix.quizmatrix.model.QuizUserKey;
 import com.quizmatrix.quizmatrix.repository.interfaces.QuizUserJPARepository;
 import com.quizmatrix.quizmatrix.repository.interfaces.QuizUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +32,21 @@ public class QuizUserRepositoryImpl implements QuizUserRepository {
     }
 
     @Override
+    public List<QuizUser> findByIdUser(Integer id_user) {
+        return quizUserJPARepository.findByIdUser(id_user);
+    }
+
+    @Override
     public QuizUser add(QuizUser quizUser) {
         return quizUserJPARepository.save(quizUser);
     }
 
     @Override
-    public void deleteById(QuizUserKey key) {
-        quizUserJPARepository.deleteById(key);
+    public void deleteByQuizIdQuiz(Integer id_quiz) {
+        quizUserJPARepository.deleteByQuizIdQuiz(id_quiz);
     }
+
+
 
 
 }
