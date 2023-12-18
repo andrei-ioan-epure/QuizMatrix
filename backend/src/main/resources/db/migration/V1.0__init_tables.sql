@@ -43,7 +43,8 @@
 --
 --CREATE TABLE IF NOT EXISTS `Domain` (
 --    id_domain INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
---    domain_name VARCHAR(30) NOT NULL
+--    domain_name VARCHAR(30) NOT NULL,
+--    icon_path VARCHAR(30) NOT NULL
 --    );
 --
 --
@@ -58,9 +59,9 @@
 --
 --
 --CREATE TABLE IF NOT EXISTS `QuizUser` (
+--       id INT AUTO_INCREMENT PRIMARY KEY,
 --       id_quiz INT NOT NULL,
 --       id_user INT NOT NULL,
---       PRIMARY KEY (id_quiz, id_user),
 --       FOREIGN KEY (id_quiz) REFERENCES Quiz(id_quiz),
 --       FOREIGN KEY (id_user) REFERENCES User(id_user)
 --);
@@ -73,7 +74,6 @@
 --ALTER TABLE Answer ADD CONSTRAINT fk_answer_question FOREIGN KEY (id_question) REFERENCES Question (id_question);
 --ALTER TABLE leaderboard_domain ADD CONSTRAINT fk_leaderboard_user FOREIGN KEY (id_user) REFERENCES User (id_user);
 --ALTER TABLE leaderboard_domain ADD CONSTRAINT fk_leaderboard_domain FOREIGN KEY (id_domain) REFERENCES Domain (id_domain);
---
 --
 --
 --

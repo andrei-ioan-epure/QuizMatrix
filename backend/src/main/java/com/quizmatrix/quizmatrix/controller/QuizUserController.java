@@ -1,17 +1,17 @@
 package com.quizmatrix.quizmatrix.controller;
 
 import com.quizmatrix.quizmatrix.dto.QuizUserDTO;
-import com.quizmatrix.quizmatrix.dto.UserDTO;
-import com.quizmatrix.quizmatrix.model.QuizUserKey;
 import com.quizmatrix.quizmatrix.service.interfaces.QuizUserService;
-import com.quizmatrix.quizmatrix.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/quiz_user")
+@CrossOrigin(value = "http://localhost:4200", allowCredentials = "true")
 public class  QuizUserController {
 
     private final QuizUserService quizUserService;
@@ -32,6 +32,11 @@ public class  QuizUserController {
                                          @RequestParam Integer id_quiz) {
         return new ResponseEntity<>(this.quizUserService.findById(id_user,id_quiz), HttpStatus.OK);
     }
+    @GetMapping("/getByIdUser")
+    public ResponseEntity<?> getQuizUser(@RequestParam Integer id_user) {
+        List<QuizUserDTO> quizUserDTOs = this.quizUserService.findByIdUser(id_user);
+        return new ResponseEntity<>(quizUserDTOs, HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity<?> addQuizUser(@RequestBody QuizUserDTO quizUserDTO){
@@ -41,9 +46,8 @@ public class  QuizUserController {
 
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteQuizUser(@RequestParam Integer id_user,
-                                            @RequestParam Integer id_quiz) {
-        quizUserService.deleteById(new QuizUserKey(id_user, id_quiz));
+    public ResponseEntity<?> deleteFavoriteByQuizId(@RequestParam Integer id_quiz) {
+        quizUserService.deleteByQuizIdQuiz(id_quiz);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

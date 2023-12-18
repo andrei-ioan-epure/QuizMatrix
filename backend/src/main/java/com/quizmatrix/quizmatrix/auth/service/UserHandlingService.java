@@ -12,4 +12,7 @@ public interface UserHandlingService {
     Integer makeAdmin(Integer id);
 
     Optional<User> findUserByEmail(String email);
+    void deleteUserById(int id);
+    Optional<User> findUserById_user(int id);
+    User updateUser(int id, User updatedUser);
 }

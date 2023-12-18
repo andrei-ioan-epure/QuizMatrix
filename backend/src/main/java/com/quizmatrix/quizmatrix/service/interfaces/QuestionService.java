@@ -1,7 +1,6 @@
 package com.quizmatrix.quizmatrix.service.interfaces;
 
 import com.quizmatrix.quizmatrix.dto.QuestionDTO;
-import com.quizmatrix.quizmatrix.dto.UserDTO;
 
 import java.util.List;
 

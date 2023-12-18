@@ -11,8 +11,9 @@
       <tr>
         <th>Icon</th>
         <th>Nume Test</th>
-        <th>Scor</th>
+        <th>Descriere</th>
         <th>Durată</th>
+        <th>Data creării</th>
         <th>Domeniu</th>
         <th>Acțiuni</th>
       </tr>
@@ -20,17 +21,18 @@
     <tbody>
       <tr *ngFor="let test of teste">
         <td>
-          <img src="{{ test.icon }}" alt="Icon" />
+          <img src="{{ test.iconPath }}" alt="Icon" />
         </td>
-        <td>{{ test.nume }}</td>
-        <td>{{ test.scor }}</td>
-        <td>{{ test.durata }}</td>
-        <td>{{ test.domeniu }}</td>
+        <td>{{ test.quiz.title }}</td>
+        <td>{{ test.quiz.description }}</td>
+        <td>{{ test.quiz.time }} minute</td>
+        <td>{{ test.quiz.creation_date }}</td>
+        <td>{{ test.domainName }}</td>
         <td class="actiuni-cell">
           <button mat-raised-button routerLink="/quiz">
             Reîntoarcere la test
           </button>
-          <button mat-raised-button class="btn2">Elimină din favorite</button>
+          <button mat-raised-button class="btn2" (click)="removeFromFavorites(test.quiz.id_quiz)">Elimină din favorite</button>
         </td>
       </tr>
     </tbody>
