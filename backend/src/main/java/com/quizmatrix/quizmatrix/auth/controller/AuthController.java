@@ -13,6 +13,8 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,6 +22,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
+
+import java.time.Duration;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -52,10 +56,18 @@ public class AuthController {
 
 //        HttpHeaders httpHeaders = new HttpHeaders();
 //        httpHeaders.add("Authorization", "Bearer " + jwt);
-        Cookie c = new Cookie("token", jwt);
-        c.setHttpOnly(true);
-        response.addCookie(new Cookie("token", jwt));
 
+        ResponseCookie cookie = ResponseCookie.from("token", jwt) // key & value
+                .httpOnly(true)
+                .secure(false)
+                //    .domain("localhost")  // host
+                //    .path("/")      // path
+                .maxAge(Duration.ofHours(1))
+                .sameSite("strict")  // sameSite
+                .build()
+                ;
+
+        response.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());
         User u = userHandlingService.findUserByEmail(authDTO.getEmail()).get();
 
         LoginResponseDTO r = new LoginResponseDTO();
