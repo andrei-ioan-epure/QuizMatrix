@@ -5,7 +5,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,7 +18,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AllDomainsComponent } from './all-domains/all-domains.component';
 import { DomainCardComponent } from './all-domains/domain-card/domain-card.component';
 import { MatIconModule } from '@angular/material/icon';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  HttpClientModule,
+  HttpClient,
+  withFetch,
+  provideHttpClient,
+} from '@angular/common/http';
 import { DomainPageComponent } from './domain-page/domain-page.component';
 import { LoginComponent } from './login/login.component';
 import { QuizComponent } from './quiz/quiz.component';
@@ -31,9 +39,9 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { MyTestInfoComponent } from './my-test-info/my-test-info.component';
 import { AddOwnTestComponent } from './add-own-test/add-own-test.component';
 import { httpInterceptorProviders } from '../_helpers/http.interceptor';
-import { provideHttpClient, withFetch } from '@angular/common/http';
 import { AuthInterceptorProviders } from '../_helpers/auth.interceptor';
-
+import { FinalTestComponent } from './final-test/final-test.component';
+import { UsersComponent } from './users/users.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +63,8 @@ import { AuthInterceptorProviders } from '../_helpers/auth.interceptor';
     DomainCardComponent,
     DomainPageComponent,
     AddOwnTestComponent,
+    FinalTestComponent,
+    UsersComponent,
   ],
   imports: [
     MatInputModule,
@@ -73,7 +83,12 @@ import { AuthInterceptorProviders } from '../_helpers/auth.interceptor';
     HttpClientModule,
     FormsModule,
   ],
-  providers: [provideClientHydration(), httpInterceptorProviders, provideHttpClient(withFetch()), AuthInterceptorProviders],
+  providers: [
+    provideClientHydration(),
+    httpInterceptorProviders,
+    provideHttpClient(withFetch()),
+    AuthInterceptorProviders,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

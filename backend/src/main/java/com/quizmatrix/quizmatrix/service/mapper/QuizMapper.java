@@ -1,5 +1,6 @@
 package com.quizmatrix.quizmatrix.service.mapper;
 
+import com.quizmatrix.quizmatrix.dto.CreateQuizDTO;
 import com.quizmatrix.quizmatrix.dto.QuizDTO;
 import com.quizmatrix.quizmatrix.model.Quiz;
 import org.mapstruct.Mapper;
@@ -15,4 +16,8 @@ public interface QuizMapper {
 
 //    @Mapping(source = "questions", target = "questions")
     Quiz mapDtoToEntity(QuizDTO quizDTO);
+
+  //  @Mapping(source = "questions", target = "questions")
+    Quiz mapCreateDtoToEntity(CreateQuizDTO quizDTO);
+
 }

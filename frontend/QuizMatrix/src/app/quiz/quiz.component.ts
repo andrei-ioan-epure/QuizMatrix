@@ -1,5 +1,12 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { TimerComponent } from './timer/timer.component';
+import { Answer } from '../models/answer';
+import { Question } from '../models/question';
+import { AnswerService } from '../services/answerService/answer.service';
+import { QuestionService } from '../services/questionService/question.service';
+
+import { Router } from '@angular/router';
+import { QuizDataService } from '../services/quiz-data.service';
 
 @Component({
   selector: 'app-quiz',
@@ -9,63 +16,95 @@ import { TimerComponent } from './timer/timer.component';
 export class QuizComponent implements OnInit {
   @ViewChild('timerComponent') timerComponent?: TimerComponent;
 
-  @Input() questions = new Array<string>();
-  @Input() answers = new Map<number, string[]>();
+  @Input() questions: Question[] = [];
+  @Input() answers = new Map<number, Answer[]>();
   @Input() increment: number = 0;
-  time: number = 10;
+  time: number = 100;
+  totalTimeSpent: number = 0;
 
+  constructor(
+    private router: Router,
+    private answerService: AnswerService,
+    private questionService: QuestionService,
+    private quizDataService: QuizDataService
+  ) {}
   ngOnInit(): void {
-    this.questions = [
-      'What is the capital of England?',
-      'Who wrote "Romeo and Juliet"?',
-      'In which year did World War I begin?',
-      'Which planet is known as the Red Planet?',
-      'What is the largest mammal in the world?',
-      'Who painted the Mona Lisa?',
-      'What is the currency of Japan?',
-      'Which element has the chemical symbol "O"?',
-      'What is the longest river in the world?',
-      'Who is known as the "Father of Computer Science"?',
-    ];
-    this.answers.set(0, ['Paris', 'Berlin', 'London', 'Russia']);
-    this.answers.set(1, [
-      'William Shakespeare',
-      'Jane Austen',
-      'Charles Dickens',
-      'Mark Twain',
-    ]);
-    this.answers.set(2, ['1914', '1918', '1939', '1945']);
-    this.answers.set(3, ['Mars', 'Venus', 'Jupiter', 'Saturn']);
-    this.answers.set(4, ['Blue Whale', 'Elephant', 'Giraffe', 'Hippopotamus']);
-    this.answers.set(5, [
-      'Leonardo da Vinci',
-      'Vincent van Gogh',
-      'Pablo Picasso',
-      'Claude Monet',
-    ]);
-    this.answers.set(6, ['Yen', 'Won', 'Ringgit', 'Baht']);
-    this.answers.set(7, ['Oxygen', 'Gold', 'Silver', 'Iron']);
-    this.answers.set(8, ['Nile', 'Amazon', 'Yangtze', 'Mississippi']);
-    this.answers.set(9, [
-      'Alan Turing',
-      'Bill Gates',
-      'Steve Jobs',
-      'Mark Zuckerberg',
-    ]);
+    console.log('meree');
+    console.log(this.answers);
+    console.log(this.questions);
+    this.questionService.getQuestions().subscribe((questions) => {
+      this.questions = questions;
+
+      this.answerService.getAnswers().subscribe((answers) => {
+        this.questions.forEach((question) => {
+          const answersForQuestion = answers.filter(
+            (answer) => answer.id_question === question.id_question
+          );
+
+          this.answers.set(question.id_question, answersForQuestion);
+        });
+        console.log(this.answers);
+
+        this.printAnswerById(1);
+      });
+    });
   }
+  getAnswerTextById(id: number, index: number): string {
+    const answerArray = this.answers.get(id);
+    return answerArray ? answerArray[index]?.answer_text : '';
+  }
+  getQuestionTextById(id: number): string {
+    const question = this.questions[id];
+    return question ? question.text : '';
+  }
+  printAnswerById(id: number): void {
+    const answerArray = this.answers.get(id);
+
+    if (answerArray) {
+      console.log(
+        `Answer at position ${id}:`,
+        answerArray[0]?.answer_text,
+        answerArray[0]?.isCorrect
+      );
+    } else {
+      console.log(`No answers found for question ID ${id}`);
+    }
+  }
+
   nextQuestion(): void {
     if (this.increment < this.questions.length - 1) {
       this.increment += 1;
       this.time = 10;
-      this.resetTimer();
+      // this.resetTimer();
       console.log(this.increment);
     }
   }
-  resetTimer() {
-    if (this.timerComponent) {
-      this.timerComponent.startTimer();
-    } else {
-      console.error('Timer component is undefined.');
-    }
+
+  finishQuiz() {
+    this.quizDataService.setTotalTimeSpent(this.totalTimeSpent);
+    this.router.navigate(['/final-test']);
   }
+
+  onTimeSpent(timeSpent: number): void {
+    this.totalTimeSpent = timeSpent;
+  }
+  isLastQuestion(): boolean {
+    return this.increment === this.questions.length - 1;
+  }
+  // resetTimer() {
+  //   if (this.timerComponent) {
+  //     this.timerComponent.startTimer();
+  //   } else {
+  //     this.finishQuiz();
+  //   }
+  // }
+
+  // finishQuiz() {
+  //   this.quizDataService.setTotalTimeSpent(this.totalTimeSpent);
+  //   this.router.navigate(['/final-test']);
+  // }
+
+  // onTimeSpent(timeSpent: number): void {
+  //   this.totalTimeSpent = timeSpent;
+  // }
 }

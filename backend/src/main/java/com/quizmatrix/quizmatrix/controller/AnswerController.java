@@ -7,8 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+
 @RestController
 @RequestMapping("/quiz/answer")
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class AnswerController {
 
     private final AnswerService answerService;
@@ -29,6 +34,13 @@ public class AnswerController {
         AnswerDTO answerDTO = this.answerService.findById(id);
         if (answerDTO == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(answerDTO, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/question")
+    ResponseEntity<List<AnswerDTO>> getAnswerByQuestionId(@RequestParam Integer id) {
+        List<AnswerDTO> answerDTO = this.answerService.findByQuestionId(id);
         return new ResponseEntity<>(answerDTO, HttpStatus.OK);
 
     }

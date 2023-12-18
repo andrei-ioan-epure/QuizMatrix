@@ -64,6 +64,10 @@ public class QuestionRepositoryImpl implements QuestionRepository {
             questionJPARepository.save(question);
         }
     }
+    @Override
+    public    Optional<List<Question>>  findByQuizId(Integer quizId) {
+        return questionJPARepository.findByQuizId(quizId);
+    }
 }
 
 

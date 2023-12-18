@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-12-16T20:29:56+0200",
+    date = "2023-12-18T16:27:09+0200",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -22,10 +22,7 @@ public class QuestionMapperImpl implements QuestionMapper {
 
         QuestionDTO questionDTO = new QuestionDTO();
 
-        Integer id_quiz = questionQuizId_quiz( question );
-        if ( id_quiz != null ) {
-            questionDTO.setId_quiz( String.valueOf( id_quiz ) );
-        }
+        questionDTO.setId_quiz( questionQuizId_quiz( question ) );
         questionDTO.setId_question( question.getId_question() );
         questionDTO.setText( question.getText() );
         questionDTO.setPoints( question.getPoints() );
@@ -71,9 +68,7 @@ public class QuestionMapperImpl implements QuestionMapper {
 
         Quiz quiz = new Quiz();
 
-        if ( questionDTO.getId_quiz() != null ) {
-            quiz.setId_quiz( Integer.parseInt( questionDTO.getId_quiz() ) );
-        }
+        quiz.setId_quiz( questionDTO.getId_quiz() );
 
         return quiz;
     }

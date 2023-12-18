@@ -11,6 +11,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+
 @Service
 public class AnswerServiceImpl implements AnswerService {
     private final AnswerRepository answerRepository;
@@ -39,6 +45,15 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
+
+    public List<AnswerDTO> findByQuestionId(Integer id_question) {
+        Optional<List<Answer>> answers = answerRepository.findByQuestionId(id_question);
+        return answers.map(answer -> answer.stream().map(answerMapper::mapEntityToDto).collect(Collectors.toList()
+        )).orElse(Collections.emptyList());
+    }
+
+    @Override
+
     public AnswerDTO add(AnswerDTO answer) {
         return this.answerMapper.mapEntityToDto(this.answerRepository
                 .add(this.answerMapper.mapDtoToEntity(answer))

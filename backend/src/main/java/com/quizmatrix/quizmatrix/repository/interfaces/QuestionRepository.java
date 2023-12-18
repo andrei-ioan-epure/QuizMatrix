@@ -11,4 +11,5 @@ public interface QuestionRepository {
     Question add(Question question);
     void deleteById(Integer id);
     void update(Integer id, Question question);
+     Optional<List<Question>> findByQuizId(Integer quizId);
 }

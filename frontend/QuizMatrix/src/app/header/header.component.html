@@ -15,6 +15,7 @@
       routerLink="/home"
       routerLinkActive="active_route"
       [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="isLoggedIn"
     >
       <mat-icon>home</mat-icon>
       Acasă
@@ -25,16 +26,17 @@
       routerLink="/domains"
       routerLinkActive="active_route"
       [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="isLoggedIn"
     >
       <mat-icon>domain</mat-icon>
       Domenii
     </button>
-
     <button
       id="fav"
       mat-raised-button
       routerLink="/favorite-tests"
       routerLinkActive="active_route"
+      *ngIf="isLoggedIn"
     >
       <mat-icon>favorite_border</mat-icon>
       Favorite
@@ -44,13 +46,57 @@
       mat-raised-button
       routerLink="/add-test"
       routerLinkActive="active_route"
+      *ngIf="isLoggedIn && userRole === 'ADMIN'"
     >
       <mat-icon>add</mat-icon>
       Adaugă un test
     </button>
 
-    <button mat-button class="button" routerLink="/login">
+    <!-- Afișează butonul "Înregistrează-te" sau butonul cu iconița utilizatorului, în funcție de starea de autentificare -->
+    <button
+      mat-button
+      class="button"
+      routerLink="/login"
+      *ngIf="!isLoggedIn; else userButton"
+    >
       <mat-icon class="signin_icon">person_outline</mat-icon> Înregistrează-te
     </button>
+    <ng-template #userButton>
+      <div class="user-icon" (click)="onClickIcon()">
+        <mat-icon class="user">account_circle</mat-icon>
+        <div class="logout-popup" *ngIf="showLogout">
+          <button mat-raised-button routerLink="/my-account" class="my-acc">
+            <mat-icon class="edit_account">account_box</mat-icon> Contul meu
+          </button>
+          <button mat-raised-button (click)="logOut()">
+            <mat-icon class="signout_icon">exit_to_app</mat-icon>Deconectează-te
+          </button>
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="confirm-popup" *ngIf="showLogoutPopup">
+      <div class="confirm-content">
+        <div class="confirm-message">Ești sigur că vrei să te deconectezi?</div>
+        <div class="confirm-buttons">
+          <button
+            mat-raised-button
+            class="confirm-btn-cancel"
+            (click)="onLogoutConfirmation(false)"
+          >
+            înapoi
+          </button>
+          <button
+            mat-raised-button
+            class="confirm-btn-ok"
+            (click)="onLogoutConfirmation(true)"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
+  <!-- Fundal semi-transparent pentru a acoperi restul paginii -->
+  <div class="page-overlay" *ngIf="showLogoutPopup"></div>
 </div>

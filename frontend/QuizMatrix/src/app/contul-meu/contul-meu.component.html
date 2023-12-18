@@ -3,17 +3,16 @@
 <div class="elements">
   <ul>
     <li routerLink="/my-account">Contul meu</li>
-    <li routerLink="/added-tests">Teste adăugate de mine</li>
     <li routerLink="/completed-tests">Testele parcurse de mine</li>
-    <li routerLink="/favorite-tests">Preferate</li>
+    <li routerLink="/favorite-tests">Favorite</li>
     <li routerLink="/edit-account">Informații cont</li>
   </ul>
 
   <div class="info-cont">
     <h3 class="info-h3">Informații de contact</h3>
     <div class="info-user">
-      <h3>{{ utilizator.firstname + " " + utilizator.lastname}}</h3>
-      <h3>{{utilizator.email}}</h3>
+      <h3>{{ utilizator.firstname + " " + utilizator.lastname }}</h3>
+      <h3>{{ utilizator.email }}</h3>
       <button mat-raised-button>Actualizați informațiile</button>
     </div>
   </div>

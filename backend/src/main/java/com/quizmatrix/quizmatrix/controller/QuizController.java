@@ -1,5 +1,6 @@
 package com.quizmatrix.quizmatrix.controller;
 
+import com.quizmatrix.quizmatrix.dto.CreateQuizDTO;
 import com.quizmatrix.quizmatrix.dto.QuizDTO;
 import com.quizmatrix.quizmatrix.service.interfaces.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/quiz")
+@CrossOrigin(origins = "http://localhost:4200")
 public class QuizController {
 
     private final QuizService quizService;
@@ -33,13 +35,13 @@ public class QuizController {
     }
 
     @PostMapping
-    public ResponseEntity<QuizDTO> addQuiz(@RequestBody QuizDTO quizDTO) {
+    public ResponseEntity<QuizDTO> addQuiz(@RequestBody CreateQuizDTO quizDTO) {
         QuizDTO newQuizDTO = quizService.add(quizDTO);
         return new ResponseEntity<>(newQuizDTO, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateById(@PathVariable Integer id, @RequestBody QuizDTO quizDTO) {
+    public ResponseEntity<Void> updateById(@PathVariable Integer id, @RequestBody CreateQuizDTO quizDTO) {
         quizService.update(id, quizDTO);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
