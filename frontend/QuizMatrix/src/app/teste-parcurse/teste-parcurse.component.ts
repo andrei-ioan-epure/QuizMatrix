@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
+import { DomainsService } from '../services/domains.service';
+import { TesteParcurseService } from '../services/teste-parcurse.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-teste-parcurse',
@@ -7,39 +10,34 @@ import { Location } from '@angular/common';
   styleUrl: './teste-parcurse.component.css',
 })
 export class TesteParcurseComponent {
-  constructor(private location: Location) {}
+  teste: any[] = []; 
 
-  teste = [
-    {
-      nume: 'Test 1',
-      scor: 85,
-      durata: '00:10:15',
-      domeniu: 'Biologie',
-      icon: '../../assets/images/biology.png',
-    },
-    {
-      nume: 'Test 2',
-      scor: 92,
-      durata: '00:7:20',
-      domeniu: 'Matematică',
-      icon: '../../assets/images/math.png',
-    },
-    {
-      nume: 'Test 3',
-      scor: 78,
-      durata: '00:15:10',
-      domeniu: 'Informatică',
-      icon: '../../assets/images/informatics.png',
-    },
-    {
-      nume: 'Test 4',
-      scor: 78,
-      durata: '00:15:10',
-      domeniu: 'Geografie',
-      icon: '../../assets/images/geography.png',
-    },
-  ];
+  constructor(private domainService: DomainsService,
+    private testeFavoriteService: TesteParcurseService,
+    private location: Location,
+    private storageService: StorageService) {}
+    
+
+
   goBack(): void {
     this.location.back();
+  }
+  ngOnInit() {
+    //if(this.storageService.isLoggedIn())
+    //{
+      const id_user=2;
+      this.testeFavoriteService.getCompletedTests(id_user).subscribe(data => {
+      this.teste = data;
+      this.teste.forEach(quiz => {
+        this.domainService.getDomainById(quiz.id_domain).subscribe(domainArray => {
+          if (domainArray && domainArray.length > 0) {
+            const domain = domainArray[0];
+            quiz.domainName = domain.domain_name; 
+            quiz.iconPath=domain.icon_path;
+          }
+        });
+    });
+    });
+  //}
   }
 }

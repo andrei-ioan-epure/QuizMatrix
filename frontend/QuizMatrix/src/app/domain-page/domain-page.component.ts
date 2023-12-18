@@ -23,26 +23,27 @@ export class DomainPageComponent implements OnInit {
 
   teste = [
     {
+      iconPath:"assets/images/biology.png",
       nume: 'Test 1',
-      scor: 85,
-      durata: '00:10:15',
+      durata: '10',
+      creation_date:'2023-12-18'
     },
     {
       nume: 'Test 2',
-      scor: 92,
-      durata: '00:7:20',
+      durata: '10',
+      creation_date:'2023-12-18'
     },
     {
       nume: 'Test 3',
-      scor: 78,
-      durata: '00:15:10',
+      durata: '15',
       domeniu: 'Informatică',
+      creation_date:'2023-12-18'
     },
     {
       nume: 'Test 4',
-      scor: 78,
-      durata: '00:15:10',
+      durata: '15',
       domeniu: 'Geografie',
+      creation_date:'2023-12-18'
     },
   ];
 

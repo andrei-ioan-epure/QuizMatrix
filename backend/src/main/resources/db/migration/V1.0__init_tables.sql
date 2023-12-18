@@ -67,7 +67,15 @@
 --);
 --
 --
---
+--CREATE TABLE IF NOT EXISTS `CompletedTests` (
+--       id INT AUTO_INCREMENT PRIMARY KEY,
+--       id_quiz INT NOT NULL,
+--       id_user INT NOT NULL,
+--       score INT NOT NULL,
+--       date_completed DATE NOT NULL,
+--       FOREIGN KEY (id_quiz) REFERENCES Quiz(id_quiz),
+--       FOREIGN KEY (id_user) REFERENCES User(id_user)
+--);
 --
 --ALTER TABLE Quiz ADD CONSTRAINT fk_quiz_domain FOREIGN KEY (id_domain) REFERENCES Domain (id_domain);
 --ALTER TABLE Question ADD CONSTRAINT fk_question_quiz FOREIGN KEY (id_quiz) REFERENCES Quiz (id_quiz);

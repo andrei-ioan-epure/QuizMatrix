@@ -20,6 +20,12 @@ h2 {
   height: 100vh;
   padding: 20px;
 }
+.icon-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .quizzes,
 .leaderboard-container {
@@ -108,7 +114,16 @@ span {
   margin: 0 auto;
   max-width: 80%;
 }
+img {
+  border-radius: 35%;
+  object-fit: cover;
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin: 0 auto;
+}
 .actiuni-cell {
+  text-align: center;
   display: flex;
   justify-content: space-between;
   width: 100%;
