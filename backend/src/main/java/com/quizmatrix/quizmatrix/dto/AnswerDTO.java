@@ -9,7 +9,8 @@ import lombok.*;
 @ToString
 public class AnswerDTO {
     private Integer id_answer;
-    private  Integer id_question;
+    private Integer id_question;
     private String answer_text;
     Boolean isCorrect;
+
 }

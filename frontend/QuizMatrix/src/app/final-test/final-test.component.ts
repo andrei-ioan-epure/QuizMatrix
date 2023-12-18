@@ -23,7 +23,7 @@ export class FinalTestComponent implements OnInit {
     this.quizDataService.resetQuizData();
   }
 
-  retryTest(): void {
-    this.router.navigate(['/quiz']);
-  }
+  // retryTest(): void {
+  //   this.router.navigate(['/quiz']);
+  // }
 }

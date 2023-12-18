@@ -15,10 +15,10 @@ public class AnswerRepositoryImpl implements AnswerRepository {
     private final AnswerJPARepository answerJPARepository;
 
     @Autowired
-    AnswerRepositoryImpl(AnswerJPARepository answerJPARepository)
-    {
-        this.answerJPARepository=answerJPARepository;
+    AnswerRepositoryImpl(AnswerJPARepository answerJPARepository) {
+        this.answerJPARepository = answerJPARepository;
     }
+
     @Override
     public List<Answer> getAll() {
         return this.answerJPARepository.findAll();
@@ -28,6 +28,13 @@ public class AnswerRepositoryImpl implements AnswerRepository {
     public Optional<Answer> findById(Integer id_answer) {
         return this.answerJPARepository.findById(id_answer);
     }
+
+    @Override
+    public Optional<List<Answer>> findByQuestionId(Integer id_question) {
+        return answerJPARepository.findByQuestionId(id_question);
+
+    }
+
 
     @Override
     public Answer add(Answer answer) {
@@ -43,13 +50,14 @@ public class AnswerRepositoryImpl implements AnswerRepository {
     public void update(Integer id_answer, Answer newAnswer) {
         Optional<Answer> existingAnswer = this.answerJPARepository.findById(id_answer);
         if (existingAnswer.isPresent()) {
-            Answer updatedAnswer=existingAnswer.get();
-            updatedAnswer.setId_question(newAnswer.getId_question());
+            Answer updatedAnswer = existingAnswer.get();
+
+            //updatedAnswer.setId_question(newAnswer.getId_question());
+
             updatedAnswer.setAnswer_text(newAnswer.getAnswer_text());
             updatedAnswer.setIsCorrect(newAnswer.getIsCorrect());
             this.answerJPARepository.save(updatedAnswer);
-        }
-        else {
+        } else {
             this.answerJPARepository.save(newAnswer);
         }
     }

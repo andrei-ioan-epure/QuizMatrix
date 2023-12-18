@@ -8,8 +8,11 @@ import com.quizmatrix.quizmatrix.service.mapper.QuestionMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
@@ -33,6 +36,12 @@ public class QuestionServiceImpl implements QuestionService {
     public QuestionDTO findById(Integer id) {
         Optional<Question> question= questionRepository.findById(id);
         return question.map(questionMapper::mapEntityToDto).orElse(null);
+    }
+    @Override
+    public List<QuestionDTO> findByQuizId(Integer id) {
+        Optional<List<Question>> question= questionRepository.findByQuizId(id);
+        return question.map(questions -> questions.stream().map(questionMapper::mapEntityToDto).collect(Collectors.toList()
+        )).orElse(Collections.emptyList());
     }
 
     @Override

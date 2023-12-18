@@ -2,12 +2,13 @@ package com.quizmatrix.quizmatrix.service.mapper;
 
 import com.quizmatrix.quizmatrix.dto.AnswerDTO;
 import com.quizmatrix.quizmatrix.model.Answer;
+import com.quizmatrix.quizmatrix.model.Question;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-12-16T20:29:56+0200",
+    date = "2023-12-18T16:27:09+0200",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -21,8 +22,8 @@ public class AnswerMapperImpl implements AnswerMapper {
 
         AnswerDTO answerDTO = new AnswerDTO();
 
+        answerDTO.setId_question( answerQuestionId_question( answer ) );
         answerDTO.setId_answer( answer.getId_answer() );
-        answerDTO.setId_question( answer.getId_question() );
         answerDTO.setAnswer_text( answer.getAnswer_text() );
         answerDTO.setIsCorrect( answer.getIsCorrect() );
 
@@ -37,11 +38,38 @@ public class AnswerMapperImpl implements AnswerMapper {
 
         Answer answer = new Answer();
 
+        answer.setQuestion( answerDTOToQuestion( answerDTO ) );
         answer.setId_answer( answerDTO.getId_answer() );
-        answer.setId_question( answerDTO.getId_question() );
         answer.setAnswer_text( answerDTO.getAnswer_text() );
         answer.setIsCorrect( answerDTO.getIsCorrect() );
 
         return answer;
+    }
+
+    private Integer answerQuestionId_question(Answer answer) {
+        if ( answer == null ) {
+            return null;
+        }
+        Question question = answer.getQuestion();
+        if ( question == null ) {
+            return null;
+        }
+        Integer id_question = question.getId_question();
+        if ( id_question == null ) {
+            return null;
+        }
+        return id_question;
+    }
+
+    protected Question answerDTOToQuestion(AnswerDTO answerDTO) {
+        if ( answerDTO == null ) {
+            return null;
+        }
+
+        Question question = new Question();
+
+        question.setId_question( answerDTO.getId_question() );
+
+        return question;
     }
 }

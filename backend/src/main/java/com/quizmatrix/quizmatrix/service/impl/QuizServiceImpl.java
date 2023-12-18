@@ -1,5 +1,6 @@
 package com.quizmatrix.quizmatrix.service.impl;
 
+import com.quizmatrix.quizmatrix.dto.CreateQuizDTO;
 import com.quizmatrix.quizmatrix.dto.QuizDTO;
 import com.quizmatrix.quizmatrix.model.Question;
 import com.quizmatrix.quizmatrix.model.Quiz;
@@ -40,11 +41,11 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public QuizDTO add(QuizDTO quizDTO) {
+    public QuizDTO add(CreateQuizDTO quizDTO) {
         quizDTO.setCreation_date(new java.sql.Date(System.currentTimeMillis()));
         return quizMapper
                 .mapEntityToDto(
-                        quizRepository.add(quizMapper.mapDtoToEntity(quizDTO))
+                        quizRepository.add(quizMapper.mapCreateDtoToEntity(quizDTO))
                 );
     }
 
@@ -54,8 +55,8 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public void update(Integer id, QuizDTO quizDTO) {
-        quizRepository.update(id, quizMapper.mapDtoToEntity(quizDTO));
+    public void update(Integer id, CreateQuizDTO quizDTO) {
+        quizRepository.update(id, quizMapper.mapCreateDtoToEntity(quizDTO));
     }
 }
 

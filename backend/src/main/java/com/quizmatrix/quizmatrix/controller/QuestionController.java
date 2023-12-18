@@ -1,14 +1,19 @@
 package com.quizmatrix.quizmatrix.controller;
 
 import com.quizmatrix.quizmatrix.dto.QuestionDTO;
+import com.quizmatrix.quizmatrix.dto.QuizDTO;
 import com.quizmatrix.quizmatrix.service.interfaces.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/question")
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class QuestionController {
 
     private final QuestionService questionService;
@@ -26,6 +31,11 @@ public class QuestionController {
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Integer id){
         return new ResponseEntity<>(this.questionService.findById(id), HttpStatus.OK);
+    }
+    @GetMapping("/quiz")
+    public ResponseEntity<List<QuestionDTO> > findByQuizId(@RequestParam Integer id) {
+        List<QuestionDTO> questionDTOList = questionService.findByQuizId(id);
+        return  new ResponseEntity<>(questionDTOList, HttpStatus.OK) ;
     }
     @PostMapping
     public ResponseEntity<?> addQuestion(@RequestBody QuestionDTO questionDTO){
