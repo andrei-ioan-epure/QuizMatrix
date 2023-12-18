@@ -1,19 +1,19 @@
 package com.quizmatrix.quizmatrix.notification.service;
+
 import com.quizmatrix.quizmatrix.notification.entity.EmailDTO;
 import com.quizmatrix.quizmatrix.notification.exception.MessageSentException;
 import jakarta.mail.internet.MimeMessage;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-
 @Service
-public class EmailServiceImpl implements  IEmailService{
+public class EmailServiceImpl implements IEmailService {
     @Autowired
     private JavaMailSender javaMailSender;
     @Value("quizmatrixcontrol@gmail.com")
@@ -35,28 +35,49 @@ public class EmailServiceImpl implements  IEmailService{
     }
 
     @Override
-    public void sendMailWithAttachment(EmailDTO details) throws MessageSentException {
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-        MimeMessageHelper mimeMessageHelper;
-
+    public ResponseEntity<String> sendMailWithAttachment(EmailDTO details) throws MessageSentException {
         try {
-            mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+
             mimeMessageHelper.setFrom(sender);
             mimeMessageHelper.setTo(details.getRecipient());
-            mimeMessageHelper.setText(details.getMsgBody());
-            mimeMessageHelper.setSubject(details.getSubject());
 
-            FileSystemResource file = new FileSystemResource(new File(details.getAttachment()));
+            String htmlBodyWithImage = "<html><body><h3>Bun venit! Vă mulțumim pentru înregistrare.</h3>"
+                    + "<img src='cid:imageId'></body></html>";
 
-            mimeMessageHelper.addAttachment(file.getFilename(), file);
+            mimeMessageHelper.setText(htmlBodyWithImage, true);
+            mimeMessageHelper.setSubject("Înregistrare reușită");
 
-            javaMailSender.send(mimeMessage);
+
+            String imagePath = "img.png";
+
+
+            ClassPathResource imageResource = new ClassPathResource(imagePath);
+
+
+            if (imageResource.exists()) {
+
+                mimeMessageHelper.addInline("imageId", imageResource, "image/png");
+
+
+                javaMailSender.send(mimeMessage);
+
+
+                return new ResponseEntity<>("{\"success\": true, \"message\": \"E-mail trimis cu succes!\"}", HttpStatus.OK);
+            } else {
+
+                return new ResponseEntity<>("{\"success\": false, \"message\": \"Imaginea nu există: " + imagePath + "\"}", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
 
         } catch (Exception e) {
-            System.err.println("Eroare  " + e.getMessage());
-            throw new MessageSentException("Eroare la trimiterea email-ului.");
+            System.err.println("Eroare " + e.getMessage());
+
+            return new ResponseEntity<>("{\"success\": false, \"message\": \"Eroare la trimiterea email-ului cu atașament.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
     @Override
     public void sendPasswordResetMail(EmailDTO details) throws MessageSentException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -82,7 +103,6 @@ public class EmailServiceImpl implements  IEmailService{
             throw new MessageSentException("Eroare la trimiterea email-ului pentru resetarea parolei.");
         }
     }
-
 
 
 }

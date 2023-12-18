@@ -15,7 +15,7 @@
     </form>
   </div>
 
-  <div class="form-container login-container">
+  <div class="form-container login-container" *ngIf="!isLoggedIn()">
     <form (ngSubmit)="login(loginForm.value)" action="#" #loginForm="ngForm">
       <h1>Bine ai revenit!</h1>
       <input ngModel name="email" type="email" placeholder="Email" />

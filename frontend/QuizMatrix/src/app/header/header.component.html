@@ -46,7 +46,7 @@
       mat-raised-button
       routerLink="/add-test"
       routerLinkActive="active_route"
-      *ngIf="isLoggedIn"
+      *ngIf="isLoggedIn && userRole === 'ADMIN'"
     >
       <mat-icon>add</mat-icon>
       Adaugă un test
@@ -65,6 +65,9 @@
       <div class="user-icon" (click)="onClickIcon()">
         <mat-icon class="user">account_circle</mat-icon>
         <div class="logout-popup" *ngIf="showLogout">
+          <button mat-raised-button routerLink="/my-account" class="my-acc">
+            <mat-icon class="edit_account">account_box</mat-icon> Contul meu
+          </button>
           <button mat-raised-button (click)="logOut()">
             <mat-icon class="signout_icon">exit_to_app</mat-icon>Deconectează-te
           </button>

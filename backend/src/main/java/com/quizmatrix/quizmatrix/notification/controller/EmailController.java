@@ -7,11 +7,10 @@ import com.quizmatrix.quizmatrix.notification.service.IEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(value = "http://localhost:4200", allowCredentials = "true")
 public class EmailController {
 
     @Autowired
@@ -36,7 +35,7 @@ public class EmailController {
     public ResponseEntity<?> sendMailWithAttachment(@RequestBody EmailDTO details) {
         try {
             emailService.sendMailWithAttachment(details);
-            return  ResponseEntity.status(HttpStatus.OK).body("Mail-ul a fost trimis cu succes");
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (MessageSentException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDTO(e.getMessage()));
 

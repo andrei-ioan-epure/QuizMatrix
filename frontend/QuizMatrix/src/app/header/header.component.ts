@@ -14,6 +14,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public showLogout: boolean = false;
   showLogoutPopup: boolean = false;
 
+  userRole: string = 'ADMIN';
+
   private isLoggedInSubscription!: Subscription;
 
   constructor(private storageService: StorageService, private router: Router) {
@@ -27,6 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .getIsLoggedInSubject()
       .subscribe((isLoggedIn) => {
         this.isLoggedIn = isLoggedIn;
+        this.userRole = this.storageService.getUserRole();
         this.router.navigate(['/home']);
       });
   }
@@ -57,5 +60,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private updateLoggedInStatus(): void {
     this.isLoggedIn = this.storageService.isLoggedIn();
+    this.userRole = this.storageService.getUserRole();
   }
 }
