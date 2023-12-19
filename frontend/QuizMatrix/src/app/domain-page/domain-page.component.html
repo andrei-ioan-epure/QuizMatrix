@@ -1,24 +1,24 @@
 <button mat-raised-button class="backBtn" routerLink="/domains">
   <mat-icon class="iconBack">arrow_back</mat-icon>
-  Back
+  Inapoi
 </button>
 
 <div class="domain-page">
-  <div class="leaderboard-container">
-    <h2>Clasament {{ selectedDomain }}</h2>
+  <div class="leaderboard-container" *ngIf="domain">
+    <h2>Clasament {{ domain?.domain_name }}</h2>
     <table>
       <thead>
         <tr>
-          <th>Rank</th>
-          <th>Name</th>
-          <th>Score</th>
-          <th>Time</th>
+          <th>Rang</th>
+          <th>Nume</th>
+          <th>Scor</th>
+          <th>Timp</th>
         </tr>
       </thead>
       <tbody>
         <tr
           *ngFor="
-            let user of users
+            let user of leaderboardUsers
               | slice
                 : currentPage * itemsPerPage
                 : (currentPage + 1) * itemsPerPage
@@ -43,33 +43,32 @@
     <div class="buttons-container">
       <div class="button-container">
         <button class="btn" [disabled]="currentPage === 0" (click)="prevPage()">
-          Previous
+          Inapoi
         </button>
       </div>
       <span>Page {{ currentPage + 1 }} of {{ pageCount() }}</span>
       <div class="button-container">
         <button
           class="btn"
-          [disabled]="currentPage >= users.length / itemsPerPage - 1"
+          [disabled]="currentPage >= leaderboardUsers.length / itemsPerPage - 1"
           (click)="nextPage()"
         >
-          Next
+          Inainte
         </button>
       </div>
     </div>
 
     <div class="statistics">
-      <p>Average Score: {{ averageScore | number : "1.0-2" }}</p>
-      <p>Average Time: {{ averageTime | number : "1.0-2" }} minutes</p>
+      <p>Scor Mediu: {{ averageScore | number : "1.0-2" }}</p>
+      <p>Timp Mediu: {{ averageTime | number : "1.0-2" }} minute</p>
     </div>
   </div>
-
-  <div class="quizzes">
+  
+  <div class="quizzes" *ngIf="quizzes">
     <h2>Teste</h2>
     <table>
       <thead>
         <tr>
-          <th>Icon</th>
           <th>Nume Test</th>
           <th>Durată</th>
           <th>Data creării</th>
@@ -77,18 +76,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let test of teste">
-          <td>
-            <img src="{{ test.iconPath }}" alt="Icon" />
-          </td>
-          <td>{{ test.nume }}</td>
-          <td>{{ test.durata }}</td>
-          <td>{{ test.creation_date}}</td>
+        <tr *ngFor="let quiz of quizzes">
+          <td> <img src="{{ domain?.icon_path }}" alt="Icon" /> {{ quiz.title }}</td>
+          <td>{{ quiz.time }}</td>
+          <td>{{ quiz.creation_date}}</td>
           <td class="actiuni-cell">
             <button
               mat-raised-button
               class="btn2"
-              (click)="startQuiz(test.nume, 'singleplayer')"
+              (click)="startQuiz(quiz.id_quiz, 'singleplayer')"
               routerLink="/quiz"
             >
               Singleplayer
@@ -96,7 +92,7 @@
             <button
               mat-raised-button
               class="btn2"
-              (click)="startQuiz(test.nume, 'multiplayer')"
+              (click)="startQuiz(quiz.id_quiz, 'multiplayer')"
             >
               Multiplayer
             </button>

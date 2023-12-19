@@ -1,73 +1,74 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Quiz } from '../models/quiz';
+import { QuizService } from '../services/quizService/quiz.service';
+import { Domain } from '../models/domain';
+import { DomainsService } from '../services/domains.service';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+
 
 @Component({
   selector: 'app-domain-page',
   templateUrl: './domain-page.component.html',
   styleUrls: ['./domain-page.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DomainPageComponent implements OnInit {
-  selectedDomain: string = '';
+
+export class DomainPageComponent implements OnInit, OnDestroy {
+
+  domainName: string = '';
+  domain?: Domain;
   averageScore = 0.0;
   averageTime = 0;
 
-  users: User[] = [
-    { rank: 1, name: 'Alice', score: 1000, time: 200 },
-    { rank: 2, name: 'Bob', score: 950, time: 220 },
-    { rank: 3, name: 'Melisandre', score: 900, time: 215 },
-    { rank: 4, name: 'Snow', score: 880, time: 300 },
-    { rank: 5, name: 'Tormund', score: 870, time: 315 },
-    { rank: 6, name: 'Cersei', score: 100, time: 265 },
-    // ... more users ...
-  ];
+  leaderboardUsers: User[] = [];
 
-  teste = [
-    {
-      iconPath:"assets/images/biology.png",
-      nume: 'Test 1',
-      durata: '10',
-      creation_date:'2023-12-18'
-    },
-    {
-      nume: 'Test 2',
-      durata: '10',
-      creation_date:'2023-12-18'
-    },
-    {
-      nume: 'Test 3',
-      durata: '15',
-      domeniu: 'Informatică',
-      creation_date:'2023-12-18'
-    },
-    {
-      nume: 'Test 4',
-      durata: '15',
-      domeniu: 'Geografie',
-      creation_date:'2023-12-18'
-    },
-  ];
+  quizzes: Quiz[] = [];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute, 
+    private quizService: QuizService,
+    private domainsService: DomainsService) {}
+
+  private ngUnsubscribe = new Subject<void>();
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      this.selectedDomain = params.get('domain') || '';
-      this.loadLeaderboardData(this.selectedDomain);
+    this.route.params.subscribe((params) => {
+      this.domainName = params['domain'];
     });
+    this.loadContent();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['selectedDomain'] && this.selectedDomain) {
-      console.log(this.selectedDomain);
-      this.loadLeaderboardData(this.selectedDomain);
-      this.calculateStatistics();
-    }
+  loadContent() {
+    this.domainsService.getDomainByName(this.domainName).subscribe(
+      (domain) => {
+        this.domain = domain;
+        console.log(this.domainName);
+        console.log(domain);
+        console.log(this.domain);
+        console.log(this.domain['id_domain']);
+        console.log(this.domain['domain_name']);
+        this.quizService.getQuizzesByDomain(this.domain.id_domain).subscribe(
+          (quizzes) => {
+            this.quizzes = quizzes;
+            this.loadLeaderboardData(this.domainName);
+            this.calculateStatistics();
+          }
+        );
+      },
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   loadLeaderboardData(domain: string): void {
-    // Fetch leaderboard data based on this.selectedDomain
+    // Fetch leaderboard data based on this.domain
     // Example hardcoded data (replace with actual data fetching logic)
-    this.users = [
+    this.leaderboardUsers = [
       { rank: 1, name: 'Alice', score: 1000, time: 200 },
       { rank: 2, name: 'Bob', score: 950, time: 220 },
       { rank: 3, name: 'Melisandre', score: 900, time: 215 },
@@ -79,10 +80,10 @@ export class DomainPageComponent implements OnInit {
   }
 
   calculateStatistics(): void {
-    const totalScores = this.users.reduce((acc, user) => acc + user.score, 0);
-    const totalTimes = this.users.reduce((acc, user) => acc + user.time, 0);
-    this.averageScore = totalScores / this.users.length;
-    this.averageTime = totalTimes / this.users.length;
+    const totalScores = this.leaderboardUsers.reduce((acc, user) => acc + user.score, 0);
+    const totalTimes = this.leaderboardUsers.reduce((acc, user) => acc + user.time, 0);
+    this.averageScore = totalScores / this.leaderboardUsers.length;
+    this.averageTime = totalTimes / this.leaderboardUsers.length;
   }
 
   currentPage: number = 0;
@@ -102,16 +103,16 @@ export class DomainPageComponent implements OnInit {
   }
 
   pageCount(): number {
-    return Math.ceil(this.users.length / this.itemsPerPage);
+    return Math.ceil(this.leaderboardUsers.length / this.itemsPerPage);
   }
 
   floor(n: number): number {
     return Math.floor(n);
   }
 
-  startQuiz(quizTitle: string, mode: string): void {
+  startQuiz(id_quiz: number, mode: string): void {
     //de implementat
-    console.log(`Starting ${quizTitle} in ${mode} mode`);
+    console.log(`Starting ${id_quiz} in ${mode} mode`);
   }
 }
 

@@ -21,7 +21,6 @@ export class AllDomainsComponent implements OnInit {
   }
 
   navigateToDomain(domainTitle: string): void {
-    console.log(`Navigating to quizzes for ${domainTitle}`);
     this.router.navigate([`/domain-page/${domainTitle}`]);
   }
 }
