@@ -32,6 +32,11 @@ public class QuizRepositoryImpl implements QuizRepository {
     }
 
     @Override
+    public  List<Quiz> findByDomainId(Integer domainId) {
+        return quizJPARepository.findByDomainId(domainId);
+    }
+
+    @Override
     public Quiz add(Quiz quiz) {
         return quizJPARepository.save(quiz);
     }

@@ -33,6 +33,12 @@ public class QuizController {
         return quizDTO != null ? new ResponseEntity<>(quizDTO, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/byDomainId/{domainId}")
+    public ResponseEntity<List<QuizDTO>> getQuizzesByDomainId(@PathVariable Integer domainId) {
+        List<QuizDTO> quizDTOList = quizService.findByDomainId(domainId);
+        return new ResponseEntity<>(quizDTOList, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<QuizDTO> addQuiz(@RequestBody CreateQuizDTO quizDTO) {
         QuizDTO newQuizDTO = quizService.add(quizDTO);

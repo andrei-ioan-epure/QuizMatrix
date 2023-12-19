@@ -41,6 +41,13 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
+    public List<QuizDTO> findByDomainId(Integer domainId) {
+        return quizRepository.findByDomainId(domainId)
+                .stream()
+                .map(quizMapper::mapEntityToDto)
+                .toList();
+    }
+    @Override
     public QuizDTO add(CreateQuizDTO quizDTO) {
         quizDTO.setCreation_date(new java.sql.Date(System.currentTimeMillis()));
         return quizMapper

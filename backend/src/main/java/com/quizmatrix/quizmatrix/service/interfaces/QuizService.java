@@ -8,6 +8,7 @@ import java.util.List;
 public interface QuizService {
     List<QuizDTO> getAll();
     QuizDTO findById(Integer id);
+    List<QuizDTO> findByDomainId(Integer domainId);
     QuizDTO add(CreateQuizDTO quiz);
     void deleteById(Integer id);
     void update(Integer id, CreateQuizDTO quiz);

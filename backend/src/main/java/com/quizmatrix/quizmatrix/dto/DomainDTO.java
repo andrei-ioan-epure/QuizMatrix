@@ -11,5 +11,4 @@ public class DomainDTO {
     private Integer id_domain;
     private String domain_name;
     private String icon_path;
-
 }
