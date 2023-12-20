@@ -1,9 +1,9 @@
 <div class="domain">
-    <h1>Domenii de test</h1>
-    <div class="domain-list">
-      <div *ngFor="let card of cards" class="domain-item" (click)="navigateToDomain(card.title)">
-        <img src="{{ card.image }}" alt="{{ card.title }}" class="zoom-effect">
-        <p>{{ card.title }}</p>
-      </div>
+  <h1>Domenii de test</h1>
+  <div class="domain-list">
+    <div *ngFor="let card of cards" class="domain-item" (click)="navigateToDomain(card.title)">
+      <img src="{{ card.image }}" alt="{{ card.title }}" class="zoom-effect">
+      <p>{{ card.title }}</p>
     </div>
   </div>
+</div>

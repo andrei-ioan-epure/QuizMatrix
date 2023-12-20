@@ -15,4 +15,8 @@ export class AnswerService {
   getAnswers(): Observable<Answer[]> {
     return this.httpClient.get<Answer[]>(this.apiUrl);
   }
+
+  addAnswer(answer: Answer): Observable<Answer> {
+    return this.httpClient.post<Answer>(this.apiUrl, answer);
+  }
 }

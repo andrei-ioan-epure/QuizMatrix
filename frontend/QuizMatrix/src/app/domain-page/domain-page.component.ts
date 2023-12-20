@@ -4,18 +4,14 @@ import { Quiz } from '../models/quiz';
 import { QuizService } from '../services/quizService/quiz.service';
 import { Domain } from '../models/domain';
 import { DomainsService } from '../services/domains.service';
-import { switchMap, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-
 
 @Component({
   selector: 'app-domain-page',
   templateUrl: './domain-page.component.html',
   styleUrls: ['./domain-page.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class DomainPageComponent implements OnInit, OnDestroy {
+export class DomainPageComponent implements OnInit {
 
   domainName: string = '';
   domain?: Domain;
@@ -31,12 +27,11 @@ export class DomainPageComponent implements OnInit, OnDestroy {
     private quizService: QuizService,
     private domainsService: DomainsService) {}
 
-  private ngUnsubscribe = new Subject<void>();
-
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.domainName = params['domain'];
     });
+    
     this.loadContent();
   }
 
@@ -44,11 +39,7 @@ export class DomainPageComponent implements OnInit, OnDestroy {
     this.domainsService.getDomainByName(this.domainName).subscribe(
       (domain) => {
         this.domain = domain;
-        console.log(this.domainName);
         console.log(domain);
-        console.log(this.domain);
-        console.log(this.domain['id_domain']);
-        console.log(this.domain['domain_name']);
         this.quizService.getQuizzesByDomain(this.domain.id_domain).subscribe(
           (quizzes) => {
             this.quizzes = quizzes;
@@ -58,11 +49,6 @@ export class DomainPageComponent implements OnInit, OnDestroy {
         );
       },
     );
-  }
-
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
   }
 
   loadLeaderboardData(domain: string): void {

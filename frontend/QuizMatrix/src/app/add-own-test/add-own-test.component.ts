@@ -1,4 +1,11 @@
 import { Component } from '@angular/core';
+import { Question } from '../models/question';
+import { Quiz } from '../models/quiz';
+import { AnswerService } from '../services/answerService/answer.service';
+import { DomainsService } from '../services/domains.service';
+import { QuizService } from '../services/quizService/quiz.service';
+import { QuestionService } from '../services/questionService/question.service';
+import { Answer } from '../models/answer';
 
 @Component({
   selector: 'app-add-own-test',
@@ -6,49 +13,86 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-own-test.component.css'],
 })
 export class AddOwnTestComponent {
+
+  constructor(
+    private quizService: QuizService,
+    private questionService: QuestionService,
+    private domainsService: DomainsService,
+    private answerService: AnswerService) {}
+
   currentState:
     | 'selectDomainLengthDuration'
     | 'enterQuestions'
     | 'quizComplete' = 'selectDomainLengthDuration';
 
+  quizId: number = 0;
+  title: string = '';
+  descriere: string = '';
   selectedDomain: string = '';
   quizDuration: number = 0;
   quizLength: number = 0;
+  points: number = 0;
 
   questionText: string = '';
   raspuns: string[] = ['', '', '', ''];
-  correctAnswer: number = 0;
+  correctAnswer: string = '';
   currentQuestion: number = 0;
 
   disableButtons: boolean = true;
 
   submitParameters() {
-    this.quizDuration = parseInt(this.quizDuration.toString(), 10);
-    this.quizLength = parseInt(this.quizLength.toString(), 10);
-    this.currentState = 'enterQuestions';
-    this.disableButtons = true;
+    console.log(this.title);
+    this.domainsService.getDomainByName(this.selectedDomain).subscribe(
+      (domain) => {
+        const quizToAdd = new Quiz(0, domain.id_domain, this.title, this.descriere, new Date(), parseInt(this.quizDuration.toString(), 10));
+        this.quizLength = parseInt(this.quizLength.toString(), 10);
+
+        this.quizService.createQuiz(quizToAdd).subscribe(
+          (quiz) => {
+            this.quizId = quiz.id_quiz;
+            this.currentState = 'enterQuestions';
+            this.disableButtons = true;
+          }
+        );
+      }
+    );
   }
 
   submitQuestion() {
-    //de implementat logica pt adaugare in baza de date
+    const questionToAdd = new Question(0, this.quizId, this.questionText, this.points);
 
-    // Clear form
-    this.questionText = '';
-    this.raspuns = ['', '', '', ''];
-    this.correctAnswer = 0;
-    this.currentQuestion++;
-    this.disableButtons = true;
+    this.questionService.addQuestion(questionToAdd).subscribe(
+      (question) => {
+        this.raspuns.forEach((answerText) => {
+          const isCorrect = answerText === this.correctAnswer;
+          
+          const answerToAdd: Answer = new Answer(0, question.id_question, answerText, isCorrect);
+  
+          this.answerService.addAnswer(answerToAdd).subscribe(
+            (_) => {
+              
+            }
+          );
+        });    
+        
+        this.questionText = '';
+        this.raspuns = ['', '', '', ''];
+        this.correctAnswer = '';
+        this.currentQuestion++;
+        this.disableButtons = true;
+    
+    
+        if (
+          this.currentState === 'enterQuestions' &&
+          this.currentQuestion >= this.quizLength
+        ) {
+          this.currentState = 'quizComplete';
+        }
 
-    if (
-      this.currentState === 'enterQuestions' &&
-      this.currentQuestion >= this.quizLength
-    ) {
-      // Quiz completed, transition to the 'quizComplete' state
-      this.currentState = 'quizComplete';
-    }
+      }
+    )
+    
   }
-
-  submitQuiz() {}
 
   startQuiz() {}
 

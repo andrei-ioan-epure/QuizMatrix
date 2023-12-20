@@ -16,7 +16,11 @@ export class QuizService {
     return this.httpClient.get<Quiz[]>(this.apiUrl);
   }
 
-  getQuizzesByDomain(id_domain: number) {
+  getQuizzesByDomain(id_domain: number): Observable<Quiz[]> {
     return this.httpClient.get<Quiz[]>(`${this.apiUrl}/byDomainId/${id_domain}`);
+  }
+
+  createQuiz(quiz: Quiz): Observable<Quiz> {
+    return this.httpClient.post<Quiz>(this.apiUrl, quiz);
   }
 }

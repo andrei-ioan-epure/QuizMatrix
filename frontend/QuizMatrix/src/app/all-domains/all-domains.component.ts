@@ -19,8 +19,9 @@ export class AllDomainsComponent implements OnInit {
   ngOnInit(): void {
     this.cards = this.cardsService.getCards();
   }
-
+    
   navigateToDomain(domainTitle: string): void {
+    console.log(`Navigating to ${domainTitle}`)
     this.router.navigate([`/domain-page/${domainTitle}`]);
   }
 }

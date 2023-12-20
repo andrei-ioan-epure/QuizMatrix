@@ -5,6 +5,28 @@
   <h1>Adaugă propriul test</h1>
   <div class="share-domain-container">
     <div class="select-container">
+      <label for="title">Titlu:</label>
+      <input
+        type="string"
+        id="title"
+        name="title"
+        [(ngModel)]="title"
+        required
+        (ngModelChange)="updateDisableButtons()"
+      />
+    </div>
+    <div class="select-container">
+      <label for="descriere">Descriere:</label>
+      <input
+        type="string"
+        id="descriere"
+        name="descriere"
+        [(ngModel)]="descriere"
+        required
+        (ngModelChange)="updateDisableButtons()"
+      />
+    </div>
+    <div class="select-container">
       <label for="domainSelect">Domeniu:</label>
       <select
         id="domainSelect"
@@ -13,14 +35,14 @@
         required
         (ngModelChange)="updateDisableButtons()"
       >
-        <option value="biology">Biologie</option>
-        <option value="physics">Fizică</option>
-        <option value="math">Matematică</option>
-        <option value="informatics">Informatică</option>
-        <option value="economics">Economie</option>
-        <option value="geography">Geografie</option>
-        <option value="science">Știinte</option>
-        <option value="astronomy">Astronomie</option>
+        <option value="Biologie">Biologie</option>
+        <option value="Fizica">Fizică</option>
+        <option value="Matematica">Matematică</option>
+        <option value="Informatica">Informatică</option>
+        <option value="Economie">Economie</option>
+        <option value="Geografie">Geografie</option>
+        <option value="Stiinte">Știinte</option>
+        <option value="Astronomie">Astronomie</option>
       </select>
     </div>
     <div class="select-container">
@@ -72,6 +94,16 @@
       (ngModelChange)="updateDisableButtons()"
     ></textarea>
 
+    <label for="points">Punctaj :</label>
+    <input
+      type="number"
+      id="points"
+      name="points"
+      [(ngModel)]="points"
+      required
+      (ngModelChange)="updateDisableButtons()"
+    />
+
     <label for="answer1">Răspuns 1 :</label>
     <input
       type="text"
@@ -120,7 +152,7 @@
       required
       (ngModelChange)="updateDisableButtons()"
     >
-      <option *ngFor="let answer of raspuns; let i = index" [value]="i">
+      <option *ngFor="let answer of raspuns; let i = index" [value]="answer">
         {{ "Răspuns " + (i + 1) }}
       </option>
     </select>

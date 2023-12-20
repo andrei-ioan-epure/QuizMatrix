@@ -78,7 +78,10 @@ const routes: Routes = [
     path: 'domains',
     component: AllDomainsComponent,
   },
-  { path: 'domain-page/:domain', component: DomainPageComponent },
+  { 
+    path: 'domain-page/:domain', 
+    component: DomainPageComponent 
+  },
   {
     path: 'add-test',
     component: AddOwnTestComponent,
