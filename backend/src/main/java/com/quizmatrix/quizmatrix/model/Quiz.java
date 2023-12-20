@@ -22,4 +22,6 @@ public class Quiz {
     private String description;
     private java.sql.Date creation_date;
     private Integer time;
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Question> questions;
 }

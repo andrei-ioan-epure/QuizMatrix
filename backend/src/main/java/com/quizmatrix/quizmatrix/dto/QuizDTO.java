@@ -16,4 +16,5 @@ public class QuizDTO {
     private String description;
     private java.sql.Date creation_date;
     private Integer time;
+    private List<QuestionDTO> questions;
 }

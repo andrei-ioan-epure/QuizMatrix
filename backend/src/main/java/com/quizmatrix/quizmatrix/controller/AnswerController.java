@@ -46,7 +46,6 @@ public class AnswerController {
     @PostMapping
     ResponseEntity<?> createAnswer(@RequestBody AnswerDTO answerDTO) {
         return new ResponseEntity<>(this.answerService.add(answerDTO), HttpStatus.CREATED);
-
     }
 
     @DeleteMapping("/{id}")
