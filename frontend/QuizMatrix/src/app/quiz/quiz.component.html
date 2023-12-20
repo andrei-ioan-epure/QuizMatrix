@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="right">
-      <!-- <h2>{{ questions[increment].points }}</h2> -->
+      <h2>{{ getQuestionPoints() }}</h2>
     </div>
     <div></div>
   </div>
@@ -21,27 +21,50 @@
     <h1 class="question">{{ getQuestionTextById(increment) }}</h1>
     <div class="answers">
       <div class="left">
-        <button>
+        <button
+          [ngClass]="{ selected: selectedAnswer === 0 }"
+          (click)="selectAnswer(0)"
+        >
           {{ getAnswerTextById(increment + 1, 0) }}
         </button>
-        <button>
+        <button
+          [ngClass]="{ selected: selectedAnswer === 1 }"
+          (click)="selectAnswer(1)"
+        >
           {{ getAnswerTextById(increment + 1, 1) }}
         </button>
       </div>
       <div class="right">
-        <button>
+        <button
+          [ngClass]="{ selected: selectedAnswer === 2 }"
+          (click)="selectAnswer(2)"
+        >
           {{ getAnswerTextById(increment + 1, 2) }}
         </button>
-        <button>
+        <button
+          [ngClass]="{ selected: selectedAnswer === 3 }"
+          (click)="selectAnswer(3)"
+        >
           {{ getAnswerTextById(increment + 1, 3) }}
         </button>
       </div>
     </div>
   </div>
-  <button *ngIf="!isLastQuestion()" class="next" (click)="nextQuestion()">
+  <button
+    *ngIf="!isLastQuestion()"
+    class="next"
+    (click)="nextQuestion()"
+    [disabled]="selectedAnswer === -1"
+  >
     Next question
   </button>
-  <button *ngIf="isLastQuestion()" class="finish" (click)="finishQuiz()">
+
+  <button
+    *ngIf="isLastQuestion()"
+    class="finish"
+    (click)="finishQuiz()"
+    [disabled]="selectedAnswer === -1"
+  >
     Finish Test
   </button>
 </div>

@@ -104,3 +104,7 @@ button:hover {
 .question {
   margin-top: 15px;
 }
+.answers button.selected {
+  background-color: #3498db;
+  color: #fff;
+}

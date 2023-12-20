@@ -21,7 +21,8 @@ export class QuizComponent implements OnInit {
   @Input() increment: number = 0;
   time: number = 100;
   totalTimeSpent: number = 0;
-
+  selectedAnswer: number = -1;
+  responses: Answer[] = [];
   constructor(
     private router: Router,
     private answerService: AnswerService,
@@ -72,17 +73,40 @@ export class QuizComponent implements OnInit {
   }
 
   nextQuestion(): void {
+    const currentAnswers = this.answers.get(this.increment);
+
+    if (currentAnswers && this.selectedAnswer !== -1) {
+      this.responses.push(currentAnswers[this.selectedAnswer]);
+    }
+
     if (this.increment < this.questions.length - 1) {
       this.increment += 1;
       this.time = 10;
       // this.resetTimer();
       console.log(this.increment);
     }
+    this.selectedAnswer = -1;
+    console.log('Responses:', this.responses);
   }
 
   finishQuiz() {
-    this.quizDataService.setTotalTimeSpent(this.totalTimeSpent);
-    this.router.navigate(['/final-test']);
+    const score = this.responses
+      .filter((response) => response.isCorrect)
+      .map((response) =>
+        this.questions.find(
+          (question) => question.id_question === response.id_question
+        )
+      )
+      .filter((question) => question !== undefined)
+      .reduce(
+        (totalScore, question) => totalScore + (question?.points || 0),
+        0
+      );
+
+    console.log(score);
+    this.quizDataService.setQuizData(score, this.totalTimeSpent);
+    // this.quizDataService.setTotalTimeSpent(this.totalTimeSpent);
+    //this.router.navigate(['/final-test']);
   }
 
   onTimeSpent(timeSpent: number): void {
@@ -107,4 +131,13 @@ export class QuizComponent implements OnInit {
   // onTimeSpent(timeSpent: number): void {
   //   this.totalTimeSpent = timeSpent;
   // }
+
+  getQuestionPoints(): number | undefined {
+    const currentQuestion = this.questions[this.increment];
+    return currentQuestion?.points;
+  }
+
+  selectAnswer(index: number): void {
+    this.selectedAnswer = index === this.selectedAnswer ? -1 : index;
+  }
 }
