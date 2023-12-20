@@ -4,6 +4,7 @@ import { Quiz } from '../models/quiz';
 import { QuizService } from '../services/quizService/quiz.service';
 import { Domain } from '../models/domain';
 import { DomainsService } from '../services/domains.service';
+import { TesteFavoriteService } from '../services/teste-favorite.service';
 
 @Component({
   selector: 'app-domain-page',
@@ -25,7 +26,8 @@ export class DomainPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute, 
     private quizService: QuizService,
-    private domainsService: DomainsService) {}
+    private domainsService: DomainsService,
+    private testeFavoriteService: TesteFavoriteService) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -52,8 +54,6 @@ export class DomainPageComponent implements OnInit {
   }
 
   loadLeaderboardData(domain: string): void {
-    // Fetch leaderboard data based on this.domain
-    // Example hardcoded data (replace with actual data fetching logic)
     this.leaderboardUsers = [
       { rank: 1, name: 'Alice', score: 1000, time: 200 },
       { rank: 2, name: 'Bob', score: 950, time: 220 },
@@ -61,7 +61,7 @@ export class DomainPageComponent implements OnInit {
       { rank: 4, name: 'Snow', score: 880, time: 300 },
       { rank: 5, name: 'Tormund', score: 870, time: 315 },
       { rank: 6, name: 'Cersei', score: 100, time: 265 },
-      // ... more users for the selected domain ...
+
     ];
   }
 
@@ -100,6 +100,29 @@ export class DomainPageComponent implements OnInit {
     //de implementat
     console.log(`Starting ${id_quiz} in ${mode} mode`);
   }
+  toggleFavorite(test: any) {
+    if (test.isFavorite) {
+      //this.removeFromFavorites(test.id_quiz);
+      test.isFavorite = false;
+    } else {
+      this.addTestToFavorites(test.id_quiz);
+      test.isFavorite = true;
+    }
+  }
+
+  addTestToFavorites(idTest: number) {
+    const id_user = 1; 
+    this.testeFavoriteService.addTestToFavorites(idTest, id_user).subscribe({
+      next: (response) => {
+        this.testeFavoriteService.testAdaugat(response);
+        console.log('Test adăugat la favorite:', response);
+      },
+      error: (error) => {
+        console.log('Eroare la adăugarea testului la favorite:', error);
+      }
+    });
+  }
+  
 }
 
 interface User {

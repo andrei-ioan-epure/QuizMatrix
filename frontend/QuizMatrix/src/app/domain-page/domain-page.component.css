@@ -214,3 +214,11 @@ img {
   font-size: 40px;
   color: #25283d;
 }
+.favorite-icon.favorite {
+  color: black; 
+}
+
+.favorite-icon.not-favorite {
+  color: transparent;
+  border: 1px solid black;
+}

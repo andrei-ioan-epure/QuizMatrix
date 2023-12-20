@@ -96,7 +96,11 @@
             >
               Multiplayer
             </button>
-            <mat-icon class="icon-center">favorite_border</mat-icon>
+            <mat-icon class="favorite-icon"
+            [ngClass]="{'favorite': quiz.isFavorite, 'not-favorite': !quiz.isFavorite}"
+            (click)="toggleFavorite(quiz)">
+    favorite
+  </mat-icon>
           </td>
         </tr>
       </tbody>
