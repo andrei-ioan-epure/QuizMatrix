@@ -31,15 +31,15 @@
 </table>
 
 <button class="btn" [disabled]="currentPage === 0" (click)="prevPage()">
-  Previous
+  Înapoi
 </button>
-<span>Page {{ currentPage + 1 }} of {{ pageCount() }}</span>
+<span>Pagina {{ currentPage + 1 }} din {{ pageCount() }}</span>
 <button
   class="btn"
   [disabled]="currentPage >= users.length / itemsPerPage - 1"
   (click)="nextPage()"
 >
-  Next
+  Înainte
 </button>
 
 <div *ngIf="testResult" class="test-result">

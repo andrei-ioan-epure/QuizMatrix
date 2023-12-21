@@ -12,7 +12,6 @@ import lombok.Setter;
 @Entity(name = "domain")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Domain {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +19,11 @@ public class Domain {
     private Integer id_domain;
     private String domain_name;
     private String icon_path;
+
+
+    public Domain(Integer id_domain, String domain_name, String imagePath) {
+        this.id_domain = id_domain;
+        this.domain_name = domain_name;
+        this.icon_path = "file:///" + imagePath; // Cale absolută către imagine
+    }
 }

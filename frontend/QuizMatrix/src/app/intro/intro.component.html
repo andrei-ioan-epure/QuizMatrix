@@ -33,6 +33,15 @@
     că sunteți student sau profesor, proiectul nostru vă ajută să consolidați și
     să verificați cunoștințele esențiale în informatică, anatomie, chimie,
     filozofie, biologie și multe altele.
-    <b>Înregistrează-te</b> acum pentru a profita de toate avantajele oferite!
+
+    <ng-container *ngIf="!storageService.isLoggedIn()">
+      <a routerLink="/login"><b>Înregistrează-te</b></a> acum pentru a profita
+      de toate avantajele oferite!
+    </ng-container>
+
+    <ng-container *ngIf="storageService.isLoggedIn()">
+      <a routerLink="/my-account"><b>Înregistrează-te</b></a> acum pentru a
+      profita de toate avantajele oferite!
+    </ng-container>
   </p>
 </div>

@@ -1,18 +1,21 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Quiz } from '../models/quiz';
 import { QuizService } from '../services/quizService/quiz.service';
 import { Domain } from '../models/domain';
-import { DomainsService } from '../services/domains.service';
+import { DomainsService } from '../services/domain/domains.service';
 
 @Component({
   selector: 'app-domain-page',
   templateUrl: './domain-page.component.html',
   styleUrls: ['./domain-page.component.css'],
 })
-
 export class DomainPageComponent implements OnInit {
-
   domainName: string = '';
   domain?: Domain;
   averageScore = 0.0;
@@ -23,32 +26,31 @@ export class DomainPageComponent implements OnInit {
   quizzes: Quiz[] = [];
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private quizService: QuizService,
-    private domainsService: DomainsService) {}
+    private domainsService: DomainsService
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.domainName = params['domain'];
     });
-    
+
     this.loadContent();
   }
 
   loadContent() {
-    this.domainsService.getDomainByName(this.domainName).subscribe(
-      (domain) => {
-        this.domain = domain;
-        console.log(domain);
-        this.quizService.getQuizzesByDomain(this.domain.id_domain).subscribe(
-          (quizzes) => {
-            this.quizzes = quizzes;
-            this.loadLeaderboardData(this.domainName);
-            this.calculateStatistics();
-          }
-        );
-      },
-    );
+    this.domainsService.getDomainByName(this.domainName).subscribe((domain) => {
+      this.domain = domain;
+      console.log(domain);
+      this.quizService
+        .getQuizzesByDomain(this.domain.id_domain)
+        .subscribe((quizzes) => {
+          this.quizzes = quizzes;
+          this.loadLeaderboardData(this.domainName);
+          this.calculateStatistics();
+        });
+    });
   }
 
   loadLeaderboardData(domain: string): void {
@@ -66,8 +68,14 @@ export class DomainPageComponent implements OnInit {
   }
 
   calculateStatistics(): void {
-    const totalScores = this.leaderboardUsers.reduce((acc, user) => acc + user.score, 0);
-    const totalTimes = this.leaderboardUsers.reduce((acc, user) => acc + user.time, 0);
+    const totalScores = this.leaderboardUsers.reduce(
+      (acc, user) => acc + user.score,
+      0
+    );
+    const totalTimes = this.leaderboardUsers.reduce(
+      (acc, user) => acc + user.time,
+      0
+    );
     this.averageScore = totalScores / this.leaderboardUsers.length;
     this.averageTime = totalTimes / this.leaderboardUsers.length;
   }

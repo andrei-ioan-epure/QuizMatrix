@@ -6,7 +6,7 @@ import { AnswerService } from '../services/answerService/answer.service';
 import { QuestionService } from '../services/questionService/question.service';
 
 import { Router } from '@angular/router';
-import { QuizDataService } from '../services/quiz-data.service';
+import { QuizDataService } from '../services/quiz-data/quiz-data.service';
 
 @Component({
   selector: 'app-quiz',
@@ -19,7 +19,7 @@ export class QuizComponent implements OnInit {
   @Input() questions: Question[] = [];
   @Input() answers = new Map<number, Answer[]>();
   @Input() increment: number = 0;
-  time: number = 100;
+  time: number = 10;
   totalTimeSpent: number = 0;
   selectedAnswer: number = -1;
   responses: Answer[] = [];
@@ -105,8 +105,8 @@ export class QuizComponent implements OnInit {
 
     console.log(score);
     this.quizDataService.setQuizData(score, this.totalTimeSpent);
-    // this.quizDataService.setTotalTimeSpent(this.totalTimeSpent);
-    //this.router.navigate(['/final-test']);
+    this.quizDataService.setTotalTimeSpent(this.totalTimeSpent);
+    this.router.navigate(['/final-test']);
   }
 
   onTimeSpent(timeSpent: number): void {
@@ -139,5 +139,10 @@ export class QuizComponent implements OnInit {
 
   selectAnswer(index: number): void {
     this.selectedAnswer = index === this.selectedAnswer ? -1 : index;
+  }
+  onTimerExpired(): void {
+    console.log('Timer expired. Finishing quiz and navigating to /expire-time');
+    this.finishQuiz();
+    this.router.navigate(['/expire-time']);
   }
 }

@@ -8,6 +8,7 @@
         <app-timer
           [duration]="time"
           (timeSpent)="onTimeSpent($event)"
+          (timeExpired)="onTimerExpired()"
         ></app-timer>
       </div>
     </div>

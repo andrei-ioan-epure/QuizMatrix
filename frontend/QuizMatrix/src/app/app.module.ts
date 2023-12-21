@@ -42,6 +42,7 @@ import { httpInterceptorProviders } from '../_helpers/http.interceptor';
 import { AuthInterceptorProviders } from '../_helpers/auth.interceptor';
 import { FinalTestComponent } from './final-test/final-test.component';
 import { UsersComponent } from './users/users.component';
+import { ExpireTimeComponent } from './expire-time/expire-time.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,6 +66,7 @@ import { UsersComponent } from './users/users.component';
     AddOwnTestComponent,
     FinalTestComponent,
     UsersComponent,
+    ExpireTimeComponent,
   ],
   imports: [
     MatInputModule,

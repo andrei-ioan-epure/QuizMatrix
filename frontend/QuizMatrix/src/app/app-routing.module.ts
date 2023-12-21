@@ -20,6 +20,7 @@ import { MyTestInfoComponent } from './my-test-info/my-test-info.component';
 
 import { AddOwnTestComponent } from './add-own-test/add-own-test.component';
 import { FinalTestComponent } from './final-test/final-test.component';
+import { ExpireTimeComponent } from './expire-time/expire-time.component';
 
 const routes: Routes = [
   {
@@ -78,13 +79,17 @@ const routes: Routes = [
     path: 'domains',
     component: AllDomainsComponent,
   },
-  { 
-    path: 'domain-page/:domain', 
-    component: DomainPageComponent 
+  {
+    path: 'domain-page/:domain',
+    component: DomainPageComponent,
   },
   {
     path: 'add-test',
     component: AddOwnTestComponent,
+  },
+  {
+    path: 'expire-time',
+    component: ExpireTimeComponent,
   },
   {
     path: '**',

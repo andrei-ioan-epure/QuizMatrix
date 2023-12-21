@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from '../services/storage/storage.service';
 
 @Component({
   selector: 'app-intro',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./intro.component.css'],
 })
 export class IntroComponent implements OnInit {
+  public storageService: StorageService;
   carouselSlides: string[] = [
     '../../assets/images/astronomy.png',
     '../../assets/images/biology.png',
@@ -21,6 +23,9 @@ export class IntroComponent implements OnInit {
   slidesPerPair = 2;
   totalPairs = Math.ceil(this.carouselSlides.length / this.slidesPerPair);
 
+  constructor(private _storageService: StorageService) {
+    this.storageService = _storageService;
+  }
   ngOnInit(): void {}
 
   get visibleSlidePairs(): string[][] {

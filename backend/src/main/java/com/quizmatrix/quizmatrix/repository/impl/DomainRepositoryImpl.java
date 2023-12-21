@@ -51,7 +51,7 @@ public class DomainRepositoryImpl  implements DomainRepository {
         if (existingDomain.isPresent()) {
             Domain updatedDomain=existingDomain.get();
             updatedDomain.setDomain_name(domain.getDomain_name());
-
+            updatedDomain.setIcon_path(domain.getIcon_path());
             domainJPARepository.save(updatedDomain);
         } else {
             domainJPARepository.save(domain);

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DomainCards } from '../all-domains/model/domain-card';
+import { DomainCards } from '../../all-domains/model/domain-card';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +18,7 @@ export class CardsDomainService {
     },
     {
       image: '../../assets/images/earth.png',
-      title: 'Stiinte ale naturii',
+      title: 'Științe ale naturii',
     },
     {
       image: '../../assets/images/economy.png',
@@ -30,15 +30,15 @@ export class CardsDomainService {
     },
     {
       image: '../../assets/images/info.png',
-      title: 'Informatica',
+      title: 'Informatică',
     },
     {
       image: '../../assets/images/math1.png',
-      title: 'Matematica',
+      title: 'Matematică',
     },
     {
       image: '../../assets/images/phisics1.png',
-      title: 'Fizica',
+      title: 'Fizică',
     },
     {
       image: '../../assets/images/history1.png',

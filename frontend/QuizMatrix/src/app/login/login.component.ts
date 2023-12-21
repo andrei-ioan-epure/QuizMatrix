@@ -1,7 +1,7 @@
 import { Component, ElementRef } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { StorageService } from '../services/storage.service';
-import { EmailService } from '../services/email.service';
+import { AuthService } from '../services/auth/auth.service';
+import { StorageService } from '../services/storage/storage.service';
+import { EmailService } from '../services/email/email.service';
 
 @Component({
   selector: 'app-login',

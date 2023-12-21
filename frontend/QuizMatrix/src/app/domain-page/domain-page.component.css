@@ -20,12 +20,6 @@ h2 {
   height: 100vh;
   padding: 20px;
 }
-.icon-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 
 .quizzes,
 .leaderboard-container {
@@ -122,18 +116,38 @@ img {
   display: block;
   margin: 0 auto;
 }
+
 .actiuni-cell {
-  text-align: center;
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  align-items: center;
+  width: 93.5%;
+  height: 70px;
+  overflow: hidden;
 }
 
 .btn2 {
+  width: 100%;
   margin: 10px;
   flex: 1;
 }
-
+.btn3 {
+  width: 100%;
+  margin: 10px;
+  flex: 1;
+}
+.icon-fav {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.button-with-icon {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
 .leaderboard-container {
   display: flex;
   flex-direction: column;

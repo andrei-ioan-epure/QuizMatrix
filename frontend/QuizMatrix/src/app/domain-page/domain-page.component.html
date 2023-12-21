@@ -1,6 +1,6 @@
 <button mat-raised-button class="backBtn" routerLink="/domains">
   <mat-icon class="iconBack">arrow_back</mat-icon>
-  Inapoi
+  Înapoi
 </button>
 
 <div class="domain-page">
@@ -43,17 +43,17 @@
     <div class="buttons-container">
       <div class="button-container">
         <button class="btn" [disabled]="currentPage === 0" (click)="prevPage()">
-          Inapoi
+          înapoi
         </button>
       </div>
-      <span>Page {{ currentPage + 1 }} of {{ pageCount() }}</span>
+      <span>Pagina {{ currentPage + 1 }} din {{ pageCount() }}</span>
       <div class="button-container">
         <button
           class="btn"
           [disabled]="currentPage >= leaderboardUsers.length / itemsPerPage - 1"
           (click)="nextPage()"
         >
-          Inainte
+          înainte
         </button>
       </div>
     </div>
@@ -63,7 +63,7 @@
       <p>Timp Mediu: {{ averageTime | number : "1.0-2" }} minute</p>
     </div>
   </div>
-  
+
   <div class="quizzes" *ngIf="quizzes && domain">
     <h2>Teste</h2>
     <table>
@@ -77,9 +77,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let quiz of quizzes">
-          <td> <img src="{{ domain.icon_path }}" alt="Icon" /> {{ quiz.title }}</td>
+          <td>
+            <img src="{{ domain.icon_path }}" alt="Icon" /> {{ quiz.title }}
+          </td>
           <td>{{ quiz.time }}</td>
-          <td>{{ quiz.creation_date}}</td>
+          <td>{{ quiz.creation_date }}</td>
           <td class="actiuni-cell">
             <button
               mat-raised-button
@@ -91,12 +93,14 @@
             </button>
             <button
               mat-raised-button
-              class="btn2"
+              class="btn3"
               (click)="startQuiz(quiz.id_quiz, 'multiplayer')"
             >
               Multiplayer
             </button>
-            <mat-icon class="icon-center">favorite_border</mat-icon>
+            <button class="button-with-icon">
+              <mat-icon class="icon-fav">favorite_border</mat-icon>
+            </button>
           </td>
         </tr>
       </tbody>

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { StorageService } from '../services/storage.service';
+import { StorageService } from '../services/storage/storage.service';
 
 @Component({
   selector: 'app-contul-meu',
   templateUrl: './contul-meu.component.html',
-  styleUrl: './contul-meu.component.css'
+  styleUrl: './contul-meu.component.css',
 })
-export class ContulMeuComponent implements OnInit{
-  domenii: string[] = ['Domeniu1', 'Domeniu2', 'Domeniu3']; 
+export class ContulMeuComponent implements OnInit {
+  domenii: string[] = ['Domeniu1', 'Domeniu2', 'Domeniu3'];
   domeniuSelectat: string | undefined;
   utilizator = {
     username: 'username',
@@ -19,7 +19,6 @@ export class ContulMeuComponent implements OnInit{
   constructor(private storageService: StorageService) {}
 
   ngOnInit(): void {
-    this.utilizator = this.storageService.getUser(); 
+    this.utilizator = this.storageService.getUser();
   }
-
 }

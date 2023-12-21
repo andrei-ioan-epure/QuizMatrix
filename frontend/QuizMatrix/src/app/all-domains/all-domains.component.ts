@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { CardsDomainService } from '../services/cards-domain.service';
+import { CardsDomainService } from '../services/cards-domain/cards-domain.service';
 import { DomainCards } from './model/domain-card';
 
 @Component({
@@ -19,9 +19,9 @@ export class AllDomainsComponent implements OnInit {
   ngOnInit(): void {
     this.cards = this.cardsService.getCards();
   }
-    
+
   navigateToDomain(domainTitle: string): void {
-    console.log(`Navigating to ${domainTitle}`)
+    console.log(`Navigating to ${domainTitle}`);
     this.router.navigate([`/domain-page/${domainTitle}`]);
   }
 }

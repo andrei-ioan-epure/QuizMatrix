@@ -21,6 +21,7 @@ export class TimerComponent implements AfterViewInit, OnDestroy {
   private timerSubscription!: Subscription;
 
   @Output() timeSpent: EventEmitter<number> = new EventEmitter<number>();
+  @Output() timeExpired: EventEmitter<void> = new EventEmitter<void>(); // Adăugat pentru semnalarea expirării timpului
 
   constructor(private zone: NgZone) {}
 
@@ -45,6 +46,7 @@ export class TimerComponent implements AfterViewInit, OnDestroy {
           this.timeSpent.emit(this.duration - this.countdown);
         } else {
           this.timerSubscription.unsubscribe();
+          this.timeExpired.emit();
         }
       });
     });

@@ -50,7 +50,7 @@ public class EmailServiceImpl implements IEmailService {
             mimeMessageHelper.setSubject("Înregistrare reușită");
 
 
-            String imagePath = "img.png";
+            String imagePath = "images/img.png";
 
 
             ClassPathResource imageResource = new ClassPathResource(imagePath);

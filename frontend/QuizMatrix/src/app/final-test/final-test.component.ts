@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { QuizDataService } from '../services/quiz-data.service';
+import { QuizDataService } from '../services/quiz-data/quiz-data.service';
 import { Router } from '@angular/router';
 
 @Component({

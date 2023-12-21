@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { StorageService } from '../services/storage.service';
+import { StorageService } from '../services/storage/storage.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
