@@ -18,6 +18,7 @@ export class DomainPageComponent implements OnInit {
   domain?: Domain;
   averageScore = 0.0;
   averageTime = 0;
+  favoriteQuizIds = new Set<number>();
 
   leaderboardUsers: User[] = [];
 
@@ -100,15 +101,31 @@ export class DomainPageComponent implements OnInit {
     //de implementat
     console.log(`Starting ${id_quiz} in ${mode} mode`);
   }
-  toggleFavorite(test: any) {
-    if (test.isFavorite) {
-      //this.removeFromFavorites(test.id_quiz);
-      test.isFavorite = false;
+
+  toggleFavorite(quiz: any) {
+    const isCurrentlyFavorite = this.favoriteQuizIds.has(quiz.id_quiz);
+    console.log(quiz.id_quiz);
+  
+    if (isCurrentlyFavorite) {
+      this.favoriteQuizIds.delete(quiz.id_quiz);
+      this.removeTestFromFavorites(quiz.id_quiz);
     } else {
-      this.addTestToFavorites(test.id_quiz);
-      test.isFavorite = true;
+      this.favoriteQuizIds.add(quiz.id_quiz);
+      this.addTestToFavorites(quiz.id_quiz);
     }
   }
+  removeTestFromFavorites(idTest: number) {
+    this.testeFavoriteService.removeTestFromFavorites(idTest).subscribe({
+      next: (response) => {
+        this.testeFavoriteService.testSters(response);
+        console.log('Test sters de la favorite:', response);
+      },
+      error: (error) => {
+        console.log('Eroare la stergerea testului din favorite:', error);
+      }
+    });
+  }
+  
 
   addTestToFavorites(idTest: number) {
     const id_user = 1; 

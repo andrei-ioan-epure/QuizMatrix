@@ -13,6 +13,7 @@ import { QuizService } from '../services/quizService/quiz.service';
 export class TesteFavoriteComponent implements OnInit{
 
   teste: any[] = []; 
+  favoriteQuizIds = new Set<number>();
 
   constructor(private domainService: DomainsService,
     private testeFavoriteService: TesteFavoriteService,
@@ -29,24 +30,15 @@ export class TesteFavoriteComponent implements OnInit{
     const id_user=1;
     this.testeFavoriteService.getTesteFavorite(id_user).subscribe(data => {
       this.teste = [];
+      console.log(data);
       data.forEach((quizUser: any) => {
         this.quizService.getQuizById(quizUser.id_quiz).subscribe(quizDetails => {
           const quiz = quizDetails;
           this.teste.push({
-            quiz: quiz,
-            isFavorite: true
+            quiz: quiz
           });
         });
       });
-      this.teste.forEach(quiz => {
-              this.domainService.getDomainById(quiz.id_domain).subscribe(domeniu => {
-                console.log(domeniu);
-                  const domain = domeniu[0];
-                  quiz.domainName = domain.domain_name; 
-                  quiz.iconPath=domain.icon_path;
-              });
-            });
-            console.log(this.teste);
     });
   }
   

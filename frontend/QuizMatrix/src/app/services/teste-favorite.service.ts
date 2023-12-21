@@ -9,6 +9,8 @@ export class TesteFavoriteService {
 
   private baseUrl = 'http://localhost:8090/quiz_user'; 
   private testAdaugatLaFavorite = new Subject<any>();
+  private testStersDinFavorite = new Subject<any>();
+
 
   constructor(private http: HttpClient) { }
 
@@ -21,13 +23,18 @@ export class TesteFavoriteService {
   addTestToFavorites(id_quiz:number,id_user:number): Observable<any> {
     const quizUser = {
       id_quiz: id_quiz,
-      id_user: id_user,
-      isFavorite:true,
+      id_user: id_user
     };
     return this.http.post(this.baseUrl, quizUser);
   }
   testAdaugat(test: any) {
     this.testAdaugatLaFavorite.next(test);
+  }
+  testSters(test:any){
+    this.testStersDinFavorite.next(test);
+  }
+  getTestStersListener() {
+    return this.testStersDinFavorite.asObservable();
   }
 
   getTestAdaugatListener() {

@@ -9,23 +9,17 @@
   <table>
     <thead>
       <tr>
-        <th>Icon</th>
         <th>Nume Test</th>
         <th>Durată</th>
         <th>Data creării</th>
-        <th>Domeniu</th>
         <th>Acțiuni</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let test of teste">
-        <td>
-          <img src="{{ test.iconPath }}" alt="Icon" />
-        </td>
         <td>{{ test.quiz.title }}</td>
         <td>{{ test.quiz.time }} minute</td>
         <td>{{ test.quiz.creation_date }}</td>
-        <td>{{ test.domainName }}</td>
         <td class="actiuni-cell">
           <button mat-raised-button routerLink="/quiz">
             Reîntoarcere la test
