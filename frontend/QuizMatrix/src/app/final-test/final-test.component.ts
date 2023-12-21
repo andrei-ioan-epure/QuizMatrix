@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class FinalTestComponent implements OnInit {
   score: number = 0;
   totalTimeSpent: number = 0;
+  quizId: number = -1;
 
   constructor(
     private quizDataService: QuizDataService,
@@ -20,6 +21,7 @@ export class FinalTestComponent implements OnInit {
     const quizData = this.quizDataService.getQuizData();
     this.score = quizData.score;
     this.totalTimeSpent = quizData.totalTimeSpent;
+    this.quizId = quizData.quizId;
     this.quizDataService.resetQuizData();
   }
 

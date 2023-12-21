@@ -4,7 +4,7 @@
       <h2>{{ increment + 1 }}/{{ questions.length }}</h2>
     </div>
     <div class="middle">
-      <div>
+      <div *ngIf="time">
         <app-timer
           [duration]="time"
           (timeSpent)="onTimeSpent($event)"

@@ -42,7 +42,7 @@ export class TimerComponent implements AfterViewInit, OnDestroy {
       this.zone.run(() => {
         if (this.countdown > 0) {
           this.countdown--;
-          this.timeSpent.emit(this.duration - this.countdown);
+          this.timeSpent.emit(this.countdown);
         } else {
           this.timerSubscription.unsubscribe();
         }

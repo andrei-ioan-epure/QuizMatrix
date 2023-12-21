@@ -63,7 +63,7 @@
       <p>Timp Mediu: {{ averageTime | number : "1.0-2" }} minute</p>
     </div>
   </div>
-  
+
   <div class="quizzes" *ngIf="quizzes && domain">
     <h2>Teste</h2>
     <table>
@@ -77,15 +77,17 @@
       </thead>
       <tbody>
         <tr *ngFor="let quiz of quizzes">
-          <td> <img src="{{ domain.icon_path }}" alt="Icon" /> {{ quiz.title }}</td>
+          <td>
+            <img src="{{ domain.icon_path }}" alt="Icon" /> {{ quiz.title }}
+          </td>
           <td>{{ quiz.time }}</td>
-          <td>{{ quiz.creation_date}}</td>
+          <td>{{ quiz.creation_date }}</td>
           <td class="actiuni-cell">
             <button
               mat-raised-button
               class="btn2"
               (click)="startQuiz(quiz.id_quiz, 'singleplayer')"
-              routerLink="/quiz"
+              [routerLink]="'/quiz/' + quiz.id_quiz"
             >
               Singleplayer
             </button>

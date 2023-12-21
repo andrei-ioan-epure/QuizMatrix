@@ -57,7 +57,7 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'quiz',
+    path: 'quiz/:id',
     component: QuizComponent,
   },
   {
@@ -78,9 +78,9 @@ const routes: Routes = [
     path: 'domains',
     component: AllDomainsComponent,
   },
-  { 
-    path: 'domain-page/:domain', 
-    component: DomainPageComponent 
+  {
+    path: 'domain-page/:domain',
+    component: DomainPageComponent,
   },
   {
     path: 'add-test',
