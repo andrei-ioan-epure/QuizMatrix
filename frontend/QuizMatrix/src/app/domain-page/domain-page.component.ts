@@ -9,6 +9,7 @@ import { Quiz } from '../models/quiz';
 import { QuizService } from '../services/quizService/quiz.service';
 import { Domain } from '../models/domain';
 import { DomainsService } from '../services/domain/domains.service';
+import { TesteFavoriteService } from '../services/teste-favorite/teste-favorite.service';
 
 @Component({
   selector: 'app-domain-page',
@@ -20,6 +21,7 @@ export class DomainPageComponent implements OnInit {
   domain?: Domain;
   averageScore = 0.0;
   averageTime = 0;
+  favoriteQuizIds = new Set<number>();
 
   leaderboardUsers: User[] = [];
 
@@ -28,7 +30,8 @@ export class DomainPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private quizService: QuizService,
-    private domainsService: DomainsService
+    private domainsService: DomainsService,
+    private testeFavoriteService: TesteFavoriteService
   ) {}
 
   ngOnInit(): void {
@@ -54,8 +57,6 @@ export class DomainPageComponent implements OnInit {
   }
 
   loadLeaderboardData(domain: string): void {
-    // Fetch leaderboard data based on this.domain
-    // Example hardcoded data (replace with actual data fetching logic)
     this.leaderboardUsers = [
       { rank: 1, name: 'Alice', score: 1000, time: 200 },
       { rank: 2, name: 'Bob', score: 950, time: 220 },
@@ -63,7 +64,6 @@ export class DomainPageComponent implements OnInit {
       { rank: 4, name: 'Snow', score: 880, time: 300 },
       { rank: 5, name: 'Tormund', score: 870, time: 315 },
       { rank: 6, name: 'Cersei', score: 100, time: 265 },
-      // ... more users for the selected domain ...
     ];
   }
 
@@ -107,6 +107,43 @@ export class DomainPageComponent implements OnInit {
   startQuiz(id_quiz: number, mode: string): void {
     //de implementat
     console.log(`Starting ${id_quiz} in ${mode} mode`);
+  }
+
+  toggleFavorite(quiz: any) {
+    const isCurrentlyFavorite = this.favoriteQuizIds.has(quiz.id_quiz);
+    console.log(quiz.id_quiz);
+
+    if (isCurrentlyFavorite) {
+      this.favoriteQuizIds.delete(quiz.id_quiz);
+      this.removeTestFromFavorites(quiz.id_quiz);
+    } else {
+      this.favoriteQuizIds.add(quiz.id_quiz);
+      this.addTestToFavorites(quiz.id_quiz);
+    }
+  }
+  removeTestFromFavorites(idTest: number) {
+    this.testeFavoriteService.removeTestFromFavorites(idTest).subscribe({
+      next: (response) => {
+        this.testeFavoriteService.testSters(response);
+        console.log('Test sters de la favorite:', response);
+      },
+      error: (error) => {
+        console.log('Eroare la stergerea testului din favorite:', error);
+      },
+    });
+  }
+
+  addTestToFavorites(idTest: number) {
+    const id_user = 1;
+    this.testeFavoriteService.addTestToFavorites(idTest, id_user).subscribe({
+      next: (response) => {
+        this.testeFavoriteService.testAdaugat(response);
+        console.log('Test adăugat la favorite:', response);
+      },
+      error: (error) => {
+        console.log('Eroare la adăugarea testului la favorite:', error);
+      },
+    });
   }
 }
 

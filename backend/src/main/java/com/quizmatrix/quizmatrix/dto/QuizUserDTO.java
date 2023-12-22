@@ -11,7 +11,8 @@ import lombok.*;
 @ToString
 public class QuizUserDTO {
     private Integer id;
-    private User user;
-    private Quiz quiz;
+    private Integer id_user;
+    private Integer id_quiz;
+    private Boolean isFavorite;
 
 }

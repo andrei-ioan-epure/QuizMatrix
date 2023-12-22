@@ -98,9 +98,13 @@
             >
               Multiplayer
             </button>
-            <button class="button-with-icon">
-              <mat-icon class="icon-fav">favorite_border</mat-icon>
-            </button>
+            <mat-icon class="favorite-icon" (click)="toggleFavorite(quiz)">
+              {{
+                favoriteQuizIds.has(quiz.id_quiz)
+                  ? "favorite"
+                  : "favorite_border"
+              }}
+            </mat-icon>
           </td>
         </tr>
       </tbody>

@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import { TesteFavoriteService } from '../services/teste-favorite/teste-favorite.service';
 import { StorageService } from '../services/storage/storage.service';
 import { DomainsService } from '../services/domain/domains.service';
+import { QuizService } from '../services/quizService/quiz.service';
+import { Quiz } from '../models/quiz';
 
 @Component({
   selector: 'app-teste-favorite',
@@ -16,12 +18,14 @@ export class TesteFavoriteComponent implements OnInit {
     private domainService: DomainsService,
     private testeFavoriteService: TesteFavoriteService,
     private location: Location,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private quizService: QuizService
   ) {}
 
   goBack(): void {
     this.location.back();
   }
+
   ngOnInit() {
     //if(this.storageService.isLoggedIn())
     //{
@@ -52,6 +56,24 @@ export class TesteFavoriteComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
+      },
+    });
+  }
+  addTestToFavorites(idTest: number) {
+    const id_user = 1;
+    this.testeFavoriteService.addTestToFavorites(idTest, id_user).subscribe({
+      next: (response) => {
+        this.quizService.getQuizById(idTest).subscribe((quizDetails: Quiz) => {
+          const quiz = quizDetails;
+          const testAdaugat = {
+            quiz: quiz,
+          };
+          this.teste.push(testAdaugat);
+          console.log('Test adăugat la favorite:', testAdaugat);
+        });
+      },
+      error: (error) => {
+        console.log('Eroare la adăugarea testului la favorite:', error);
       },
     });
   }
