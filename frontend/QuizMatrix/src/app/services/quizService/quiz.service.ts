@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class QuizService {
   private apiUrl = 'http://localhost:8090/quiz';
@@ -12,12 +12,14 @@ export class QuizService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getQuizzes(): Observable<Quiz[]> {
-    return this.httpClient.get<Quiz[]>(this.apiUrl);
+  getQuizById(id: number): Observable<Quiz> {
+    return this.httpClient.get<Quiz>(this.apiUrl + '/' + id);
   }
 
   getQuizzesByDomain(id_domain: number): Observable<Quiz[]> {
-    return this.httpClient.get<Quiz[]>(`${this.apiUrl}/byDomainId/${id_domain}`);
+    return this.httpClient.get<Quiz[]>(
+      `${this.apiUrl}/byDomainId/${id_domain}`
+    );
   }
 
   createQuiz(quiz: Quiz): Observable<Quiz> {

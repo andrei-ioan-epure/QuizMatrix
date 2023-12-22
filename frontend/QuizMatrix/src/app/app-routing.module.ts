@@ -58,7 +58,7 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'quiz',
+    path: 'quiz/:id',
     component: QuizComponent,
   },
   {

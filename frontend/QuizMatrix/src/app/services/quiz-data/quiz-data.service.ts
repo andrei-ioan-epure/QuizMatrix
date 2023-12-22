@@ -4,16 +4,22 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class QuizDataService {
+  private quizId: number = -1;
   private score: number = 0;
   private totalTimeSpent: number = 0;
 
-  setQuizData(score: number, totalTimeSpent: number): void {
+  setQuizData(quizId: number, score: number, totalTimeSpent: number): void {
+    this.quizId = quizId;
     this.score = score;
     this.totalTimeSpent = totalTimeSpent;
   }
 
-  getQuizData(): { score: number; totalTimeSpent: number } {
-    return { score: this.score, totalTimeSpent: this.totalTimeSpent };
+  getQuizData(): { quizId: number; score: number; totalTimeSpent: number } {
+    return {
+      quizId: this.quizId,
+      score: this.score,
+      totalTimeSpent: this.totalTimeSpent,
+    };
   }
 
   resetQuizData(): void {

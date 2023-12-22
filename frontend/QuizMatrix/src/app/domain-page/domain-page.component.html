@@ -87,7 +87,7 @@
               mat-raised-button
               class="btn2"
               (click)="startQuiz(quiz.id_quiz, 'singleplayer')"
-              routerLink="/quiz"
+              [routerLink]="'/quiz/' + quiz.id_quiz"
             >
               Singleplayer
             </button>

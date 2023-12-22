@@ -2,11 +2,10 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { TimerComponent } from './timer/timer.component';
 import { Answer } from '../models/answer';
 import { Question } from '../models/question';
-import { AnswerService } from '../services/answerService/answer.service';
-import { QuestionService } from '../services/questionService/question.service';
 
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuizDataService } from '../services/quiz-data/quiz-data.service';
+import { QuizService } from '../services/quizService/quiz.service';
 
 @Component({
   selector: 'app-quiz',
@@ -19,37 +18,30 @@ export class QuizComponent implements OnInit {
   @Input() questions: Question[] = [];
   @Input() answers = new Map<number, Answer[]>();
   @Input() increment: number = 0;
-  time: number = 10;
+  time!: number;
   totalTimeSpent: number = 0;
   selectedAnswer: number = -1;
   responses: Answer[] = [];
+  quizId = -1;
   constructor(
     private router: Router,
-    private answerService: AnswerService,
-    private questionService: QuestionService,
-    private quizDataService: QuizDataService
+    private quizDataService: QuizDataService,
+    private quizService: QuizService,
+    private route: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    console.log('meree');
-    console.log(this.answers);
-    console.log(this.questions);
-    this.questionService.getQuestions().subscribe((questions) => {
-      this.questions = questions;
-
-      this.answerService.getAnswers().subscribe((answers) => {
-        this.questions.forEach((question) => {
-          const answersForQuestion = answers.filter(
-            (answer) => answer.id_question === question.id_question
-          );
-
-          this.answers.set(question.id_question, answersForQuestion);
+    this.route.params.subscribe((params) => {
+      this.quizId = params['id'];
+      this.quizService.getQuizById(this.quizId).subscribe((quiz) => {
+        this.time = quiz.time;
+        this.questions = quiz.questions;
+        quiz.questions.forEach((q: Question) => {
+          this.answers.set(q.id_question, q.answers);
         });
-        console.log(this.answers);
-
-        this.printAnswerById(1);
       });
     });
   }
+
   getAnswerTextById(id: number, index: number): string {
     const answerArray = this.answers.get(id);
     return answerArray ? answerArray[index]?.answer_text : '';
@@ -73,7 +65,7 @@ export class QuizComponent implements OnInit {
   }
 
   nextQuestion(): void {
-    const currentAnswers = this.answers.get(this.increment);
+    const currentAnswers = this.answers.get(this.increment + 1);
 
     if (currentAnswers && this.selectedAnswer !== -1) {
       this.responses.push(currentAnswers[this.selectedAnswer]);
@@ -81,7 +73,7 @@ export class QuizComponent implements OnInit {
 
     if (this.increment < this.questions.length - 1) {
       this.increment += 1;
-      this.time = 10;
+      //  this.time = 10;
       // this.resetTimer();
       console.log(this.increment);
     }
@@ -90,6 +82,13 @@ export class QuizComponent implements OnInit {
   }
 
   finishQuiz() {
+    const currentAnswers = this.answers.get(this.increment + 1);
+
+    console.log('cureent', currentAnswers);
+    if (currentAnswers) {
+      this.responses.push(currentAnswers[this.selectedAnswer]);
+    }
+    console.log('Raspunsuri:', this.responses);
     const score = this.responses
       .filter((response) => response.isCorrect)
       .map((response) =>
@@ -103,9 +102,13 @@ export class QuizComponent implements OnInit {
         0
       );
 
-    console.log(score);
-    this.quizDataService.setQuizData(score, this.totalTimeSpent);
-    this.quizDataService.setTotalTimeSpent(this.totalTimeSpent);
+    console.log('Score', score);
+    console.log('Time', this.time);
+    this.quizDataService.setQuizData(
+      this.quizId,
+      score,
+      this.time - this.totalTimeSpent
+    );
     this.router.navigate(['/final-test']);
   }
 
@@ -115,22 +118,6 @@ export class QuizComponent implements OnInit {
   isLastQuestion(): boolean {
     return this.increment === this.questions.length - 1;
   }
-  // resetTimer() {
-  //   if (this.timerComponent) {
-  //     this.timerComponent.startTimer();
-  //   } else {
-  //     this.finishQuiz();
-  //   }
-  // }
-
-  // finishQuiz() {
-  //   this.quizDataService.setTotalTimeSpent(this.totalTimeSpent);
-  //   this.router.navigate(['/final-test']);
-  // }
-
-  // onTimeSpent(timeSpent: number): void {
-  //   this.totalTimeSpent = timeSpent;
-  // }
 
   getQuestionPoints(): number | undefined {
     const currentQuestion = this.questions[this.increment];
