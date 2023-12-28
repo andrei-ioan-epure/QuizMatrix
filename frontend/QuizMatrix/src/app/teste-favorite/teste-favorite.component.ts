@@ -11,16 +11,16 @@ import { Quiz } from '../models/quiz';
   templateUrl: './teste-favorite.component.html',
   styleUrl: './teste-favorite.component.css',
 })
-export class TesteFavoriteComponent implements OnInit{
+export class TesteFavoriteComponent implements OnInit {
 
-  teste: any[] = []; 
+  teste: any[] = [];
   favoriteQuizIds = new Set<number>();
 
   constructor(private domainService: DomainsService,
     private testeFavoriteService: TesteFavoriteService,
     private location: Location,
     private storageService: StorageService,
-    private quizService: QuizService) {}
+    private quizService: QuizService) { }
 
 
   goBack(): void {
@@ -28,8 +28,7 @@ export class TesteFavoriteComponent implements OnInit{
   }
 
   ngOnInit() {
-    if(this.storageService.isLoggedIn())
-    {
+    if (this.storageService.isLoggedIn()) {
       let id_user = this.storageService.getUser()["id_user"]
       this.testeFavoriteService.getTesteFavorite(id_user).subscribe(data => {
         this.teste = [];
@@ -43,9 +42,9 @@ export class TesteFavoriteComponent implements OnInit{
           });
         });
       });
+    }
   }
-  }
-  
+
   removeFromFavorites(idTest: number) {
     this.testeFavoriteService.removeTestFromFavorites(idTest).subscribe({
       next: (response) => {

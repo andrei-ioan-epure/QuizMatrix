@@ -18,13 +18,11 @@ public class CompletedTests {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
     @JoinColumn(name = "id_user")
-    private User user;
+    private Integer id_user;
 
-    @ManyToOne
     @JoinColumn(name = "id_quiz")
-    private Quiz quiz;
+    private Integer id_quiz;
     private int score;
     private java.sql.Date date_completed;
 

@@ -13,8 +13,8 @@ import java.util.Date;
 @ToString
 public class CompletedTestsDTO {
     private Integer id;
-    private User user;
-    private Quiz quiz;
+    private Integer id_user;
+    private Integer id_quiz;
     private int score;
     private Date date_completed;
 

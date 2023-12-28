@@ -10,24 +10,18 @@
   <table>
     <thead>
       <tr>
-        <th>Icon</th>
         <th>Nume Test</th>
         <th>Durată</th>
         <th>Data completării</th>
-        <th>Domeniu</th>
         <th>Scor</th>
         <th>Acțiuni</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let test of teste">
-        <td>
-          <img src="{{ test.iconPath }}" alt="Icon" />
-        </td>
         <td>{{ test.quiz.title }}</td>
         <td>{{ test.quiz.time }} minute</td>
         <td>{{ test.date_completed }}</td>
-        <td>{{ test.domainName }}</td>
         <td>{{ test.score }}</td>
         <td class="actiuni-cell">
           <button mat-raised-button routerLink="/quiz">

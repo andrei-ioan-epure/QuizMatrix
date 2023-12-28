@@ -6,6 +6,9 @@ import { Question } from '../models/question';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizDataService } from '../services/quiz-data/quiz-data.service';
 import { QuizService } from '../services/quizService/quiz.service';
+import { StorageService } from '../services/storage/storage.service';
+import { Quiz } from '../models/quiz';
+import { TesteParcurseService } from '../services/teste-parcurse/teste-parcurse.service';
 
 @Component({
   selector: 'app-quiz',
@@ -23,11 +26,15 @@ export class QuizComponent implements OnInit {
   selectedAnswer: number = -1;
   responses: Answer[] = [];
   quizId = -1;
+  completedQuizIds = new Set<number>();
+  id_user = this.storageService.getUser()["id_user"];
   constructor(
     private router: Router,
     private quizDataService: QuizDataService,
     private quizService: QuizService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private storageService: StorageService,
+    private testeParcurseService: TesteParcurseService
   ) {}
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -40,6 +47,7 @@ export class QuizComponent implements OnInit {
         });
       });
     });
+    this.updateCompletedQuizzes();
   }
 
   getAnswerTextById(id: number, index: number): string {
@@ -109,6 +117,11 @@ export class QuizComponent implements OnInit {
       score,
       this.time - this.totalTimeSpent
     );
+    console.log(this.completedQuizIds)
+    if(this.completedQuizIds.has(this.quizId) || !this.completedQuizIds.size) 
+      {
+        this.addTestToCompleted(this.quizId,score);
+      }
     this.router.navigate(['/final-test']);
   }
 
@@ -131,5 +144,29 @@ export class QuizComponent implements OnInit {
     console.log('Timer expired. Finishing quiz and navigating to /expire-time');
     this.finishQuiz();
     this.router.navigate(['/expire-time']);
+  }
+  updateCompletedQuizzes(): void {
+    if (this.storageService.isLoggedIn()) {
+      this.testeParcurseService.getCompletedTests(this.id_user).subscribe(testeFavorite => {
+        this.completedQuizIds.clear();
+        testeFavorite.forEach((quiz: Quiz) => {
+          this.completedQuizIds.add(quiz.id_quiz);
+        });
+      });
+    }
+  }
+  addTestToCompleted(idTest: number,score:number) {
+    if (this.storageService.isLoggedIn()) {
+      let id_user = this.storageService.getUser()["id_user"]
+      this.testeParcurseService.addTestToCompleted(idTest, id_user,score).subscribe({
+        next: (response) => {
+          this.testeParcurseService.testAdaugat(response);
+          console.log('Test adaugat la completate:', response);
+        },
+        error: (error) => {
+          console.log('Eroare la adaugarea testului la completate:', error);
+        }
+      });
+    }
   }
 }

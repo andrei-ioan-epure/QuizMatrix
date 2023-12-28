@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { DomainsService } from '../services/domain/domains.service';
 import { TesteParcurseService } from '../services/teste-parcurse/teste-parcurse.service';
 import { StorageService } from '../services/storage/storage.service';
+import { QuizService } from '../services/quizService/quiz.service';
 
 @Component({
   selector: 'app-teste-parcurse',
@@ -11,35 +12,38 @@ import { StorageService } from '../services/storage/storage.service';
 })
 export class TesteParcurseComponent {
   teste: any[] = [];
+  completedQuizIds = new Set<number>();
 
   constructor(
     private domainService: DomainsService,
-    private testeFavoriteService: TesteParcurseService,
+    private testeParcurseService: TesteParcurseService,
     private location: Location,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private quizService: QuizService
   ) {}
 
   goBack(): void {
     this.location.back();
   }
   ngOnInit() {
-    //if(this.storageService.isLoggedIn())
-    //{
-    const id_user = 2;
-    this.testeFavoriteService.getCompletedTests(id_user).subscribe((data) => {
-      this.teste = data;
-      this.teste.forEach((quiz) => {
-        this.domainService
-          .getDomainById(quiz.id_domain)
-          .subscribe((domainArray) => {
-            if (domainArray && domainArray.length > 0) {
-              const domain = domainArray[0];
-              quiz.domainName = domain.domain_name;
-              quiz.iconPath = domain.icon_path;
-            }
+    if (this.storageService.isLoggedIn()) {
+      let id_user = this.storageService.getUser()["id_user"];
+      this.testeParcurseService.getCompletedTests(id_user).subscribe(data => {
+        this.teste = [];
+        console.log(data);
+        data.forEach((quizUser: any) => {
+          this.quizService.getQuizById(quizUser.id_quiz).subscribe(quizDetails => {
+            const quizWithExtraData = {
+              quiz: quizDetails,
+              score: quizUser.score,
+              date_completed: quizUser.date_completed 
+            };
+            this.teste.push(quizWithExtraData);
+            console.log(this.teste);
           });
+        });
       });
-    });
-    //}
+    }
   }
+  
 }
