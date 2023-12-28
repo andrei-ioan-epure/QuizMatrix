@@ -10,6 +10,7 @@ import { QuizService } from '../services/quizService/quiz.service';
 import { Domain } from '../models/domain';
 import { DomainsService } from '../services/domain/domains.service';
 import { TesteFavoriteService } from '../services/teste-favorite/teste-favorite.service';
+import { StorageService } from '../services/storage/storage.service';
 
 @Component({
   selector: 'app-domain-page',
@@ -22,6 +23,7 @@ export class DomainPageComponent implements OnInit {
   averageScore = 0.0;
   averageTime = 0;
   favoriteQuizIds = new Set<number>();
+  id_user = this.storageService.getUser()["id_user"];
 
   leaderboardUsers: User[] = [];
 
@@ -31,8 +33,9 @@ export class DomainPageComponent implements OnInit {
     private route: ActivatedRoute,
     private quizService: QuizService,
     private domainsService: DomainsService,
-    private testeFavoriteService: TesteFavoriteService
-  ) {}
+    private testeFavoriteService: TesteFavoriteService,
+    private storageService: StorageService
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -40,12 +43,12 @@ export class DomainPageComponent implements OnInit {
     });
 
     this.loadContent();
+    this.updateFavoriteQuizzes();
   }
 
   loadContent() {
     this.domainsService.getDomainByName(this.domainName).subscribe((domain) => {
       this.domain = domain;
-      console.log(domain);
       this.quizService
         .getQuizzesByDomain(this.domain.id_domain)
         .subscribe((quizzes) => {
@@ -129,23 +132,38 @@ export class DomainPageComponent implements OnInit {
       },
       error: (error) => {
         console.log('Eroare la stergerea testului din favorite:', error);
-      },
+      }
     });
   }
 
+
   addTestToFavorites(idTest: number) {
-    const id_user = 1;
-    this.testeFavoriteService.addTestToFavorites(idTest, id_user).subscribe({
-      next: (response) => {
-        this.testeFavoriteService.testAdaugat(response);
-        console.log('Test adăugat la favorite:', response);
-      },
-      error: (error) => {
-        console.log('Eroare la adăugarea testului la favorite:', error);
-      },
-    });
+    if (this.storageService.isLoggedIn()) {
+      let id_user = this.storageService.getUser()["id_user"]
+      this.testeFavoriteService.addTestToFavorites(idTest, id_user).subscribe({
+        next: (response) => {
+          this.testeFavoriteService.testAdaugat(response);
+          console.log('Test adăugat la favorite:', response);
+        },
+        error: (error) => {
+          console.log('Eroare la adăugarea testului la favorite:', error);
+        }
+      });
+    }
   }
+  updateFavoriteQuizzes(): void {
+    if (this.storageService.isLoggedIn()) {
+      this.testeFavoriteService.getTesteFavorite(this.id_user).subscribe(testeFavorite => {
+        this.favoriteQuizIds.clear();
+        testeFavorite.forEach((quiz: Quiz) => {
+          this.favoriteQuizIds.add(quiz.id_quiz);
+        });
+      });
+    }
+  }
+
 }
+
 
 interface User {
   rank: number;
