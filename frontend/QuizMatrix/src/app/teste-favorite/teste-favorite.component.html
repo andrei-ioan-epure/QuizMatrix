@@ -18,12 +18,9 @@
     <tbody>
       <tr *ngFor="let test of teste">
         <td>{{ test.quiz.title }}</td>
-        <td>{{ test.time }} minute</td>
+        <td>{{ test.quiz.time }} minute</td>
         <td>{{ test.quiz.creation_date }}</td>
         <td class="actiuni-cell">
-          <button mat-raised-button routerLink="/quiz">
-            Reîntoarcere la test
-          </button>
           <button mat-raised-button class="btn2" (click)="removeFromFavorites(test.quiz.id_quiz)">Elimină din favorite</button>
         </td>
       </tr>

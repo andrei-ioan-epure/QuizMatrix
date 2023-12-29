@@ -29,7 +29,7 @@ h1 {
 }
 .tests-table {
   margin: 0 auto;
-  max-width: 80%;
+  max-width: 60%;
 }
 .mat-mdc-raised-button:not(:disabled) {
   color: #ba9797;
