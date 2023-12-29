@@ -9,6 +9,7 @@ import { EmailService } from '../services/email/email.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
+  message: string = '';
   constructor(
     private el: ElementRef,
     private authService: AuthService,
@@ -46,17 +47,24 @@ export class LoginComponent {
   }
 
   register(formData: any) {
+    this.message = '';
+    if (!formData.firstname || !formData.lastname || !formData.email || !formData.password) {
+      this.message = 'Toate câmpurile sunt obligatorii!';
+      console.log(this.message)
+      return;
+    }
     if (formData.email) {
       const emailDetails = {
         recipient: formData.email,
       };
-
+   
       this.authService.signup(formData).subscribe(
         (response) => {
           console.log('Register successful', response);
           this.emailService.sendRegistrationEmail(emailDetails).subscribe(
             (emailResponse) => {
               console.log('E-mail trimis cu succes!', emailResponse);
+              this.message = 'Un email de confirmare a fost trimis la '+formData.email;
             },
             (emailError) => {
               console.error('Eroare la trimiterea e-mailului', emailError);
