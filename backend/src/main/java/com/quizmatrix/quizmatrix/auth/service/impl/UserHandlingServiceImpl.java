@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,6 +54,11 @@ public class UserHandlingServiceImpl implements UserHandlingService {
     @Override
     public void deleteUserById(int id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
     @Override
     public User updateUser(int id, User updatedUser) {

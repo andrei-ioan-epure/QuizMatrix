@@ -6,6 +6,7 @@ import com.quizmatrix.quizmatrix.auth.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -56,6 +57,9 @@ public class SecurityConfig{
                         .requestMatchers("/api/auth/test_admin").hasAnyAuthority(Constant.UserRole.ADMIN.value)
                         .requestMatchers("/api/auth/test_user").hasAnyAuthority(Constant.UserRole.USER.value)
                         //.requestMatchers("/leaderboard").hasAnyAuthority(Constant.UserRole.ADMIN.value)
+                        .requestMatchers(HttpMethod.GET, "/api/auth/users/**").hasAnyAuthority(Constant.UserRole.ADMIN.value)
+                        .requestMatchers(HttpMethod.DELETE, "/api/auth/users/**").hasAnyAuthority(Constant.UserRole.ADMIN.value)
+                        .requestMatchers(HttpMethod.PUT, "/api/auth/users/**").hasAnyAuthority(Constant.UserRole.ADMIN.value)
                         .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())

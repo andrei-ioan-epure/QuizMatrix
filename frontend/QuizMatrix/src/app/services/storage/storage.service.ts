@@ -44,6 +44,10 @@ export class StorageService {
     const user = this.getUser();
     return user ? user.role : 'ADMIN';
   }
+  public isUserAdmin(): boolean {
+    const userRole = this.getUserRole();
+    return userRole === 'ADMIN';
+  }
 
   public isLoggedIn(): boolean {
     const user = this.getWindow()?.sessionStorage.getItem(USER_KEY);

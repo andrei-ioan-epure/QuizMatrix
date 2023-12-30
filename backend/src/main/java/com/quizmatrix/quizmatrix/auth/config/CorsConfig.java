@@ -21,7 +21,7 @@ public class CorsConfig {
         config.addAllowedMethod("POST");
         config.addAllowedMethod("PUT");
         config.addAllowedMethod("DELETE");
-        source.registerCorsConfiguration("/**", config);//politica CORS se aplica la toate url-urile din app
+        source.registerCorsConfiguration("/api/auth/users/**", config);
         return new CorsFilter(source);
     }
 }

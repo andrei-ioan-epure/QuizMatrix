@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
 import java.time.Duration;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -139,14 +140,20 @@ public class AuthController {
             this.idToken = idToken;
         }
     }
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id) {
         return userHandlingService.findUserById_user(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userHandlingService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 
-    @DeleteMapping("/{id}")
+
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable int id) {
         userHandlingService.deleteUserById(id);
         return ResponseEntity.ok().build();

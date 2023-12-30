@@ -5,6 +5,7 @@ import com.quizmatrix.quizmatrix.auth.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.quizmatrix.quizmatrix.auth.model.User;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserHandlingService {
@@ -14,5 +15,8 @@ public interface UserHandlingService {
     Optional<User> findUserByEmail(String email);
     void deleteUserById(int id);
     Optional<User> findUserById_user(int id);
+
+    List<User> getAllUsers();
+
     User updateUser(int id, User updatedUser);
 }

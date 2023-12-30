@@ -21,6 +21,8 @@ import { MyTestInfoComponent } from './my-test-info/my-test-info.component';
 import { AddOwnTestComponent } from './add-own-test/add-own-test.component';
 import { FinalTestComponent } from './final-test/final-test.component';
 import { ExpireTimeComponent } from './expire-time/expire-time.component';
+import { UsersComponent } from './users/users.component';
+import { AuthGuard } from './auth.quard';
 
 const routes: Routes = [
   {
@@ -90,6 +92,11 @@ const routes: Routes = [
   {
     path: 'expire-time',
     component: ExpireTimeComponent,
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
+    canActivate: [AuthGuard], 
   },
   {
     path: '**',
