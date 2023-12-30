@@ -51,8 +51,17 @@
       <mat-icon>add</mat-icon>
       Adaugă un test
     </button>
-
-    <!-- Afișează butonul "Înregistrează-te" sau butonul cu iconița utilizatorului, în funcție de starea de autentificare -->
+    <button
+    id="users"
+    mat-raised-button
+    routerLink="/users"
+    routerLinkActive="active_route"
+    *ngIf="isLoggedIn && userRole === 'ADMIN'"
+  >
+    <mat-icon>people</mat-icon>
+    Utilizatori
+  </button>
+    
     <button
       mat-button
       class="button"
@@ -97,6 +106,6 @@
       </div>
     </div>
   </div>
-  <!-- Fundal semi-transparent pentru a acoperi restul paginii -->
+
   <div class="page-overlay" *ngIf="showLogoutPopup"></div>
 </div>

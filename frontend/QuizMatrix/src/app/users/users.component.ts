@@ -15,15 +15,36 @@ export class UsersComponent implements OnInit {
     this.loadUsers();
   }
 
-  loadUsers(): void {
-    this.userService.getAllUsers().subscribe((data: any) => {
+// users.component.ts
+loadUsers(): void {
+  this.userService.getAllUsers().subscribe(
+    (data: any) => {
+      console.log('Loaded users:', data);
       this.users = data;
-    });
-  }
+    },
+    (error) => {
+      console.error('Error loading users:', error);
+    }
+  );
+}
 
-  deleteUser(userId: number): void {
-    this.userService.deleteUser(userId).subscribe(() => {
-      this.loadUsers();
-    });
+
+deleteUser(userId: number): void {
+  console.log('Deleting user with ID:', userId);
+
+  if (userId) {
+    this.userService.deleteUser(userId).subscribe(
+      () => {
+        console.log('User deleted successfully.');
+        this.loadUsers();
+      },
+      (error) => {
+        console.error('Error deleting user:', error);
+      }
+    );
+  } else {
+    console.error('Invalid user ID.');
   }
+}
+  
 }

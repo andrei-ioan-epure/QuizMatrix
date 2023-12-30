@@ -1,8 +1,9 @@
-<h2>User List</h2>
 
-<ul>
-  <li *ngFor="let user of users">
-    {{ user.firstname }} {{ user.lastname }} ({{ user.email }})
-    <button (click)="deleteUser(user.id)">Delete</button>
+<h2>Lista utilizatorilor</h2>
+
+<ul class="user-list">
+  <li *ngFor="let user of users" class="user-item">
+    Email: {{ user.email }}  
+    <button (click)="deleteUser(user.id_user)" class="delete-button">Delete</button>
   </li>
 </ul>

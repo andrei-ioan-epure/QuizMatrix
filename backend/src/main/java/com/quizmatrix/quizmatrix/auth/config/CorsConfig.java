@@ -21,7 +21,8 @@ public class CorsConfig {
         config.addAllowedMethod("POST");
         config.addAllowedMethod("PUT");
         config.addAllowedMethod("DELETE");
-        source.registerCorsConfiguration("/api/auth/users/**", config);
+        source.registerCorsConfiguration("/**", config);
+        //source.registerCorsConfiguration("/api/auth/users/**", config);
         return new CorsFilter(source);
     }
 }

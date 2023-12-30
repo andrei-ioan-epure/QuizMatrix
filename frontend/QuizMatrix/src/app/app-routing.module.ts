@@ -88,6 +88,7 @@ const routes: Routes = [
   {
     path: 'add-test',
     component: AddOwnTestComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'expire-time',
