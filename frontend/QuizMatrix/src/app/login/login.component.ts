@@ -34,7 +34,13 @@ export class LoginComponent {
   }
 
   login(formData: any) {
-    // console.log(formData);
+    this.message = '';
+  
+    if (!formData.email || !formData.password) {
+      this.message = 'Adresa de email și parola sunt obligatorii!';
+      return;
+    }
+  
     this.authService.login(formData).subscribe(
       (response) => {
         console.log('Login successful', response);
@@ -42,15 +48,21 @@ export class LoginComponent {
       },
       (error) => {
         console.error('Login failed!', error);
+        this.message = 'Datele sunt invalide. Verificați adresa de email și parola.';
       }
     );
   }
+  
 
   register(formData: any) {
     this.message = '';
     if (!formData.firstname || !formData.lastname || !formData.email || !formData.password) {
       this.message = 'Toate câmpurile sunt obligatorii!';
       console.log(this.message)
+      return;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      this.message = 'Parolele nu se potrivesc!';
       return;
     }
     if (formData.email) {

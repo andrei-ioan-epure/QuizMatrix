@@ -10,7 +10,10 @@
       <input ngModel name="lastname" type="text" placeholder="Last Name" />
       <input ngModel name="email" type="email" placeholder="Email" />
       <input ngModel name="password" type="password" placeholder="Password" />
-      <input type="password" placeholder="Confirm Password" />
+      <input ngModel name="confirmPassword" type="password" placeholder="Confirm Password" />
+      <div  class="confirm-pass" *ngIf="registerForm.value.password !== registerForm.value.confirmPassword && registerForm.controls['confirmPassword'].touched">
+        Parolele nu se potrivesc.
+      </div>
       <button type="submit" id="true_register">Înregistrează-te</button>
     </form>
   </div>
@@ -20,10 +23,14 @@
       <h1>Bine ai revenit!</h1>
       <input ngModel name="email" type="email" placeholder="Email" />
       <input ngModel name="password" type="password" placeholder="Password" />
+      <div class="error-message" *ngIf="loginForm.submitted && !loginForm.valid">
+        Datele sunt invalide. Verificați adresa de email și parola.
+      </div>
       <a href="#">Ți-ai uitat parola ?</a>
       <button type="submit" id="true_login">Conectează-te</button>
     </form>
   </div>
+  
 
   <div class="overlay-container">
     <div class="overlay">
