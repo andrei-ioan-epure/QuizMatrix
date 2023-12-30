@@ -1,16 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { QuizService } from '../services/quizService/quiz.service';
+import { QuizDataService } from '../services/quiz-data/quiz-data.service';
 
 @Component({
   selector: 'app-expire-time',
   templateUrl: './expire-time.component.html',
-  styleUrl: './expire-time.component.css',
+  styleUrls: ['./expire-time.component.css'],
 })
 export class ExpireTimeComponent implements OnInit {
-  constructor(private router: Router) {}
+  quizId: number = -1;
 
-  ngOnInit(): void {}
-  retakeQuiz(): void {
-    this.router.navigate(['/quiz']);
+  constructor(
+    private quizDataService: QuizDataService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    const quizData = this.quizDataService.getQuizData();
+    this.quizId = quizData.quizId;
+    this.quizDataService.resetQuizData();
   }
+
+
 }

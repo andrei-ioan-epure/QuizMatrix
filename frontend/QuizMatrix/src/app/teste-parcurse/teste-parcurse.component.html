@@ -24,10 +24,11 @@
         <td>{{ test.date_completed }}</td>
         <td>{{ test.score }}</td>
         <td class="actiuni-cell">
-          <button mat-raised-button routerLink="/quiz">
+          <button mat-raised-button [routerLink]="'/quiz/' + test.quiz.id_quiz">
             Reîntoarcere la test
           </button>
         </td>
+        
       </tr>
     </tbody>
   </table>

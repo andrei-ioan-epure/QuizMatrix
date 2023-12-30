@@ -1,5 +1,5 @@
 <div class="container">
   <h1>Timp expirat!</h1>
   <p>Din păcate, timpul pentru test a expirat.</p>
-  <button (click)="retakeQuiz()">Refă testul</button>
+  <button [routerLink]="'/quiz/' + quizId">Refă Testul</button>
 </div>

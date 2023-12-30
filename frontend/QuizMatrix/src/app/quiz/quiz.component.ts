@@ -98,8 +98,8 @@ export class QuizComponent implements OnInit {
     }
     console.log('Raspunsuri:', this.responses);
     const score = this.responses
-      .filter((response) => response.isCorrect)
-      .map((response) =>
+    .filter((response) => response && response.isCorrect)
+    .map((response) =>
         this.questions.find(
           (question) => question.id_question === response.id_question
         )
