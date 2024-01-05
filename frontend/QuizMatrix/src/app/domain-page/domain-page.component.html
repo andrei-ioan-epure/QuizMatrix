@@ -21,10 +21,11 @@
             let user of leaderboardUsers
               | slice
                 : currentPage * itemsPerPage
-                : (currentPage + 1) * itemsPerPage
+                : (currentPage + 1) * itemsPerPage;
+            let i = index
           "
         >
-          <td>{{ user.rank }}</td>
+          <td>{{ i + 1 }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.score }}</td>
           <td>
@@ -60,7 +61,7 @@
 
     <div class="statistics">
       <p>Scor Mediu: {{ averageScore | number : "1.0-2" }}</p>
-      <p>Timp Mediu: {{ averageTime | number : "1.0-2" }} minute</p>
+      <!-- <p>Timp Mediu: {{ averageTime | number : "1.0-2" }} minute</p> -->
     </div>
   </div>
 
@@ -87,7 +88,9 @@
               mat-raised-button
               class="btn2"
               (click)="startQuiz(quiz.id_quiz, 'singleplayer')"
-              [routerLink]="'/quiz/' + quiz.id_quiz"
+              [routerLink]="
+                '/domain/' + quiz.id_domain + '/quiz/' + quiz.id_quiz
+              "
             >
               Singleplayer
             </button>
@@ -99,7 +102,11 @@
               Multiplayer
             </button>
             <mat-icon class="favorite-icon" (click)="toggleFavorite(quiz)">
-              {{ favoriteQuizIds.has(quiz.id_quiz) ? 'favorite' : 'favorite_border' }}
+              {{
+                favoriteQuizIds.has(quiz.id_quiz)
+                  ? "favorite"
+                  : "favorite_border"
+              }}
             </mat-icon>
           </td>
         </tr>

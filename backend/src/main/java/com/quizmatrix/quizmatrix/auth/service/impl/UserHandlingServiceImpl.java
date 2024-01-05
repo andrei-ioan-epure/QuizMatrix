@@ -1,5 +1,6 @@
 package com.quizmatrix.quizmatrix.auth.service.impl;
 
+import com.quizmatrix.quizmatrix.auth.dto.SimpleUserDTO;
 import com.quizmatrix.quizmatrix.auth.dto.UserRegisterDTO;
 import com.quizmatrix.quizmatrix.auth.model.User;
 import com.quizmatrix.quizmatrix.auth.repository.UserRepository;
@@ -9,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserHandlingServiceImpl implements UserHandlingService {
@@ -60,6 +63,17 @@ public class UserHandlingServiceImpl implements UserHandlingService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+    @Override
+    public List<SimpleUserDTO> getAllUsersByIds(String ids) {
+        List<Integer> idList = Arrays.stream(ids.split(","))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+        return userRepository.findAll().stream()
+                .filter(user -> idList.contains(user.getId_user())).map(it->new SimpleUserDTO(it.getId_user(),it.getFirstname(),it.getLastname()))
+                .collect(Collectors.toList());
+    }
+
     @Override
     public User updateUser(int id, User updatedUser) {
         return userRepository.findById(id)

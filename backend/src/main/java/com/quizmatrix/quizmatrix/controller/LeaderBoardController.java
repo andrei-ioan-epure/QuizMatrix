@@ -1,11 +1,14 @@
 package com.quizmatrix.quizmatrix.controller;
 
 import com.quizmatrix.quizmatrix.dto.LeaderBoardDTO;
+import com.quizmatrix.quizmatrix.model.LeaderBoard;
 import com.quizmatrix.quizmatrix.service.interfaces.LeaderBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/quiz/leaderboard")
@@ -27,6 +30,23 @@ public class LeaderBoardController {
     public ResponseEntity<?> findById(@PathVariable Integer id){
         return new ResponseEntity<>(this.leaderBoardService.findById(id), HttpStatus.OK);
     }
+
+
+    @GetMapping("/search")
+    public ResponseEntity<?> findByUserIdDomainAndQuiz(@RequestParam Integer id_user,@RequestParam  Integer id_domain, @RequestParam Integer id_quiz){
+        LeaderBoardDTO leaderBoardDTO=this.leaderBoardService.findByUserIdDomainAndQuiz(id_user,id_domain,id_quiz);
+
+        return (leaderBoardDTO!=null)? new ResponseEntity<>(leaderBoardDTO, HttpStatus.OK)
+                :new ResponseEntity<>( HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("/domainQuiz")
+    public ResponseEntity<?> findByDomainIdAndQuiz(@RequestParam  Integer id_domain, @RequestParam Integer id_quiz){
+        List<LeaderBoardDTO> leaderBoardDTO=this.leaderBoardService.findByDomainIdAndQuiz(id_domain,id_quiz);
+
+        return (leaderBoardDTO!=null)? new ResponseEntity<>(leaderBoardDTO, HttpStatus.OK)
+                :new ResponseEntity<>( HttpStatus.NOT_FOUND);
+    }
+
     @PostMapping
     public ResponseEntity<?> addLeaderBoard(@RequestBody LeaderBoardDTO leaderBoardDTO){
         LeaderBoardDTO newLeaderBoardDTO=this.leaderBoardService.add(leaderBoardDTO);
