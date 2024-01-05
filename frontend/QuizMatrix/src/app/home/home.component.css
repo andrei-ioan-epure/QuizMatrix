@@ -1,3 +1,23 @@
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust as needed to center vertically */
+}
+
+.card {
+  margin: 10px; /* Adjust as needed for spacing between cards */
+  text-align: center;
+}
+
+app-card {
+  /* Adjust styling for app-card component as needed */
+}
+
+button {
+  /* Adjust styling for button as needed */
+}
+
 .cards1 {
   display: flex;
   flex-wrap: wrap;

@@ -1,8 +1,6 @@
 import {
   Component,
   OnInit,
-  OnDestroy,
-  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Quiz } from '../models/quiz';
@@ -108,7 +106,6 @@ export class DomainPageComponent implements OnInit {
   }
 
   startQuiz(id_quiz: number, mode: string): void {
-    //de implementat
     console.log(`Starting ${id_quiz} in ${mode} mode`);
   }
 
@@ -163,7 +160,6 @@ export class DomainPageComponent implements OnInit {
   }
 
 }
-
 
 interface User {
   rank: number;

@@ -1,19 +1,19 @@
 <div class="cards1">
-  <div class="cardsfirstrow" *ngFor="let card of cards | slice : 0 : 2">
+  <div *ngFor="let quiz of quizzes | slice : 0 : 2; let i = index" class="card" (click)="navigateToQuiz(quiz.id_quiz)">
     <app-card
-      [image]="card.image"
-      [title]="card.title"
-      [description]="card.description"
+    [image]="iconpaths[i]"
+    [title]="quiz.title"
+    [description]="quiz.description"
     ></app-card>
   </div>
 </div>
 
 <div class="cards2">
-  <div *ngFor="let card of cards | slice : 2 : 4">
+  <div *ngFor="let quiz of quizzes | slice : 2 : 4; let i = index" class="card" (click)="navigateToQuiz(quiz.id_quiz)">
     <app-card
-      [image]="card.image"
-      [title]="card.title"
-      [description]="card.description"
+    [image]="iconpaths[i]"
+    [title]="quiz.title"
+    [description]="quiz.description"
     ></app-card>
   </div>
 </div>

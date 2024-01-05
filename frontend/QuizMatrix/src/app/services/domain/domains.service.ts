@@ -11,8 +11,8 @@ export class DomainsService {
 
   constructor(private http: HttpClient) {}
 
-  getDomainById(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}?id=${id}`);
+  getDomainById(id: number): Observable<Domain> {
+    return this.http.get<Domain>(`${this.baseUrl}/id/${id}`);
   }
 
   getDomainByName(name: string): Observable<Domain> {

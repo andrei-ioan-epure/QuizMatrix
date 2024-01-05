@@ -25,4 +25,8 @@ export class QuizService {
   createQuiz(quiz: Quiz): Observable<Quiz> {
     return this.httpClient.post<Quiz>(this.apiUrl, quiz);
   }
+
+  getRandomQuizzes(count: number): Observable<Quiz[]> {
+    return this.httpClient.get<Quiz[]>(`${this.apiUrl}/random?count=${count}`);
+  }
 }
