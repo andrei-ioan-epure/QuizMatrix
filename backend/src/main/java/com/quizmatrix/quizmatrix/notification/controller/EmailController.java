@@ -41,14 +41,14 @@ public class EmailController {
 
         }
     }
-    @PostMapping("/sendResetPassMail")
-    public ResponseEntity<?> sendResetPassMail(@RequestBody EmailDTO details) {
-        try {
-            emailService.sendPasswordResetMail(details);
-            return  ResponseEntity.status(HttpStatus.OK).body("Mail-ul a fost trimis cu succes");
-        } catch (MessageSentException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDTO(e.getMessage()));
-
-        }
-    }
+//    @PostMapping("/sendResetPassMail")
+//    public ResponseEntity<?> sendResetPassMail(@RequestBody EmailDTO details) {
+//        try {
+//            emailService.sendPasswordResetMail(details);
+//            return  ResponseEntity.status(HttpStatus.OK).body("Mail-ul a fost trimis cu succes");
+//        } catch (MessageSentException e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDTO(e.getMessage()));
+//
+//        }
+//    }
 }

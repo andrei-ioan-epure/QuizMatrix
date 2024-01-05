@@ -47,7 +47,7 @@ public class TokenProvider {
         if (rememberMe) {
             validity = new Date(now + 1000 * 2592000L);
         } else {
-            validity = new Date(now + 1000 * 36000L);
+            validity = new Date(now + 1000 * 3600L);
         }
 
         return Jwts
@@ -57,6 +57,20 @@ public class TokenProvider {
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
                 .compact();
+    }
+
+    public String createForgotPasswordToken(String email)
+    {
+        long expirationTime = 1000 * 60 * 60; // 1 hour in milliseconds
+        return Jwts.builder()
+                .setSubject(email)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
+                .signWith(key, SignatureAlgorithm.HS512)
+                .compact();
+    }
+    public String extractEmail(String token) {
+        return jwtParser.parseClaimsJws(token).getBody().getSubject();
     }
     public boolean validateToken(final String authToken) {
         try {

@@ -19,4 +19,6 @@ public interface UserHandlingService {
     List<User> getAllUsers();
 
     User updateUser(int id, User updatedUser);
+
+    void resetPassword(String email, String password);
 }

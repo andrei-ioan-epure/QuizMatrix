@@ -14,17 +14,6 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  forgotPassword(email: any): Observable<any> {
-    const url = `${this.backendUrl}/forgot-password?email=${email}`;
-    return this.http.get(url);
-  }
-
-  resetPassword(password: string, token: string): Observable<any> {
-    const pw = {"password":password, token:token}
-    const url = `${this.backendUrl}/reset-password`;
-    return this.http.post(url, pw, httpOptions);
-  }
-
   signup(user: any): Observable<any> {
     const url = `${this.backendUrl}/register`;
     return this.http.post(url, user, httpOptions);
@@ -34,5 +23,15 @@ export class AuthService {
     console.log(user);
     const url = `${this.backendUrl}/login`;
     return this.http.post(url, user, httpOptions);
+  }
+
+  forgotPassword(email: any): Observable<any> {
+    const url = `${this.backendUrl}/forgot-password?email=${email}`;
+    return this.http.get(url);
+  }
+
+  resetPassword(pw: any): Observable<any> {
+    const url = `${this.backendUrl}/reset-password`;
+    return this.http.post(url, pw, httpOptions);
   }
 }

@@ -9,7 +9,7 @@ import {
   BrowserModule,
   provideClientHydration,
 } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -43,6 +43,8 @@ import { AuthInterceptorProviders } from '../_helpers/auth.interceptor';
 import { FinalTestComponent } from './final-test/final-test.component';
 import { UsersComponent } from './users/users.component';
 import { ExpireTimeComponent } from './expire-time/expire-time.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,6 +69,8 @@ import { ExpireTimeComponent } from './expire-time/expire-time.component';
     FinalTestComponent,
     UsersComponent,
     ExpireTimeComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     MatInputModule,
@@ -84,6 +88,7 @@ import { ExpireTimeComponent } from './expire-time/expire-time.component';
     MatCheckboxModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration(),

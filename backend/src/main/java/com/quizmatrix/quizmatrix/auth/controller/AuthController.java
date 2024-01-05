@@ -2,12 +2,12 @@ package com.quizmatrix.quizmatrix.auth.controller;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.quizmatrix.quizmatrix.auth.config.jwt.TokenProvider;
-import com.quizmatrix.quizmatrix.auth.dto.RegisterResponseDTO;
-import com.quizmatrix.quizmatrix.auth.dto.UserLoginDTO;
-import com.quizmatrix.quizmatrix.auth.dto.UserRegisterDTO;
-import com.quizmatrix.quizmatrix.auth.dto.LoginResponseDTO;
+import com.quizmatrix.quizmatrix.auth.dto.*;
 import com.quizmatrix.quizmatrix.auth.model.User;
 import com.quizmatrix.quizmatrix.auth.service.UserHandlingService;
+import com.quizmatrix.quizmatrix.notification.entity.EmailDTO;
+import com.quizmatrix.quizmatrix.notification.exception.MessageSentException;
+import com.quizmatrix.quizmatrix.notification.service.IEmailService;
 import jakarta.persistence.PersistenceException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,6 +20,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
@@ -32,16 +33,46 @@ import java.util.List;
 public class AuthController {
 
     private final TokenProvider tokenProvider;
+
+    private final IEmailService emailService;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     private final UserHandlingService userHandlingService;
     @Autowired
-    public AuthController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserHandlingService userHandlingService)
+    public AuthController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserHandlingService userHandlingService, IEmailService emailService)
     {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userHandlingService = userHandlingService;
+        this.emailService = emailService;
     }
+
+    @GetMapping("/forgot-password")
+    public ResponseEntity<String> forgot_password(@RequestParam String email)
+    {
+        String token = tokenProvider.createForgotPasswordToken(email);
+        try {
+            EmailDTO e = new EmailDTO();
+            e.setRecipient(email);
+            emailService.sendPasswordResetMail(e, token);
+        } catch (MessageSentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>("{\"msg\":\"Mail sent successfully\"}", HttpStatus.OK);
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> reset_password(@RequestBody PasswordResetDTO pw)
+    {
+        if(!tokenProvider.validateToken(pw.getToken()))
+        {
+            return new ResponseEntity<>("{\"msg\":\"Token expired\"}", HttpStatus.CONFLICT);
+        }
+        String email = tokenProvider.extractEmail(pw.getToken());
+        userHandlingService.resetPassword(email, pw.getPassword());
+        return new ResponseEntity<>("{\"msg\":\"Password reseted\"}", HttpStatus.OK);
+    }
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody UserLoginDTO authDTO, HttpServletResponse response) {
 

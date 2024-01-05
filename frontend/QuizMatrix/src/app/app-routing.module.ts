@@ -23,6 +23,8 @@ import { FinalTestComponent } from './final-test/final-test.component';
 import { ExpireTimeComponent } from './expire-time/expire-time.component';
 import { UsersComponent } from './users/users.component';
 import { AuthGuard } from './auth.quard';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -98,6 +100,14 @@ const routes: Routes = [
     path: 'users',
     component: UsersComponent,
     canActivate: [AuthGuard], 
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
   },
   {
     path: '**',

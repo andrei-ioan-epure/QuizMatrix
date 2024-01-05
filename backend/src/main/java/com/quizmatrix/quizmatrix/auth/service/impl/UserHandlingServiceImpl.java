@@ -72,4 +72,14 @@ public class UserHandlingServiceImpl implements UserHandlingService {
                     return userRepository.save(user);
                 }).orElseThrow(() -> new RuntimeException("User not found with id " + id));
     }
+
+    @Override
+    public void resetPassword(String email, String password) {
+        Optional<User> u = userRepository.findUserByEmail(email);
+        if(u.isPresent())
+        {
+            u.get().setPassword(passwordEncoder.encode(password));
+            userRepository.save(u.get());
+        }
+    }
 }

@@ -79,7 +79,7 @@ public class EmailServiceImpl implements IEmailService {
 
 
     @Override
-    public void sendPasswordResetMail(EmailDTO details) throws MessageSentException {
+    public void sendPasswordResetMail(EmailDTO details, String token) throws MessageSentException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper;
 
@@ -89,7 +89,7 @@ public class EmailServiceImpl implements IEmailService {
             mimeMessageHelper.setTo(details.getRecipient());
 
 
-            String resetLink = "http://localhost:4200";
+            String resetLink = "http://localhost:4200/reset-password?token="+token;
             String messageText = "Click <a href='" + resetLink + "'>aici</a> pentru a reseta parola.";
 
 
