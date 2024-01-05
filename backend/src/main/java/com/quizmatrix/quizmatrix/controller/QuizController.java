@@ -56,4 +56,10 @@ public class QuizController {
         quizService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/random")
+    public ResponseEntity<List<QuizDTO>> getRandomQuizzes(@RequestParam int count) {
+        List<QuizDTO> randomQuizzes = quizService.getRandomQuizzes(count);
+        return new ResponseEntity<>(randomQuizzes, HttpStatus.OK);
+    }
 }

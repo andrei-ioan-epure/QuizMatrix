@@ -9,4 +9,7 @@ import java.util.List;
 public interface QuizJPARepository extends JpaRepository<Quiz,Integer> {
     @Query("SELECT q FROM Quiz q WHERE q.id_domain=:domainId")
     List<Quiz> findByDomainId(Integer domainId);;
+
+    @Query(value = "SELECT * FROM quiz ORDER BY RAND() LIMIT :count", nativeQuery = true)
+    List<Quiz> getRandomQuizzes(int count);
 }

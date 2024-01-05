@@ -12,4 +12,5 @@ public interface QuizService {
     QuizDTO add(CreateQuizDTO quiz);
     void deleteById(Integer id);
     void update(Integer id, CreateQuizDTO quiz);
+    List<QuizDTO> getRandomQuizzes(int count);
 }

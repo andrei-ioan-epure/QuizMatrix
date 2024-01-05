@@ -12,4 +12,5 @@ public interface QuizRepository {
     Quiz add(Quiz quiz);
     void deleteById(Integer id);
     void update(Integer id, Quiz quiz);
+    List<Quiz> getRandomQuizzes(int count);
 }

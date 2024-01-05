@@ -60,4 +60,9 @@ public class QuizRepositoryImpl implements QuizRepository {
             quizJPARepository.save(quiz);
         }
     }
+
+    @Override
+    public List<Quiz> getRandomQuizzes(int count) {
+        return quizJPARepository.getRandomQuizzes(count);
+    }
 }

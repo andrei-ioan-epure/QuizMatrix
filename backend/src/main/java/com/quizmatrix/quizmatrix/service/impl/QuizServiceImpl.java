@@ -65,5 +65,13 @@ public class QuizServiceImpl implements QuizService {
     public void update(Integer id, CreateQuizDTO quizDTO) {
         quizRepository.update(id, quizMapper.mapCreateDtoToEntity(quizDTO));
     }
+
+    @Override
+    public List<QuizDTO> getRandomQuizzes(int count) {
+        List<Quiz> randomQuizzes = quizRepository.getRandomQuizzes(count);
+        return randomQuizzes.stream()
+                .map(quizMapper::mapEntityToDto)
+                .toList();
+    }
 }
 
