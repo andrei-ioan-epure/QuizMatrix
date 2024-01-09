@@ -7,7 +7,7 @@ import { AuthService } from '../services/auth/auth.service';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
-  styleUrl: './forgot-password.component.scss'
+  styleUrl: './forgot-password.component.scss',
 })
 export class ForgotPasswordComponent {
   formGroup: FormGroup = new FormGroup({});
@@ -33,19 +33,21 @@ export class ForgotPasswordComponent {
       this.auth.forgotPassword(this.formGroup.value.email).subscribe(
         (response) => {
           console.log('Mail sent', response);
+          // Show "Sent" text on the button
+          this.isSent = true;
+          // Reset the button after 5 seconds
+          this.timer = setTimeout(() => {
+            this.isSent = false;
+          }, 5000);
         },
         (error) => {
           console.error('Mail failed!', error);
+          // Handle error and clear the timer
+          this.isSent = false;
+          clearTimeout(this.timer);
+          this.timer = undefined;
         }
       );
-      
-      // Show "Sent" text on the button
-      this.isSent = true;
-
-      // Reset the button after 5 seconds
-      this.timer = setTimeout(() => {
-        this.isSent = false;
-      }, 5000);
     }
   }
 }
