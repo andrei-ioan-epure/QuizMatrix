@@ -1,9 +1,12 @@
-
 <h2>Lista utilizatorilor</h2>
 
 <ul class="user-list">
   <li *ngFor="let user of users" class="user-item">
-    Email: {{ user.email }}  
-    <button (click)="deleteUser(user.id_user)" class="delete-button">Delete</button>
+    Email: {{ user.email }}
+    <button (click)="deleteUser(user.id_user)" class="delete-button">
+      Delete
+    </button>
   </li>
 </ul>
+
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
