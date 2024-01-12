@@ -36,6 +36,15 @@ public class LeaderBoardRepositoryImpl implements LeaderBoardRepository {
     }
 
     @Override
+    public Optional<LeaderBoard>  findByUserIdDomainAndQuiz(Integer id_user, Integer id_domain, Integer id_quiz) {
+        return leaderBoardJPARepository.findByUserIdDomainAndQuiz(id_user,id_domain, id_quiz);
+    }
+    @Override
+    public Optional<List<LeaderBoard>> findByDomainIdAndQuiz(Integer id_domain, Integer id_quiz) {
+        return leaderBoardJPARepository.findByDomainIdAndQuiz(id_domain, id_quiz);
+    }
+
+    @Override
     public void deleteById(Integer id) {
         leaderBoardJPARepository.deleteById(id);
     }

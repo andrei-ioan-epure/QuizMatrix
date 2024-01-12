@@ -8,6 +8,12 @@
   <p *ngIf="score >= 5">Foarte bine! Ești pe drumul cel bun!</p>
   <p *ngIf="score < 5">Poți face mai bine. Continuă să exersezi!</p>
 
-  <button [routerLink]="'/quiz/' + quizId">Refă Testul</button>
-  <button routerLink="/leaderboard">Vezi leaderboard</button>
+  <button [routerLink]="'/domain/' + domainId + '/quiz/' + quizId">
+    Refă Testul
+  </button>
+  <button
+    [routerLink]="'/domain/' + domainId + '/quiz/' + quizId + '/leaderboard'"
+  >
+    Vezi leaderboard
+  </button>
 </div>

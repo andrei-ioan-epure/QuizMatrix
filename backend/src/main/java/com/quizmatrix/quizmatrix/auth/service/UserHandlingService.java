@@ -1,5 +1,6 @@
 package com.quizmatrix.quizmatrix.auth.service;
 
+import com.quizmatrix.quizmatrix.auth.dto.SimpleUserDTO;
 import com.quizmatrix.quizmatrix.auth.dto.UserRegisterDTO;
 import com.quizmatrix.quizmatrix.auth.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,7 +18,7 @@ public interface UserHandlingService {
     Optional<User> findUserById_user(int id);
 
     List<User> getAllUsers();
-
+    List<SimpleUserDTO> getAllUsersByIds(String ids);
     User updateUser(int id, User updatedUser);
 
     void resetPassword(String email, String password);

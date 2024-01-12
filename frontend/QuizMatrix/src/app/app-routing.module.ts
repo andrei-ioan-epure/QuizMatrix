@@ -62,16 +62,16 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'quiz/:id',
+    path: 'domain/:domain_id/quiz/:id',
     component: QuizComponent,
   },
   {
-    path: 'final-test',
+    path: 'domain/:domain_id/quiz/:id/final-test',
     component: FinalTestComponent,
   },
 
   {
-    path: 'leaderboard',
+    path: 'domain/:domain_id/quiz/:id/leaderboard',
     component: LeaderboardComponent,
   },
   {
@@ -99,7 +99,7 @@ const routes: Routes = [
   {
     path: 'users',
     component: UsersComponent,
-    canActivate: [AuthGuard], 
+    canActivate: [AuthGuard],
   },
   {
     path: 'forgot-password',

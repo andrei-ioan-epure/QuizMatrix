@@ -19,13 +19,22 @@
         let user of users
           | slice
             : currentPage * itemsPerPage
-            : (currentPage + 1) * itemsPerPage
+            : (currentPage + 1) * itemsPerPage;
+        let i = index
       "
     >
-      <td>{{ user.rank }}</td>
+      <td>{{ i + 1 }}</td>
       <td>{{ user.name }}</td>
       <td>{{ user.score }}</td>
-      <td>{{ user.time }}</td>
+      <td>
+        {{
+          floor(user.time / 60)
+            .toString()
+            .padStart(2, "0") +
+            ":" +
+            (user.time % 60).toString().padStart(2, "0")
+        }}
+      </td>
     </tr>
   </tbody>
 </table>

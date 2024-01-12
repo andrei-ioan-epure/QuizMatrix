@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -182,7 +184,11 @@ public class AuthController {
         List<User> users = userHandlingService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
-
+    @GetMapping("/users/ids")
+    public ResponseEntity<?> getAllUsersByIds(@RequestParam String ids) {
+        List<SimpleUserDTO> users = userHandlingService.getAllUsersByIds(ids);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable int id) {

@@ -47,6 +47,18 @@ public class LeaderBoardServiceImpl implements LeaderBoardService {
     }
 
     @Override
+    public LeaderBoardDTO findByUserIdDomainAndQuiz(Integer id_user, Integer id_domain, Integer id_quiz) {
+        Optional<LeaderBoard> leaderBoard=this.leaderBoardRepository.findByUserIdDomainAndQuiz(id_user,id_domain,id_quiz);
+        return leaderBoard.map(leaderBoardMapper::mapEntityToDto).orElse(null);
+    }
+
+    @Override
+    public List<LeaderBoardDTO> findByDomainIdAndQuiz(Integer id_domain, Integer id_quiz) {
+        Optional<List<LeaderBoard>> leaderBoard=this.leaderBoardRepository.findByDomainIdAndQuiz(id_domain,id_quiz);
+        return leaderBoard.map(leaderBoards -> leaderBoards.stream().map(leaderBoardMapper::mapEntityToDto).toList()).orElse(null);
+    }
+
+    @Override
     public void deleteById(Integer id) {
         leaderBoardRepository.deleteById(id);
     }

@@ -26,8 +26,9 @@ export class QuizComponent implements OnInit {
   selectedAnswer: number = -1;
   responses: Answer[] = [];
   quizId = -1;
+  domainId = -1;
   completedQuizIds = new Set<number>();
-  id_user = this.storageService.getUser()["id_user"];
+  id_user = this.storageService.getUser()['id_user'];
   constructor(
     private router: Router,
     private quizDataService: QuizDataService,
@@ -39,19 +40,27 @@ export class QuizComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.quizId = params['id'];
+      this.domainId = params['domain_id'];
       this.quizService.getQuizById(this.quizId).subscribe((quiz) => {
         this.time = quiz.time;
         this.questions = quiz.questions;
+        console.log('Questions:', this.questions);
+        var index = 1;
         quiz.questions.forEach((q: Question) => {
-          this.answers.set(q.id_question, q.answers);
+          this.answers.set(index, q.answers);
+          index += 1;
         });
+        console.log('Answers:', this.answers);
       });
     });
     this.updateCompletedQuizzes();
   }
 
   getAnswerTextById(id: number, index: number): string {
+    // console.log('id', id, 'index', index);
+    // console.log('answerArray1', this.answers);
     const answerArray = this.answers.get(id);
+    // console.log('answerArray2', answerArray);
     return answerArray ? answerArray[index]?.answer_text : '';
   }
   getQuestionTextById(id: number): string {
@@ -98,8 +107,8 @@ export class QuizComponent implements OnInit {
     }
     console.log('Raspunsuri:', this.responses);
     const score = this.responses
-    .filter((response) => response && response.isCorrect)
-    .map((response) =>
+      .filter((response) => response && response.isCorrect)
+      .map((response) =>
         this.questions.find(
           (question) => question.id_question === response.id_question
         )
@@ -117,12 +126,13 @@ export class QuizComponent implements OnInit {
       score,
       this.time - this.totalTimeSpent
     );
-    console.log(this.completedQuizIds)
-    if(this.completedQuizIds.has(this.quizId) || !this.completedQuizIds.size) 
-      {
-        this.addTestToCompleted(this.quizId,score);
-      }
-    this.router.navigate(['/final-test']);
+    console.log(this.completedQuizIds);
+    if (this.completedQuizIds.has(this.quizId) || !this.completedQuizIds.size) {
+      this.addTestToCompleted(this.quizId, score);
+    }
+    this.router.navigate([
+      '/domain/' + this.domainId + '/quiz/' + this.quizId + '/final-test',
+    ]);
   }
 
   onTimeSpent(timeSpent: number): void {
@@ -147,26 +157,30 @@ export class QuizComponent implements OnInit {
   }
   updateCompletedQuizzes(): void {
     if (this.storageService.isLoggedIn()) {
-      this.testeParcurseService.getCompletedTests(this.id_user).subscribe(testeFavorite => {
-        this.completedQuizIds.clear();
-        testeFavorite.forEach((quiz: Quiz) => {
-          this.completedQuizIds.add(quiz.id_quiz);
+      this.testeParcurseService
+        .getCompletedTests(this.id_user)
+        .subscribe((testeFavorite) => {
+          this.completedQuizIds.clear();
+          testeFavorite.forEach((quiz: Quiz) => {
+            this.completedQuizIds.add(quiz.id_quiz);
+          });
         });
-      });
     }
   }
-  addTestToCompleted(idTest: number,score:number) {
+  addTestToCompleted(idTest: number, score: number) {
     if (this.storageService.isLoggedIn()) {
-      let id_user = this.storageService.getUser()["id_user"]
-      this.testeParcurseService.addTestToCompleted(idTest, id_user,score).subscribe({
-        next: (response) => {
-          this.testeParcurseService.testAdaugat(response);
-          console.log('Test adaugat la completate:', response);
-        },
-        error: (error) => {
-          console.log('Eroare la adaugarea testului la completate:', error);
-        }
-      });
+      let id_user = this.storageService.getUser()['id_user'];
+      this.testeParcurseService
+        .addTestToCompleted(idTest, id_user, score)
+        .subscribe({
+          next: (response) => {
+            this.testeParcurseService.testAdaugat(response);
+            console.log('Test adaugat la completate:', response);
+          },
+          error: (error) => {
+            console.log('Eroare la adaugarea testului la completate:', error);
+          },
+        });
     }
   }
 }

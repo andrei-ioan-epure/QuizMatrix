@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { StorageService } from '../storage/storage.service';
-import { catchError, throwError } from 'rxjs';
 
 const API_URL = 'http://localhost:8090/api/auth';
 
@@ -18,17 +17,12 @@ export class UserService {
 
   deleteUser(userId: number): Observable<any> {
     const url = `${API_URL}/users/${userId}`;
-    return this.http.delete(url).pipe(
-      catchError((error: any) => {
-        if (
-          error?.error?.message ===
-          'Cannot delete or update a parent row: a foreign key constraint fails'
-        ) {
-          return throwError('Cannot delete user with associated records.');
-        } else {
-          return throwError('Error deleting user.');
-        }
-      })
-    );
+    return this.http.delete(url);
+  }
+
+  getUserDetailsByIds(userIds: number[]): Observable<any[]> {
+    const url = `${API_URL}/users/ids`;
+    const params = new HttpParams().set('ids', userIds.join(','));
+    return this.http.get<any[]>(url, { params });
   }
 }
