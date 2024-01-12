@@ -5,7 +5,7 @@
     <li routerLink="/my-account">Contul meu</li>
     <li routerLink="/completed-tests">Testele parcurse de mine</li>
     <li routerLink="/favorite-tests">Favorite</li>
-    <li routerLink="/edit-account">Informații cont</li>
+    <!-- <li routerLink="/edit-account">Informații cont</li> -->
   </ul>
 
   <div class="info-cont">
@@ -13,7 +13,9 @@
     <div class="info-user">
       <h3>{{ utilizator.firstname + " " + utilizator.lastname }}</h3>
       <h3>{{ utilizator.email }}</h3>
-      <button mat-raised-button routerLink="/edit-account">Actualizați informațiile</button>
+      <button mat-raised-button routerLink="/forgot-password">
+        Resetare parolă
+      </button>
     </div>
   </div>
 </div>

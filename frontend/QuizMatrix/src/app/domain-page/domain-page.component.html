@@ -92,15 +92,15 @@
                 '/domain/' + quiz.id_domain + '/quiz/' + quiz.id_quiz
               "
             >
-              Singleplayer
+              Start
             </button>
-            <button
+            <!-- <button
               mat-raised-button
               class="btn3"
               (click)="startQuiz(quiz.id_quiz, 'multiplayer')"
             >
               Multiplayer
-            </button>
+            </button> -->
             <mat-icon class="favorite-icon" (click)="toggleFavorite(quiz)">
               {{
                 favoriteQuizIds.has(quiz.id_quiz)
