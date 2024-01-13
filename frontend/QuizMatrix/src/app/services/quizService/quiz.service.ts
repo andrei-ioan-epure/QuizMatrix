@@ -12,6 +12,9 @@ export class QuizService {
 
   constructor(private httpClient: HttpClient) {}
 
+  getApiUrl() {
+    return this.apiUrl;
+  }
   getQuizById(id: number): Observable<Quiz> {
     return this.httpClient.get<Quiz>(this.apiUrl + '/' + id);
   }

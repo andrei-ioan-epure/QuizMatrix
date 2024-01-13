@@ -49,4 +49,7 @@ export class LeaderboardService {
     const url = `${this.apiUrl}/${id}`;
     return this.httpClient.put<Leaderboard>(url, leaderboard);
   }
+  getApiUrl(): string {
+    return this.apiUrl;
+  }
 }

@@ -3,7 +3,6 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-
 import { QuizService } from './quiz.service';
 import { Quiz } from '../../models/quiz';
 
@@ -14,6 +13,7 @@ describe('QuizService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
+      providers: [QuizService],
     });
 
     service = TestBed.inject(QuizService);
@@ -25,86 +25,127 @@ describe('QuizService', () => {
   });
 
   it('should be created', () => {
+    // Arrange and Act
     expect(service).toBeTruthy();
   });
 
-  it('should retrieve a quiz by id', () => {
-    const mockQuizId = 1;
+  it('should retrieve a quiz by ID from the API', () => {
+    // Arrange
     const mockQuiz: Quiz = {
-      id_quiz: mockQuizId,
+      id_quiz: 1,
       id_domain: 1,
-      title: 'Sample Quiz',
-      description: 'This is a sample quiz',
+      title: 'Test Quiz',
+      description: 'Description for the quiz',
       creation_date: new Date(),
-      time: 10,
+      time: 20,
       questions: [],
     };
 
-    service.getQuizById(mockQuizId).subscribe((quiz) => {
+    // Act
+    service.getQuizById(1).subscribe((quiz) => {
+      // Assert
       expect(quiz).toEqual(mockQuiz);
     });
 
-    const req = httpTestingController.expectOne(
-      `${service['apiUrl']}/${mockQuizId}`
-    );
+    // Assert
+    const req = httpTestingController.expectOne(`${service.getApiUrl()}/1`);
     expect(req.request.method).toBe('GET');
     req.flush(mockQuiz);
   });
 
-  it('should retrieve quizzes by domain id', () => {
-    const mockDomainId = 1;
+  it('should retrieve quizzes by domain ID from the API', () => {
+    // Arrange
     const mockQuizzes: Quiz[] = [
-      { id_quiz: 1, id_domain: mockDomainId, title: 'Quiz 1', description: 'Desc 1', creation_date: new Date(), time: 10, questions: [] },
-      { id_quiz: 2, id_domain: mockDomainId, title: 'Quiz 2', description: 'Desc 2', creation_date: new Date(), time: 15, questions: [] },
+      {
+        id_quiz: 1,
+        id_domain: 1,
+        title: 'Quiz 1',
+        description: 'Description for Quiz 1',
+        creation_date: new Date(),
+        time: 20,
+        questions: [],
+      },
+      {
+        id_quiz: 2,
+        id_domain: 1,
+        title: 'Quiz 2',
+        description: 'Description for Quiz 2',
+        creation_date: new Date(),
+        time: 15,
+        questions: [],
+      },
     ];
 
-    service.getQuizzesByDomain(mockDomainId).subscribe((quizzes) => {
+    // Act
+    service.getQuizzesByDomain(1).subscribe((quizzes) => {
+      // Assert
       expect(quizzes).toEqual(mockQuizzes);
     });
 
+    // Assert
     const req = httpTestingController.expectOne(
-      `${service['apiUrl']}/byDomainId/${mockDomainId}`
+      `${service.getApiUrl()}/byDomainId/1`
     );
     expect(req.request.method).toBe('GET');
     req.flush(mockQuizzes);
   });
 
-  it('should create a quiz', () => {
-    const mockQuiz: Quiz = {
+  it('should create a new quiz via the API', () => {
+    // Arrange
+    const newQuiz: Quiz = {
       id_quiz: 1,
       id_domain: 1,
-      title: 'Sample Quiz',
-      description: 'This is a sample quiz',
+      title: 'New Quiz',
+      description: 'Description for the new quiz',
       creation_date: new Date(),
-      time: 10,
+      time: 25,
       questions: [],
     };
 
-    service.createQuiz(mockQuiz).subscribe((createdQuiz) => {
-      expect(createdQuiz).toEqual(mockQuiz);
+    // Act
+    service.createQuiz(newQuiz).subscribe((createdQuiz) => {
+      // Assert
+      expect(createdQuiz).toEqual(newQuiz);
     });
 
-    const req = httpTestingController.expectOne(service['apiUrl']);
+    // Assert
+    const req = httpTestingController.expectOne(service.getApiUrl());
     expect(req.request.method).toBe('POST');
-    req.flush(mockQuiz);
+    req.flush(newQuiz);
   });
 
-  it('should retrieve random quizzes', () => {
-    const mockCount = 5;
+  it('should retrieve random quizzes from the API', () => {
+    // Arrange
     const mockQuizzes: Quiz[] = [
-      { id_quiz: 1, id_domain: 1, title: 'Quiz 1', description: 'Desc 1', creation_date: new Date(), time: 10, questions: [] },
-      { id_quiz: 2, id_domain: 2, title: 'Quiz 2', description: 'Desc 2', creation_date: new Date(), time: 15, questions: [] },
-      { id_quiz: 3, id_domain: 1, title: 'Quiz 3', description: 'Desc 3', creation_date: new Date(), time: 12, questions: [] },
-      { id_quiz: 4, id_domain: 3, title: 'Quiz 4', description: 'Desc 4', creation_date: new Date(), time: 8, questions: [] },
-      { id_quiz: 5, id_domain: 2, title: 'Quiz 5', description: 'Desc 5', creation_date: new Date(), time: 20, questions: [] },
+      {
+        id_quiz: 1,
+        id_domain: 1,
+        title: 'Random Quiz 1',
+        description: 'Description for Random Quiz 1',
+        creation_date: new Date(),
+        time: 20,
+        questions: [],
+      },
+      {
+        id_quiz: 2,
+        id_domain: 1,
+        title: 'Random Quiz 2',
+        description: 'Description for Random Quiz 2',
+        creation_date: new Date(),
+        time: 15,
+        questions: [],
+      },
     ];
 
-    service.getRandomQuizzes(mockCount).subscribe((quizzes) => {
+    // Act
+    service.getRandomQuizzes(2).subscribe((quizzes) => {
+      // Assert
       expect(quizzes).toEqual(mockQuizzes);
     });
 
+    // Assert
     const req = httpTestingController.expectOne(
-      `${service['apiUrl']}/random?count=${mockCount}`
+      `${service.getApiUrl()}/random?count=2`
     );
     expect(req.request.method).toBe('GET');
     req.flush(mockQuizzes);
