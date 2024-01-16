@@ -179,6 +179,22 @@ public class AuthController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+    @GetMapping("/send-new-test-notification")
+    public ResponseEntity<String> sendNewTestNotificationToAllUsers(@RequestParam String testName) {
+        List<User> users = userHandlingService.getAllUsers();
+
+        for (User user : users) {
+            try {
+                EmailDTO emailDTO = new EmailDTO();
+                emailDTO.setRecipient(user.getEmail());
+                emailService.sendNewTestNotification(emailDTO, testName);
+            } catch (MessageSentException e) {
+                return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        return new ResponseEntity<>("{\"msg\":\"Mail sent successfully to all users\"}", HttpStatus.OK);
+    }
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userHandlingService.getAllUsers();

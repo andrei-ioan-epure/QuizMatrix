@@ -11,4 +11,6 @@ public interface IEmailService {
     ResponseEntity<String> sendMailWithAttachment(EmailDTO details) throws  MessageSentException;
 
     void sendPasswordResetMail(EmailDTO details, String token) throws MessageSentException;
+
+    void sendNewTestNotification(EmailDTO details, String testName) throws MessageSentException;
 }

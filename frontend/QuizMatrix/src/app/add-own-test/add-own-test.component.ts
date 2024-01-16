@@ -7,6 +7,7 @@ import { QuizService } from '../services/quizService/quiz.service';
 import { QuestionService } from '../services/questionService/question.service';
 import { Answer } from '../models/answer';
 import { Router } from '@angular/router';
+import { EmailService } from '../services/email/email.service';
 
 @Component({
   selector: 'app-add-own-test',
@@ -19,6 +20,7 @@ export class AddOwnTestComponent {
     private questionService: QuestionService,
     private domainsService: DomainsService,
     private answerService: AnswerService,
+    private emailService: EmailService,
     private router: Router
   ) {}
 
@@ -108,7 +110,22 @@ export class AddOwnTestComponent {
     this.router.navigate(['/domain/', this.domainId, 'quiz', this.quizId]);
   }
 
-  shareQuiz() {}
+  shareQuiz() {
+    const quizInfo = {
+      quizId: this.quizId,
+      domainId: this.domainId,
+      title: this.title,
+    };
+
+    this.emailService.sendQuizNotification(quizInfo, this.title).subscribe(
+      (response) => {
+        console.log('Email sent successfully:', response);
+      },
+      (error) => {
+        console.error('Error sending email:', error);
+      }
+    );
+  }
 
   updateDisableButtons() {
     if (this.currentState == 'selectDomainLengthDuration') {
