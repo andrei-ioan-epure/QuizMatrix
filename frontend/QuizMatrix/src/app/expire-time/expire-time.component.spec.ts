@@ -38,7 +38,7 @@ describe('ExpireTimeComponent', () => {
 
   it('should initialize quizId on ngOnInit', () => {
     // Arrange
-    const quizData = { quizId: 42, score: 0, totalTimeSpent: 0 };
+    const quizData = { quizId: 42, domainId: 1, score: 0, totalTimeSpent: 0 }; // Adăugați domainId aici
     quizDataService.getQuizData.and.returnValue(quizData);
 
     // Act

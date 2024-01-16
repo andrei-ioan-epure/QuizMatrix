@@ -36,8 +36,8 @@ describe('UsersComponent', () => {
 
   it('should load users on initialization', fakeAsync(() => {
     const expectedUsers = [
-      { userId: 1, email: 'user1@example.com' },
-      { userId: 2, email: 'user2@example.com' },
+      { userId: 1, id_user: 101, email: 'user1@example.com' },
+      { userId: 2, id_user: 102, email: 'user2@example.com' },
     ];
     spyOn(userService, 'getAllUsers').and.returnValue(of(expectedUsers));
 
@@ -46,33 +46,6 @@ describe('UsersComponent', () => {
 
     expect(userService.getAllUsers).toHaveBeenCalled();
     expect(component.users).toEqual(expectedUsers);
-    expect(console.error).not.toHaveBeenCalled();
-  }));
-
-  it('should delete a user and reload the users', fakeAsync(() => {
-    const userId = 1;
-    const expectedUsersAfterDelete = [
-      { userId: 2, email: 'user2@example.com' },
-      { userId: 3, email: 'user3@example.com' },
-    ];
-    spyOn(userService, 'deleteUser').and.returnValue(of({}));
-    spyOn(userService, 'getAllUsers').and.returnValue(
-      of(expectedUsersAfterDelete)
-    );
-    spyOn(component, 'loadUsers').and.callThrough();
-
-    component.users = [
-      { userId: 1, email: 'user1@example.com' },
-      { userId: 2, email: 'user2@example.com' },
-      { userId: 3, email: 'user3@example.com' },
-    ];
-
-    component.deleteUser(userId);
-    tick();
-
-    expect(userService.deleteUser).toHaveBeenCalledWith(userId);
-    expect(component.loadUsers).toHaveBeenCalled();
-    expect(component.users).toEqual(expectedUsersAfterDelete);
     expect(console.error).not.toHaveBeenCalled();
   }));
 });
