@@ -11,7 +11,10 @@ import { UserService } from '../services/user/user.service';
 import { Leaderboard } from '../models/leaderboard';
 import { Domain } from '../models/domain';
 import { Quiz } from '../models/quiz';
-import { User } from '../models/user';
+import { MatIconModule } from '@angular/material/icon';
+import { fakeAsync, tick } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Observable, Subject } from 'rxjs';
 
 describe('DomainPageComponent', () => {
   let component: DomainPageComponent;
@@ -37,6 +40,8 @@ describe('DomainPageComponent', () => {
       'addTestToFavorites',
       'testAdaugatListener',
       'testStersListener',
+      'testSters',
+      'testAdaugat'
     ]);
     mockStorageService = jasmine.createSpyObj('StorageService', [
       'getUser',
@@ -47,11 +52,14 @@ describe('DomainPageComponent', () => {
       'clean',
       'getIsLoggedInSubject',
     ]);
+    mockStorageService.getUser.and.returnValue({ id_user: 1 });
+    mockStorageService.isLoggedIn.and.returnValue(true);
     mockLeaderboardService = jasmine.createSpyObj('LeaderboardService', ['getLeaderboard']);
     mockUserService = jasmine.createSpyObj('UserService', ['getUserDetailsByIds']);
 
     TestBed.configureTestingModule({
       declarations: [DomainPageComponent],
+      imports: [MatIconModule, HttpClientTestingModule],
       providers: [
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
         { provide: DomainsService, useValue: mockDomainsService },
@@ -72,7 +80,7 @@ describe('DomainPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load content on ngOnInit', () => {
+  it('should load content on ngOnInit', fakeAsync(() => {
     const mockDomain: Domain = { id_domain: 1, domain_name: 'exampleDomain', icon_path: 'path' };
     const mockQuizzes: Quiz[] = [{ id_quiz: 1, id_domain: 1, title: 'Quiz 1', description: 'Description', creation_date: new Date(), time: 10, questions: [] }];
     const mockLeaderboard: Leaderboard[] = [
@@ -83,8 +91,9 @@ describe('DomainPageComponent', () => {
     mockQuizService.getQuizzesByDomain.and.returnValue(of(mockQuizzes));
     mockLeaderboardService.getLeaderboard.and.returnValue(of(mockLeaderboard));
     mockUserService.getUserDetailsByIds.and.returnValue(of([{ id_user: 1, firstname: 'John', lastname: 'Doe', email: 'john@example.com' }]));
-
+    mockTesteFavoriteService.getTesteFavorite.and.returnValue(of(mockQuizzes));
     component.ngOnInit();
+    tick();
 
     expect(mockDomainsService.getDomainByName).toHaveBeenCalledWith('exampleDomain');
     expect(mockQuizService.getQuizzesByDomain).toHaveBeenCalledWith(mockDomain.id_domain);
@@ -94,38 +103,49 @@ describe('DomainPageComponent', () => {
     expect(component.quizzes).toEqual(mockQuizzes);
     expect(component.leaderboardUsers).toEqual([{ name: 'John Doe', score: 100, time: 60 }]);
     expect(component.averageScore).toEqual(100);
-  });
+  }));
 
-  it('should update favorite quizzes on ngOnInit', () => {
-    const mockTesteFavorite = [{ id_quiz: 1 }, { id_quiz: 2 }];
+  it('should update favorite quizzes on ngOnInit', fakeAsync(() => {
+    const mockTesteFavorite: Quiz[] = [{ id_quiz: 1, id_domain: 1, title: 'Quiz 1', description: 'Description', creation_date: new Date(), time: 10, questions: [] }, { id_quiz: 2, id_domain: 1, title: 'Quiz 1', description: 'Description', creation_date: new Date(), time: 10, questions: [] }];
+    const mockDomain: Domain = { id_domain: 1, domain_name: 'exampleDomain', icon_path: 'path' };
+    const mockLeaderboard: Leaderboard[] = [
+      { id_leaderboard: 1, id_user: 1, id_domain: 1, id_quiz: 1, score: 100, time: 60 },
+    ];
 
+    mockDomainsService.getDomainByName.and.returnValue(of(mockDomain));
+    mockLeaderboardService.getLeaderboard.and.returnValue(of(mockLeaderboard));
+    mockQuizService.getQuizzesByDomain.and.returnValue(of(mockTesteFavorite));
+    mockUserService.getUserDetailsByIds.and.returnValue(of([{ id_user: 1, firstname: 'John', lastname: 'Doe', email: 'john@example.com' }]));
     mockTesteFavoriteService.getTesteFavorite.and.returnValue(of(mockTesteFavorite));
 
     component.ngOnInit();
+    tick();
 
     expect(mockTesteFavoriteService.getTesteFavorite).toHaveBeenCalledWith(component.id_user);
     expect(component.favoriteQuizIds).toEqual(new Set([1, 2]));
-  });
+  }));
 
-  it('should toggle favorite quiz correctly', () => {
+  it('should toggle favorite quiz correctly', fakeAsync(() => {
     const mockQuiz = { id_quiz: 1 };
-
+    mockTesteFavoriteService.removeTestFromFavorites.and.returnValue(of(mockQuiz));
     component.favoriteQuizIds = new Set([1]);
 
     component.toggleFavorite(mockQuiz);
 
     expect(mockTesteFavoriteService.removeTestFromFavorites).toHaveBeenCalledWith(1);
     expect(component.favoriteQuizIds).toEqual(new Set());
-  });
+  }));
 
   it('should toggle favorite quiz correctly when not currently favorite', () => {
     const mockQuiz = { id_quiz: 2 };
+    mockTesteFavoriteService.addTestToFavorites.and.returnValue(of(mockQuiz));
 
     component.favoriteQuizIds = new Set([1]);
 
     component.toggleFavorite(mockQuiz);
 
     expect(mockTesteFavoriteService.addTestToFavorites).toHaveBeenCalledWith(2, component.id_user);
+   
     expect(component.favoriteQuizIds).toEqual(new Set([1, 2]));
   });
 

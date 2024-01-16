@@ -6,6 +6,7 @@ import { DomainsService } from '../services/domain/domains.service';
 import { QuizService } from '../services/quizService/quiz.service';
 import { QuestionService } from '../services/questionService/question.service';
 import { AnswerService } from '../services/answerService/answer.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AddOwnTestComponent', () => {
   let component: AddOwnTestComponent;
@@ -20,7 +21,7 @@ describe('AddOwnTestComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AddOwnTestComponent],
-      imports: [FormsModule],
+      imports: [FormsModule, HttpClientTestingModule],
       providers: [
         { provide: DomainsService, useValue: domainsServiceMock },
         { provide: QuizService, useValue: quizServiceMock },
