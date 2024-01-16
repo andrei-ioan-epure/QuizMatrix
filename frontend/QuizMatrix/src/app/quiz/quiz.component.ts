@@ -27,6 +27,7 @@ export class QuizComponent implements OnInit {
   responses: Answer[] = [];
   quizId = -1;
   domainId = -1;
+  score = 0;
   completedQuizIds = new Set<number>();
   id_user = this.storageService.getUser()['id_user'];
   constructor(
@@ -53,7 +54,6 @@ export class QuizComponent implements OnInit {
         console.log('Answers:', this.answers);
       });
     });
-    this.updateCompletedQuizzes();
   }
 
   getAnswerTextById(id: number, index: number): string {
@@ -106,7 +106,7 @@ export class QuizComponent implements OnInit {
       this.responses.push(currentAnswers[this.selectedAnswer]);
     }
     console.log('Raspunsuri:', this.responses);
-    const score = this.responses
+    this.score = this.responses
       .filter((response) => response && response.isCorrect)
       .map((response) =>
         this.questions.find(
@@ -119,16 +119,17 @@ export class QuizComponent implements OnInit {
         0
       );
 
-    console.log('Score', score);
+    console.log('Score', this.score);
     console.log('Time', this.time);
     this.quizDataService.setQuizData(
       this.quizId,
-      score,
+      this.domainId,
+      this.score,
       this.time - this.totalTimeSpent
     );
     console.log(this.completedQuizIds);
     if (this.completedQuizIds.has(this.quizId) || !this.completedQuizIds.size) {
-      this.addTestToCompleted(this.quizId, score);
+      this.addTestToCompleted(this.quizId, this.score);
     }
     this.router.navigate([
       '/domain/' + this.domainId + '/quiz/' + this.quizId + '/final-test',
@@ -152,6 +153,13 @@ export class QuizComponent implements OnInit {
   }
   onTimerExpired(): void {
     console.log('Timer expired. Finishing quiz and navigating to /expire-time');
+    this.updateCompletedQuizzes();
+    this.quizDataService.setQuizData(
+      this.quizId,
+      this.domainId,
+      this.score,
+      this.time - this.totalTimeSpent
+    );
     this.finishQuiz();
     this.router.navigate(['/expire-time']);
   }

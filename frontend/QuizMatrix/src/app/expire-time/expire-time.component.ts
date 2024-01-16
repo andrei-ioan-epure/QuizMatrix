@@ -10,7 +10,7 @@ import { QuizDataService } from '../services/quiz-data/quiz-data.service';
 })
 export class ExpireTimeComponent implements OnInit {
   quizId: number = -1;
-
+  domainId: number = -1;
   constructor(
     private quizDataService: QuizDataService,
     private router: Router
@@ -19,8 +19,7 @@ export class ExpireTimeComponent implements OnInit {
   ngOnInit(): void {
     const quizData = this.quizDataService.getQuizData();
     this.quizId = quizData.quizId;
+    this.domainId = quizData.domainId;
     this.quizDataService.resetQuizData();
   }
-
-
 }

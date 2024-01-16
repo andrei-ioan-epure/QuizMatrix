@@ -6,6 +6,7 @@ import { DomainsService } from '../services/domain/domains.service';
 import { QuizService } from '../services/quizService/quiz.service';
 import { QuestionService } from '../services/questionService/question.service';
 import { Answer } from '../models/answer';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-own-test',
@@ -17,7 +18,8 @@ export class AddOwnTestComponent {
     private quizService: QuizService,
     private questionService: QuestionService,
     private domainsService: DomainsService,
-    private answerService: AnswerService
+    private answerService: AnswerService,
+    private router: Router
   ) {}
 
   currentState:
@@ -32,6 +34,7 @@ export class AddOwnTestComponent {
   quizDuration: number = 0;
   quizLength: number = 0;
   points: number = 0;
+  domainId: number = 0;
 
   questionText: string = '';
   raspuns: string[] = ['', '', '', ''];
@@ -51,12 +54,13 @@ export class AddOwnTestComponent {
           this.title,
           this.descriere,
           new Date(),
-          parseInt(this.quizDuration.toString(), 10)
+          parseInt(this.quizDuration.toString(), 10) * 60
         );
         this.quizLength = parseInt(this.quizLength.toString(), 10);
 
         this.quizService.createQuiz(quizToAdd).subscribe((quiz) => {
           this.quizId = quiz.id_quiz;
+          this.domainId = quiz.id_domain;
           this.currentState = 'enterQuestions';
           this.disableButtons = true;
         });
@@ -100,7 +104,9 @@ export class AddOwnTestComponent {
     });
   }
 
-  startQuiz() {}
+  startQuiz() {
+    this.router.navigate(['/domain/', this.domainId, 'quiz', this.quizId]);
+  }
 
   shareQuiz() {}
 

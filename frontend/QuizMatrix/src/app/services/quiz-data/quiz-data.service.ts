@@ -5,18 +5,31 @@ import { Injectable } from '@angular/core';
 })
 export class QuizDataService {
   private quizId: number = -1;
+  private domainId: number = -1;
   private score: number = 0;
   private totalTimeSpent: number = 0;
 
-  setQuizData(quizId: number, score: number, totalTimeSpent: number): void {
+  setQuizData(
+    quizId: number,
+    domainId: number,
+    score: number,
+    totalTimeSpent: number
+  ): void {
     this.quizId = quizId;
+    this.domainId = domainId;
     this.score = score;
     this.totalTimeSpent = totalTimeSpent;
   }
 
-  getQuizData(): { quizId: number; score: number; totalTimeSpent: number } {
+  getQuizData(): {
+    quizId: number;
+    domainId: number;
+    score: number;
+    totalTimeSpent: number;
+  } {
     return {
       quizId: this.quizId,
+      domainId: this.domainId,
       score: this.score,
       totalTimeSpent: this.totalTimeSpent,
     };
