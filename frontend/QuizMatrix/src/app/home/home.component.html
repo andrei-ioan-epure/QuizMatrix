@@ -1,19 +1,28 @@
 <div class="cards1">
-  <div *ngFor="let quiz of quizzes | slice : 0 : 2; let i = index" class="card" (click)="navigateToQuiz(quiz.id_quiz)">
+  <div
+    *ngFor="let quiz of quizzes | slice : 0 : 2; let i = index"
+    class="card"
+    (click)="navigateToQuiz(quiz.id_quiz)"
+  >
     <app-card
-    [image]="iconpaths[i]"
-    [title]="quiz.title"
-    [description]="quiz.description"
+      [image]="iconpaths[i]"
+      [title]="quiz.title"
+      [description]="quiz.description"
     ></app-card>
   </div>
 </div>
 
 <div class="cards2">
-  <div *ngFor="let quiz of quizzes | slice : 2 : 4; let i = index" class="card" (click)="navigateToQuiz(quiz.id_quiz)">
+  <div
+    *ngFor="let quiz of quizzes | slice : 2 : 4; let i = index"
+    class="card"
+    (click)="navigateToQuiz(quiz.id_quiz)"
+    [routerLink]="'/domain/' + quiz.id_domain + '/quiz/' + quiz.id_quiz"
+  >
     <app-card
-    [image]="iconpaths[i]"
-    [title]="quiz.title"
-    [description]="quiz.description"
+      [image]="iconpaths[i]"
+      [title]="quiz.title"
+      [description]="quiz.description"
     ></app-card>
   </div>
 </div>
