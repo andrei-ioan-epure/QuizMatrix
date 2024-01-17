@@ -15,13 +15,9 @@ describe('TesteParcurseComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        MatIconModule
-      ],
-      declarations: [TesteParcurseComponent]
-    })
-      .compileComponents();
+      imports: [HttpClientTestingModule, MatIconModule],
+      declarations: [TesteParcurseComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TesteParcurseComponent);
     component = fixture.componentInstance;
@@ -36,10 +32,15 @@ describe('TesteParcurseComponent', () => {
     const storageService = TestBed.inject(StorageService);
     spyOn(storageService, 'isLoggedIn').and.returnValue(true);
     const quizDataService = TestBed.inject(QuizDataService);
-    spyOn(quizDataService, 'getQuizData').and.returnValue({ quizId: 123, score: 0, totalTimeSpent: 0 });
+    spyOn(quizDataService, 'getQuizData').and.returnValue({
+      quizId: 123,
+      domainId: 456,
+      score: 0,
+      totalTimeSpent: 0,
+    });
     spyOn(quizDataService, 'resetQuizData').and.callThrough();
     const testeParcurseService = TestBed.inject(TesteParcurseService);
-    spyOn(testeParcurseService, 'getCompletedTests').and.returnValue(of([])); // Presupunem că întoarce un array gol
+    spyOn(testeParcurseService, 'getCompletedTests').and.returnValue(of([]));
 
     component.ngOnInit();
 
@@ -47,5 +48,4 @@ describe('TesteParcurseComponent', () => {
     expect(storageService.isLoggedIn).toHaveBeenCalled();
     expect(testeParcurseService.getCompletedTests).toHaveBeenCalled();
   });
-
 });

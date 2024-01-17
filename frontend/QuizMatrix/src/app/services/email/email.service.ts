@@ -13,4 +13,8 @@ export class EmailService {
     const url = `${this.apiUrl}/sendMailWithAttachment`;
     return this.http.post<any>(url, emailDetails);
   }
+  sendQuizNotification(emailDetails: any, testName: string): Observable<any> {
+    const url = `${this.apiUrl}/api/auth/send-new-test-notification?testName=${testName}`;
+    return this.http.get<any>(url);
+  }
 }
