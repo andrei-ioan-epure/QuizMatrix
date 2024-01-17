@@ -2,7 +2,7 @@
   <div
     *ngFor="let quiz of quizzes | slice : 0 : 2; let i = index"
     class="card"
-    (click)="navigateToQuiz(quiz.id_quiz)"
+    [routerLink]="'/domain/' + quiz.id_domain + '/quiz/' + quiz.id_quiz"
   >
     <app-card
       [image]="iconpaths[i]"
@@ -16,7 +16,6 @@
   <div
     *ngFor="let quiz of quizzes | slice : 2 : 4; let i = index"
     class="card"
-    (click)="navigateToQuiz(quiz.id_quiz)"
     [routerLink]="'/domain/' + quiz.id_domain + '/quiz/' + quiz.id_quiz"
   >
     <app-card
