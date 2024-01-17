@@ -24,4 +24,10 @@ public interface LeaderBoardJPARepository extends JpaRepository<LeaderBoard,Inte
          @Param("id_domain") Integer id_domain,
          @Param("id_quiz") Integer id_quiz
  );
+ @Query("SELECT l FROM leaderboard_domain l " +
+         "WHERE  l.id_domain = :id_domain")
+ Optional<List<LeaderBoard>>   findByDomainId(
+         @Param("id_domain") Integer id_domain
+ );
+
 }

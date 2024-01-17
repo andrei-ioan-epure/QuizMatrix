@@ -46,7 +46,13 @@ public class LeaderBoardController {
         return (leaderBoardDTO!=null)? new ResponseEntity<>(leaderBoardDTO, HttpStatus.OK)
                 :new ResponseEntity<>( HttpStatus.NOT_FOUND);
     }
+    @GetMapping("/domain")
+    public ResponseEntity<?> findByDomainId(@RequestParam  Integer id_domain){
+        List<LeaderBoardDTO> leaderBoardDTO=this.leaderBoardService.findByDomainId(id_domain);
 
+        return (leaderBoardDTO!=null)? new ResponseEntity<>(leaderBoardDTO, HttpStatus.OK)
+                :new ResponseEntity<>( HttpStatus.NOT_FOUND);
+    }
     @PostMapping
     public ResponseEntity<?> addLeaderBoard(@RequestBody LeaderBoardDTO leaderBoardDTO){
         LeaderBoardDTO newLeaderBoardDTO=this.leaderBoardService.add(leaderBoardDTO);

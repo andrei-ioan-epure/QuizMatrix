@@ -12,6 +12,7 @@ public interface LeaderBoardService {
     LeaderBoardDTO add(LeaderBoardDTO score);
     LeaderBoardDTO findByUserIdDomainAndQuiz(Integer id_user, Integer id_domain, Integer id_quiz);
     List<LeaderBoardDTO> findByDomainIdAndQuiz(Integer id_domain, Integer id_quiz) ;
+    List<LeaderBoardDTO> findByDomainId(Integer id_domain);
     void deleteById(Integer id);
     void update(Integer id, LeaderBoardDTO newScore);
 }

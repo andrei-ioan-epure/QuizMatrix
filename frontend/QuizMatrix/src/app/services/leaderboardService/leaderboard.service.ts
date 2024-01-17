@@ -39,6 +39,14 @@ export class LeaderboardService {
       .set('id_quiz', id_quiz.toString());
     return this.httpClient.get<Leaderboard[]>(url, { params });
   }
+
+  getByDomainIdLeaderboard(id_domain: number): Observable<Leaderboard[]> {
+    const url = `${this.apiUrl}/domain`;
+
+    const params = new HttpParams().set('id_domain', id_domain.toString());
+    return this.httpClient.get<Leaderboard[]>(url, { params });
+  }
+
   addLeaderboard(leaderboard: Leaderboard): Observable<Leaderboard> {
     return this.httpClient.post<Leaderboard>(this.apiUrl, leaderboard);
   }

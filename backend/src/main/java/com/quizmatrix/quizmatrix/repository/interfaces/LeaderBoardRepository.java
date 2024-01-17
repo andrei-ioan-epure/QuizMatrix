@@ -1,5 +1,6 @@
 package com.quizmatrix.quizmatrix.repository.interfaces;
 
+import com.quizmatrix.quizmatrix.dto.LeaderBoardDTO;
 import com.quizmatrix.quizmatrix.model.LeaderBoard;
 import org.springframework.data.repository.query.Param;
 
@@ -15,4 +16,6 @@ public interface LeaderBoardRepository {
     Optional<List<LeaderBoard>>  findByDomainIdAndQuiz(Integer id_domain, Integer id_quiz);
     void deleteById(Integer id);
     void update(Integer id, LeaderBoard newScore);
+    Optional<List<LeaderBoard>> findByDomainId(Integer id_domain);
+
 }

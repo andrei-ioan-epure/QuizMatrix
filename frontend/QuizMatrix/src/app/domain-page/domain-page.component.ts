@@ -1,7 +1,4 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Quiz } from '../models/quiz';
 import { QuizService } from '../services/quizService/quiz.service';
@@ -56,13 +53,13 @@ export class DomainPageComponent implements OnInit {
         .getQuizzesByDomain(this.domain.id_domain)
         .subscribe((quizzes) => {
           this.quizzes = quizzes;
-          this.loadLeaderboardData(this.domainName);
+          this.loadLeaderboardData(this.domain?.id_domain!);
         });
     });
   }
 
-  loadLeaderboardData(domain: string): void {
-    this.leaderboardService.getLeaderboard().subscribe(
+  loadLeaderboardData(id_domain: number): void {
+    this.leaderboardService.getByDomainIdLeaderboard(id_domain).subscribe(
       (leaderboard: Leaderboard[]) => {
         console.log('Leaderboard retrieved:', leaderboard);
         const combinationData = new Map<
